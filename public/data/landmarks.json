@@ -1,0 +1,75 @@
+{
+  "origin": {
+    "lat": 37.5550,
+    "lon": -77.4780,
+    "note": "Local ENU projection origin for the playable area. All world coordinates in the game are meters east/north of this point."
+  },
+  "landmarks": [
+    {
+      "id": "seddon-1916",
+      "name": "1916 Seddon Rd",
+      "type": "objective",
+      "primary": true,
+      "lat": 37.5812115,
+      "lon": -77.4675572,
+      "radius_m": 180,
+      "confidence": "geocoded",
+      "description": "Primary mission objective. Residential address in the Ginter Park / Rosedale area of Richmond's Northside."
+    },
+    {
+      "id": "belle-isle",
+      "name": "Belle Isle",
+      "type": "landmark",
+      "primary": false,
+      "lat": 37.5291967,
+      "lon": -77.4528440,
+      "radius_m": 220,
+      "confidence": "geocoded",
+      "description": "54-acre island in the James River, part of the James River Park System, downtown Richmond."
+    },
+    {
+      "id": "csx-ac-l-bridge",
+      "name": "CSX A-Line (Atlantic Coast Line) Bridge",
+      "type": "landmark",
+      "primary": false,
+      "lat": 37.5363900,
+      "lon": -77.4938900,
+      "radius_m": 220,
+      "confidence": "geocoded",
+      "description": "1919 concrete arch railroad bridge built jointly by the Atlantic Coast Line and RF&P railroads, carrying CSX's A-Line over the James River."
+    },
+    {
+      "id": "hollywood-rapid",
+      "name": "Hollywood Rapids",
+      "type": "landmark",
+      "primary": false,
+      "lat": 37.529950,
+      "lon": -77.453467,
+      "radius_m": 180,
+      "confidence": "geocoded",
+      "description": "Class III-IV whitewater rapid on the James, named for Hollywood Cemetery on the bluff above, near Belle Isle."
+    },
+    {
+      "id": "pipeline-rapids",
+      "name": "Pipeline Rapids",
+      "type": "landmark",
+      "primary": false,
+      "lat": 37.5328704,
+      "lon": -77.4383416,
+      "radius_m": 180,
+      "confidence": "geocoded",
+      "description": "Class IV rapid along the Pipeline Walkway near Brown's Island in downtown Richmond."
+    },
+    {
+      "id": "coopers-island",
+      "name": "Cooper's Island",
+      "type": "landmark",
+      "primary": false,
+      "lat": 37.5480,
+      "lon": -77.5050,
+      "radius_m": 200,
+      "confidence": "approximate",
+      "description": "Approximate placement. Not found as an official, precisely-mapped feature; the closest match is a 'Coopers' rapid/hole labeled on the official James River Park System map between Pony Pasture and the CSX bridge. Adjust lat/lon here if you have a more exact location (e.g. from Google Earth)."
+    }
+  ]
+}

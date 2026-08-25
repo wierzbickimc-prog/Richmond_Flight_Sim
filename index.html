@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Richmond Flight Sim</title>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene"></canvas>
+
+      <div id="hud">
+        <div class="panel panel-flight">
+          <div class="row"><span class="label">ALT</span><span id="hud-altitude" class="value">--</span></div>
+          <div class="row"><span class="label">SPD</span><span id="hud-speed" class="value">--</span></div>
+          <div class="row"><span class="label">HDG</span><span id="hud-heading" class="value">--</span></div>
+          <div class="row"><span class="label">THR</span><span id="hud-throttle" class="value">--</span></div>
+        </div>
+
+        <div class="panel panel-mission">
+          <div class="mission-title">Richmond River &amp; Seddon Run</div>
+          <div class="row"><span class="label">Seddon Rd</span><span id="hud-distance" class="value">--</span></div>
+          <div id="hud-progress" class="progress">0/0 landmarks visited</div>
+          <div id="hud-checklist" class="checklist"></div>
+        </div>
+
+        <div class="panel panel-controls">
+          <div><b>W/S</b> Throttle</div>
+          <div><b>A/D</b> Roll</div>
+          <div><b>&uarr;/&darr;</b> Pitch</div>
+          <div><b>&larr;/&rarr;</b> Yaw</div>
+          <div><b>F</b> Camera &nbsp; <b>R</b> Reset</div>
+          <div><b>H</b> HUD &nbsp; <b>M</b> Markers &nbsp; <b>P</b> Pause</div>
+        </div>
+
+        <div id="hud-toast" class="toast"></div>
+
+        <div id="hud-pause" class="pause-overlay">
+          <div class="pause-box">
+            <div class="pause-title">Paused</div>
+            <div class="pause-sub">Press P to resume</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="start-overlay">
+        <div class="start-box">
+          <h1>Richmond Flight Sim</h1>
+          <p>Free flight over Richmond, VA in a Cessna 172. Locate <b>1916 Seddon Rd</b> and the James River landmarks.</p>
+          <button id="start-btn">Start Flight</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
