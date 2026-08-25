@@ -34,9 +34,13 @@ open that folder with any static file server if you ever want to run it without 
 | P | Pause / resume |
 
 Flight is arcade-simple by design: throttle sets your target speed, pitch sets a
-gentle climb/descend rate, and altitude is clamped to a band (roughly 14–320 m /
-45–1050 ft above the ground) so you're always low enough to see the ground and
+gentle climb/descend rate, and altitude is clamped to a band (roughly 25–520 m /
+80–1700 ft above the ground) so you're always low enough to see the ground and
 never crash. There's no stall model and no game-over state.
+
+In cockpit view the fuselage, cowling and cabin glass are hidden (from a seat
+inside the cabin they'd fill the screen), and the propeller blades fade into a
+translucent blur disc as RPM rises.
 
 ## The mission
 
@@ -47,8 +51,8 @@ check it off:
 
 1. **1916 Seddon Rd** (primary objective, gold beacon) — Ginter Park / Rosedale,
    Richmond's Northside
-2. **Belle Isle** — James River Park System island
-3. **CSX A-Line (Atlantic Coast Line) Bridge** — 1919 concrete railroad arch bridge
+2. **Belle Isle** — wooded island standing in a broad, boulder-strewn reach of the James
+3. **CSX A-Line (Atlantic Coast Line) Bridge** — 1919 multi-span concrete arch bridge
 4. **Hollywood Rapids** — whitewater below Hollywood Cemetery
 5. **Pipeline Rapids** — whitewater near Brown's Island
 6. **Cooper's Island** — see note below
@@ -71,13 +75,19 @@ require a licensed Google Maps/Earth API key. Instead:
   as plain lat/lon — edit that file to nudge, add, or remove a marker without
   touching any code.
 
-**Cooper's Island** could not be confirmed as an officially named, precisely mapped
-feature — it doesn't appear in USGS/Wikipedia/OSM data. The closest match is a
-"Coopers" rapid/hole labeled on the official James River Park System map, between
-Pony Pasture and the CSX bridge, so that's where the marker is placed
-(`"confidence": "approximate"` in `landmarks.json`). If you have a more exact
-location (e.g. from Google Earth or local knowledge), update its `lat`/`lon` in
-`public/data/landmarks.json`.
+Two markers carry `"confidence": "approximate"` rather than `"geocoded"`:
+
+- **Cooper's Island** could not be confirmed as an officially named, precisely
+  mapped feature — it doesn't appear in USGS/Wikipedia/OSM data. The closest
+  match is a "Coopers" rapid/hole labeled on the official James River Park System
+  map, between Pony Pasture and the CSX bridge, so that's where the marker sits.
+- **Hollywood Rapids** geocodes to 37.52995, -77.45347 — but that's where the
+  interpretive *sign* stands on Belle Isle, about 110 m from the Belle Isle
+  marker, far too close to tell apart from the air. The marker is instead placed
+  in the channel below Hollywood Cemetery, which is where the rapid actually runs.
+
+If you have more exact locations (e.g. from Google Earth or local knowledge),
+update their `lat`/`lon` in `public/data/landmarks.json`.
 
 ### If you want to use Google Earth to verify or refine locations
 
@@ -112,24 +122,36 @@ landmark list.
 ## Project structure
 
 ```
-index.html              Page shell, HUD markup, start screen
-src/main.js              App bootstrap and render loop
-src/geo.js                Lat/lon <-> local world-meters projection
-src/terrain.js             Ground, river, Belle Isle, bluffs, skyline, bridge, neighborhood
-src/aircraft.js            Low-poly Cessna 172 model (built from primitives, no external assets)
-src/flightModel.js         Arcade flight physics
-src/controls.js            Keyboard input
-src/camera.js               Chase / cockpit camera rig
-src/landmarks.js            Landmark beacons + objective-radius detection
-src/hud.js                    HUD DOM overlay
+index.html                   Page shell, HUD markup, start screen
+src/main.js                  App bootstrap, render loop, sun/shadow rig
+src/geo.js                   Lat/lon <-> local world-meters projection
+src/terrain.js               Ground, river, Belle Isle, bluffs, roads, skyline, bridge, trees
+src/aircraft.js              Low-poly Cessna 172 (primitives only, no external assets)
+src/flightModel.js           Arcade flight physics
+src/controls.js              Keyboard input
+src/camera.js                Chase / cockpit camera rig
+src/sky.js                   Sky gradient and cumulus billboards
+src/landmarks.js             Landmark beacons + objective-radius detection
+src/hud.js                   HUD DOM overlay
+src/noise.js                 Value noise, tileable fBm, seeded PRNG
 public/data/landmarks.json   All landmark coordinates and metadata
 ```
+
+In `npm run dev` only, the sim exposes `window.__sim` (`flight` state plus a
+frame/sim-time counter). It's handy for poking at the physics from the browser
+console, and Vite strips it from production builds.
 
 ## Notes on realism / scope
 
 - Aircraft, terrain, and city are stylized low-poly with no external model or
   texture files, so there are no licensing concerns and the whole thing stays a
-  single lightweight page.
+  single lightweight page. Ground detail, window/facade colour and cloud sprites
+  are all generated procedurally into canvases at load time.
 - Distances and terrain shapes are approximate, built from geocoded points rather
-  than a survey-grade GIS dataset.
+  than a survey-grade GIS dataset. The road network is eyeballed from the city's
+  street layout — it makes the ground read as a city, but it is not routable and
+  the alignments are not survey-accurate.
+- The world is roughly 9.6 × 9.2 km. Terrain is a single 420×420 heightfield mesh;
+  trees (~16k), rapids boulders and low-rise buildings are instanced. Measured at
+  a steady 60 FPS on an M3 MacBook at 1440×900.
 - No NPC traffic, no day/night cycle, no weather — free flight, day only, as scoped.

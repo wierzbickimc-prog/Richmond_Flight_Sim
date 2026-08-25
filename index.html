@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231f5fae'/%3E%3Cpath d='M16 4l2 9 9 3v2l-9-1 -1 7 3 2v1l-4-1 -4 1v-1l3-2 -1-7 -9 1v-2l9-3z' fill='%23f4f4f1'/%3E%3C/svg%3E"
+    />
     <title>Richmond Flight Sim</title>
   </head>
   <body>
@@ -47,7 +51,8 @@
         <div class="start-box">
           <h1>Richmond Flight Sim</h1>
           <p>Free flight over Richmond, VA in a Cessna 172. Locate <b>1916 Seddon Rd</b> and the James River landmarks.</p>
-          <button id="start-btn">Start Flight</button>
+          <button id="start-btn" disabled>Loading…</button>
+          <div id="start-status" class="start-status">Starting up…</div>
         </div>
       </div>
     </div>

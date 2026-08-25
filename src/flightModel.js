@@ -15,8 +15,8 @@ const PITCH_RATE = 1.4;
 const BANK_TURN_RATE = 1.0; // yaw rad/s per rad of roll
 const RUDDER_YAW_RATE = 0.35; // rad/s from manual yaw input
 
-const MIN_AGL = 14; // meters - soft floor so terrain stays visible and non-fatal
-const MAX_AGL = 320; // meters - keeps the ground legible at all times
+const MIN_AGL = 25; // meters - soft floor so terrain stays visible and non-fatal
+const MAX_AGL = 520; // meters - keeps the ground legible at all times
 
 export function createFlightState(startPos, startHeadingRad) {
   return {

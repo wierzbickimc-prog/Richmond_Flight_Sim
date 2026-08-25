@@ -2,7 +2,9 @@ import * as THREE from 'three';
 
 const CHASE_OFFSET = new THREE.Vector3(0, 7.5, 24);
 const CHASE_LOOK_OFFSET = new THREE.Vector3(0, 1.5, -6);
-const COCKPIT_OFFSET = new THREE.Vector3(0, 1.15, -1.85);
+// Pilot's eye position inside the cabin: low enough to sit under the roof line,
+// far enough back that the spinning prop reads as a disc out ahead.
+const COCKPIT_OFFSET = new THREE.Vector3(0, 0.45, -0.3);
 
 const tmpPos = new THREE.Vector3();
 const tmpLook = new THREE.Vector3();

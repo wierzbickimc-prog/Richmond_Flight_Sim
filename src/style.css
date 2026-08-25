@@ -201,6 +201,17 @@ html, body {
   color: #fff;
   cursor: pointer;
 }
-#start-btn:hover {
+#start-btn:hover:not(:disabled) {
   background: #3aa0e6;
+}
+#start-btn:disabled {
+  background: #3a4650;
+  color: #8b98a3;
+  cursor: default;
+}
+.start-status {
+  margin-top: 12px;
+  font-size: 13px;
+  opacity: 0.65;
+  min-height: 18px;
 }

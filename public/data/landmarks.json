@@ -23,7 +23,7 @@
       "primary": false,
       "lat": 37.5291967,
       "lon": -77.4528440,
-      "radius_m": 220,
+      "radius_m": 200,
       "confidence": "geocoded",
       "description": "54-acre island in the James River, part of the James River Park System, downtown Richmond."
     },
@@ -43,11 +43,11 @@
       "name": "Hollywood Rapids",
       "type": "landmark",
       "primary": false,
-      "lat": 37.529950,
-      "lon": -77.453467,
-      "radius_m": 180,
-      "confidence": "geocoded",
-      "description": "Class III-IV whitewater rapid on the James, named for Hollywood Cemetery on the bluff above, near Belle Isle."
+      "lat": 37.5305,
+      "lon": -77.4578,
+      "radius_m": 165,
+      "confidence": "approximate",
+      "description": "Class III-IV whitewater on the James, named for Hollywood Cemetery on the bluff above. Placed in the channel below the cemetery: the geocoded historical-marker position (37.52995, -77.45347) is where the interpretive sign stands on Belle Isle, ~110 m from the Belle Isle marker, which is too close to distinguish in flight."
     },
     {
       "id": "pipeline-rapids",

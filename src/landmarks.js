@@ -6,26 +6,53 @@ const CYAN = new THREE.Color('#33ccff');
 const VISITED = new THREE.Color('#39ff8a');
 
 function makeLabelSprite(text, primary) {
+  const W = 1024;
+  const H = 160;
   const canvas = document.createElement('canvas');
-  canvas.width = 512;
-  canvas.height = 128;
+  canvas.width = W;
+  canvas.height = H;
   const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = 'rgba(10, 16, 20, 0.55)';
+
+  // Shrink the type until the longest names fit rather than clipping them.
+  const basePx = primary ? 60 : 52;
+  let fontPx = basePx;
+  const font = (px) => `bold ${px}px system-ui, -apple-system, sans-serif`;
+  ctx.font = font(fontPx);
+  const maxTextW = W - 90;
+  while (ctx.measureText(text).width > maxTextW && fontPx > 22) {
+    fontPx -= 2;
+    ctx.font = font(fontPx);
+  }
+  const textW = ctx.measureText(text).width;
+
+  const padX = 30;
+  const boxW = textW + padX * 2;
+  const boxH = fontPx + 34;
+  const boxX = (W - boxW) / 2;
+  const boxY = (H - boxH) / 2;
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = 'rgba(8, 14, 19, 0.62)';
   ctx.beginPath();
-  ctx.roundRect(8, 24, 496, 80, 14);
+  ctx.roundRect(boxX, boxY, boxW, boxH, 14);
   ctx.fill();
-  ctx.font = primary ? 'bold 40px system-ui, sans-serif' : 'bold 34px system-ui, sans-serif';
-  ctx.fillStyle = primary ? '#ffd966' : '#bdeeff';
+  ctx.strokeStyle = primary ? 'rgba(255,214,102,0.75)' : 'rgba(150,220,255,0.55)';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  ctx.font = font(fontPx);
+  ctx.fillStyle = primary ? '#ffd966' : '#c9eeff';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText(text, canvas.width / 2, 64);
+  ctx.fillText(text, W / 2, H / 2);
 
   const tex = new THREE.CanvasTexture(canvas);
   tex.needsUpdate = true;
   const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false });
   const sprite = new THREE.Sprite(mat);
-  sprite.scale.set(46, 11.5, 1);
+  // Scale from the drawn box so every label reads at the same physical size.
+  const worldW = primary ? 300 : 250;
+  sprite.scale.set(worldW, (worldW * H) / W, 1);
   return sprite;
 }
 
@@ -41,12 +68,12 @@ export function buildLandmarkMarkers(scene, projector, landmarksData, getGroundH
     group.position.set(x, groundY, z);
     scene.add(group);
 
-    const beamHeight = 130;
-    const beamGeo = new THREE.CylinderGeometry(1.6, 3.2, beamHeight, 10, 1, true);
+    const beamHeight = lm.primary ? 620 : 420;
+    const beamGeo = new THREE.CylinderGeometry(3.5, 9, beamHeight, 12, 1, true);
     const beamMat = new THREE.MeshBasicMaterial({
       color,
       transparent: true,
-      opacity: 0.28,
+      opacity: lm.primary ? 0.34 : 0.24,
       side: THREE.DoubleSide,
       depthWrite: false,
     });
@@ -74,7 +101,7 @@ export function buildLandmarkMarkers(scene, projector, landmarksData, getGroundH
     group.add(ring);
 
     const label = makeLabelSprite(lm.name, lm.primary);
-    label.position.y = beamHeight * 0.34;
+    label.position.y = beamHeight * 0.55;
     group.add(label);
 
     markers.push({
