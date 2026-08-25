@@ -3,11 +3,13 @@ import './style.css';
 import { makeProjector } from './geo.js';
 import { buildWorld } from './terrain.js';
 import { buildAircraft } from './aircraft.js';
+import { buildSR71, updateSR71Effects } from './sr71.js';
+import { buildWarpEffect, updateWarpEffect } from './effects.js';
 import { makeSkyTexture, buildClouds } from './sky.js';
 import { buildLandmarkMarkers, updateLandmarkDetection, setMarkersVisible, distanceTo } from './landmarks.js';
 import { createFlightState, updateFlightModel, FlightLimits } from './flightModel.js';
 import { createControls } from './controls.js';
-import { createCameraRig, toggleCameraMode, updateCamera } from './camera.js';
+import { createCameraRig, setCameraAircraftMode, toggleCameraMode, updateCamera } from './camera.js';
 import { createHud } from './hud.js';
 
 const canvas = document.getElementById('scene');
@@ -22,7 +24,7 @@ async function main() {
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.15;
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
 
   const scene = new THREE.Scene();
   scene.background = makeSkyTexture();
@@ -59,7 +61,7 @@ async function main() {
 
   status.textContent = 'Generating Richmond terrain…';
   await yieldToPaint();
-  const { getGroundHeight, worldSize } = buildWorld(scene, projector);
+  const { getGroundHeight, worldSize, updateWorld } = buildWorld(scene, projector);
 
   status.textContent = 'Placing landmarks…';
   await yieldToPaint();
@@ -67,11 +69,25 @@ async function main() {
   const primaryMarker = markers.find((m) => m.primary);
   buildClouds(scene, worldSize);
 
-  const { group: aircraftGroup, propGroup, propDisc, propBladeMat, cockpitHidden } = buildAircraft();
-  scene.add(aircraftGroup);
+  const cessna = buildAircraft();
+  cessna.mode = 'cessna';
+  cessna.name = 'CESSNA 172';
+  const sr71 = buildSR71();
+  sr71.mode = 'sr71';
+  sr71.name = 'SR-71 BLACKBIRD';
+  sr71.group.visible = false;
+  scene.add(cessna.group, sr71.group);
+  let activeAircraft = cessna;
+  let aircraftGroup = activeAircraft.group;
+
   const applyCameraMode = () => {
     const inCockpit = cameraRig.mode === 'cockpit';
-    for (const part of cockpitHidden) part.visible = !inCockpit;
+    for (const model of [cessna, sr71]) {
+      for (const part of model.cockpitHidden) part.visible = true;
+    }
+    if (inCockpit) {
+      for (const part of activeAircraft.cockpitHidden) part.visible = false;
+    }
   };
 
   // Start over the river just east of the CSX bridge, pointed downstream toward
@@ -91,12 +107,53 @@ async function main() {
   let paused = false;
   let started = false;
 
+  const boostBtn = document.getElementById('boost-btn');
+  const aircraftModeBtn = document.getElementById('aircraft-mode-btn');
+  const aircraftModeLabel = document.getElementById('aircraft-mode-label');
+  const warpOverlay = document.getElementById('warp-overlay');
+  const warpEffect = buildWarpEffect(scene);
+
+  function setBoost(active) {
+    const wasActive = flight.boostActive;
+    if (active && !wasActive) {
+      flight.speed = Math.min(FlightLimits.MAX_SPEED * FlightLimits.BOOST_MULTIPLIER, flight.speed * FlightLimits.BOOST_MULTIPLIER);
+    } else if (!active && wasActive) {
+      flight.speed = Math.max(FlightLimits.MIN_SPEED, flight.speed / FlightLimits.BOOST_MULTIPLIER);
+    }
+    flight.boostActive = active;
+    cameraRig.boostActive = active;
+    boostBtn.classList.toggle('active', active);
+    boostBtn.setAttribute('aria-pressed', String(active));
+    warpOverlay.classList.toggle('active', active);
+    if (active && !wasActive) hud.toast('Rocket boost engaged — 10× speed!');
+  }
+
+  function toggleBoost() {
+    setBoost(!flight.boostActive);
+  }
+
+  function toggleAircraft() {
+    setBoost(false);
+    for (const part of activeAircraft.cockpitHidden) part.visible = true;
+    activeAircraft.group.visible = false;
+    activeAircraft = activeAircraft === cessna ? sr71 : cessna;
+    aircraftGroup = activeAircraft.group;
+    aircraftGroup.visible = true;
+    setCameraAircraftMode(cameraRig, activeAircraft.mode);
+    aircraftModeLabel.textContent = activeAircraft === sr71 ? 'EXIT SEBBIE MODE' : 'SEBBIE MODE';
+    aircraftModeBtn.classList.toggle('active', activeAircraft === sr71);
+    orientAircraft();
+    applyCameraMode();
+    hud.toast(activeAircraft === sr71 ? 'Sebbie Mode: SR-71 Blackbird online' : 'Cessna 172 restored');
+  }
+
   const { input } = createControls({
     onToggleCamera: () => {
       toggleCameraMode(cameraRig);
       applyCameraMode();
     },
     onReset: () => {
+      setBoost(false);
       flight.position.copy(spawnPos);
       flight.heading = spawnHeading;
       flight.pitch = 0;
@@ -116,7 +173,12 @@ async function main() {
       paused = !paused;
       hud.setPaused(paused);
     },
+    onToggleBoost: toggleBoost,
+    onToggleAircraft: toggleAircraft,
   });
+
+  boostBtn.addEventListener('click', toggleBoost);
+  aircraftModeBtn.addEventListener('click', toggleAircraft);
 
   const startOverlay = document.getElementById('start-overlay');
   startBtn.addEventListener('click', () => {
@@ -151,16 +213,24 @@ async function main() {
   startBtn.disabled = false;
   startBtn.textContent = 'Start Flight';
 
-  const clock = new THREE.Clock();
+  const timer = new THREE.Timer();
+  timer.connect(document);
   let propAngle = 0;
 
   // Dev-only handle for driving the sim from automated smoke tests.
   const debug = { frames: 0, simTime: 0 };
-  if (import.meta.env.DEV) window.__sim = { flight, debug };
+  if (import.meta.env.DEV) {
+    window.__sim = { flight, debug, toggleBoost, toggleAircraft };
+    const smoke = new URLSearchParams(window.location.search);
+    if (smoke.has('autostart')) startBtn.click();
+    if (smoke.has('sebbie')) toggleAircraft();
+    if (smoke.has('boost')) toggleBoost();
+  }
 
-  function animate() {
+  function animate(timestamp) {
     requestAnimationFrame(animate);
-    const dt = Math.min(0.05, clock.getDelta());
+    timer.update(timestamp);
+    const dt = Math.min(0.05, timer.getDelta());
     debug.frames++;
     debug.simTime += dt;
 
@@ -169,11 +239,12 @@ async function main() {
       orientAircraft();
 
       // Spin the blades, and cross-fade to a blur disc as RPM climbs.
-      const rpm = 3 + flight.throttle * 26;
+      const rpm = 3 + flight.throttle * 26 + (flight.boostActive ? 34 : 0);
       propAngle += rpm * dt;
-      propGroup.rotation.z = propAngle;
-      propDisc.material.opacity = Math.min(0.18, flight.throttle * 0.22);
-      propBladeMat.opacity = 1 - Math.min(0.88, flight.throttle * 1.05);
+      cessna.propGroup.rotation.z = propAngle;
+      cessna.propDisc.material.opacity = Math.min(0.18, flight.throttle * 0.22);
+      cessna.propBladeMat.opacity = 1 - Math.min(0.88, flight.throttle * 1.05);
+      updateSR71Effects(sr71.afterburners, flight.throttle, flight.boostActive, debug.simTime);
 
       const newly = updateLandmarkDetection(markers, flight.position);
       for (const m of newly) {
@@ -194,6 +265,8 @@ async function main() {
         distanceToPrimary: primaryMarker ? distanceTo(primaryMarker.id, markers, flight.position) : null,
         visitedCount,
         total: markers.length,
+        aircraftName: activeAircraft.name,
+        boostActive: flight.boostActive,
       });
     }
 
@@ -203,6 +276,8 @@ async function main() {
     sun.target.updateMatrixWorld();
     sun.position.copy(flight.position).add(SUN_OFFSET);
 
+    updateWorld(debug.simTime);
+    updateWarpEffect(warpEffect, aircraftGroup, started && flight.boostActive, flight.speed, dt);
     updateCamera(camera, cameraRig, aircraftGroup, dt);
     renderer.render(scene, camera);
   }

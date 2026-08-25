@@ -206,15 +206,24 @@ export function buildWorld(scene, projector) {
   }
 
   buildGroundMesh(scene, getGroundHeight, riverInfo, forestDensity, fp);
-  buildRiverSurface(scene, samples, projector);
+  const riverAnimation = buildRiverSurface(scene, samples, projector);
   buildRapidRocks(scene, projector, samples, grid);
+  const whitewaterAnimation = buildWhitewaterCascades(scene, projector, samples, grid);
   buildRoads(scene, projector, getGroundHeight);
   buildDowntown(scene, fp, getGroundHeight);
   buildNeighborhood(scene, fp, getGroundHeight);
   buildTrees(scene, getGroundHeight, forestDensity);
   buildArchBridge(scene, projector, samples, grid, getGroundHeight);
 
-  return { getGroundHeight, riverInfo, worldSize: { x: WORLD_SIZE_X, z: WORLD_SIZE_Z } };
+  return {
+    getGroundHeight,
+    riverInfo,
+    worldSize: { x: WORLD_SIZE_X, z: WORLD_SIZE_Z },
+    updateWorld(time) {
+      riverAnimation.update(time);
+      whitewaterAnimation.update(time);
+    },
+  };
 }
 
 // ---------------------------------------------------------------- ground
@@ -306,7 +315,15 @@ function buildGroundMesh(scene, getGroundHeight, riverInfo, forestDensity, fp) {
   geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
   geo.computeVertexNormals();
 
-  const mat = new THREE.MeshLambertMaterial({ vertexColors: true, map: makeGroundDetailTexture() });
+  const detail = makeGroundDetailTexture();
+  const mat = new THREE.MeshStandardMaterial({
+    vertexColors: true,
+    map: detail,
+    bumpMap: detail,
+    bumpScale: 1.3,
+    roughness: 0.96,
+    metalness: 0,
+  });
   const mesh = new THREE.Mesh(geo, mat);
   mesh.receiveShadow = true;
   scene.add(mesh);
@@ -319,8 +336,8 @@ function buildRiverSurface(scene, samples, projector) {
   const colors = [];
   const indices = [];
 
-  const deep = new THREE.Color('#27536f');
-  const shallow = new THREE.Color('#48839f');
+  const deep = new THREE.Color('#163b4b');
+  const shallow = new THREE.Color('#356d76');
   const foam = new THREE.Color('#dfeef4');
   const tmp = new THREE.Color();
 
@@ -363,19 +380,78 @@ function buildRiverSurface(scene, samples, projector) {
   geo.setIndex(indices);
   geo.computeVertexNormals();
 
-  // Keep the sheen subtle: a bright specular against a strong directional sun
-  // blows the whole river out to a flat white ribbon from the air.
-  const mat = new THREE.MeshPhongMaterial({
+  const uniforms = { time: { value: 0 } };
+  const mat = new THREE.ShaderMaterial({
+    uniforms,
     vertexColors: true,
     transparent: true,
-    opacity: 0.92,
-    shininess: 45,
-    specular: 0x1e3140,
+    depthWrite: true,
     side: THREE.DoubleSide,
+    vertexShader: `
+      uniform float time;
+      varying vec3 vColor;
+      varying vec3 vWorld;
+      varying vec3 vNormal;
+      varying vec3 vView;
+      void main() {
+        vec3 p = position;
+        float waveA = sin(p.x * 0.075 + p.z * 0.031 - time * 2.2);
+        float waveB = sin(p.x * -0.043 + p.z * 0.088 - time * 1.55);
+        p.y += (waveA + waveB) * 0.055;
+        vec4 world = modelMatrix * vec4(p, 1.0);
+        vec4 mv = viewMatrix * world;
+        vColor = color;
+        vWorld = world.xyz;
+        vNormal = normalize(normalMatrix * normal);
+        vView = -mv.xyz;
+        gl_Position = projectionMatrix * mv;
+      }
+    `,
+    fragmentShader: `
+      uniform float time;
+      varying vec3 vColor;
+      varying vec3 vWorld;
+      varying vec3 vNormal;
+      varying vec3 vView;
+      float hash21(vec2 p) {
+        p = fract(p * vec2(123.34, 456.21));
+        p += dot(p, p + 45.32);
+        return fract(p.x * p.y);
+      }
+      float valueNoise(vec2 p) {
+        vec2 i = floor(p);
+        vec2 f = fract(p);
+        f = f * f * (3.0 - 2.0 * f);
+        return mix(mix(hash21(i), hash21(i + vec2(1.0, 0.0)), f.x),
+                   mix(hash21(i + vec2(0.0, 1.0)), hash21(i + vec2(1.0)), f.x), f.y);
+      }
+      float waterFbm(vec2 p) {
+        float n = valueNoise(p) * 0.57;
+        n += valueNoise(p * 2.03 + 9.2) * 0.28;
+        n += valueNoise(p * 4.11 - 3.7) * 0.15;
+        return n;
+      }
+      void main() {
+        vec2 flowUv = vWorld.xz * 0.036 + vec2(-time * 0.32, time * 0.08);
+        float broad = waterFbm(flowUv);
+        float crossed = waterFbm(flowUv * vec2(1.7, 0.7) + vec2(time * 0.08, -time * 0.19));
+        float ripple = broad * 0.62 + crossed * 0.38;
+        float fine = waterFbm(flowUv * 5.2 + vec2(time * 0.42, -time * 0.3)) * 2.0 - 1.0;
+        float fresnel = pow(1.0 - max(dot(normalize(vNormal), normalize(vView)), 0.0), 2.6);
+        float foamBase = smoothstep(1.75, 2.45, vColor.r + vColor.g + vColor.b);
+        float foamBreak = smoothstep(0.56, 0.8, ripple + fine * 0.08);
+        vec3 water = vColor * (0.72 + ripple * 0.38);
+        water += vec3(0.18, 0.34, 0.43) * fresnel * 0.8;
+        water += vec3(0.72, 0.9, 1.0) * pow(max(0.0, fine), 8.0) * 0.16;
+        water = mix(water, vec3(0.9, 0.96, 0.98), foamBase * (0.62 + foamBreak * 0.38));
+        gl_FragColor = vec4(water, 0.94);
+      }
+    `,
   });
   const mesh = new THREE.Mesh(geo, mat);
   mesh.receiveShadow = true;
   scene.add(mesh);
+  return { update: (time) => { uniforms.time.value = time; } };
 }
 
 // Exposed boulders through the fall-line rapids -- the visual signature of the
@@ -390,7 +466,7 @@ function buildRapidRocks(scene, projector, samples, grid) {
   ];
 
   const geo = new THREE.IcosahedronGeometry(1, 0);
-  const mat = new THREE.MeshLambertMaterial({ color: '#7d786f', flatShading: true });
+  const mat = new THREE.MeshStandardMaterial({ color: '#6c6861', roughness: 0.72, metalness: 0.04, flatShading: true });
   const count = 420;
   const mesh = new THREE.InstancedMesh(geo, mat, count);
   const dummy = new THREE.Object3D();
@@ -421,6 +497,124 @@ function buildRapidRocks(scene, projector, samples, grid) {
   if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
   mesh.castShadow = true;
   scene.add(mesh);
+}
+
+function makeFoamTexture() {
+  const size = 256;
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const img = ctx.createImageData(size, size);
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const u = (x / size) * 12;
+      const v = (y / size) * 12;
+      const broad = tileableFbm(u, v, 12, 4);
+      const threads = Math.abs(Math.sin(v * 3.4 + broad * 8 + Math.sin(u * 1.7) * 2));
+      const alpha = clamp01((broad - 0.38) * 2.3) * clamp01((threads - 0.2) * 1.7);
+      const i = (y * size + x) * 4;
+      img.data[i] = 232;
+      img.data[i + 1] = 246;
+      img.data[i + 2] = 252;
+      img.data[i + 3] = alpha * 235;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(3.5, 1.2);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
+function makeMistTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = 128;
+  const ctx = canvas.getContext('2d');
+  const g = ctx.createRadialGradient(64, 64, 4, 64, 64, 62);
+  g.addColorStop(0, 'rgba(245,252,255,0.78)');
+  g.addColorStop(0.45, 'rgba(226,244,250,0.34)');
+  g.addColorStop(1, 'rgba(220,240,248,0)');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 128, 128);
+  return new THREE.CanvasTexture(canvas);
+}
+
+// Richmond's named "falls" are a fall-line whitewater system rather than one
+// giant cliff. Layered foam tongues, low curtains, and spray make those ledges
+// read as moving cascades instead of white polygons painted on blue water.
+function buildWhitewaterCascades(scene, projector, samples, grid) {
+  const rng = mulberry32(91734);
+  const foamTexture = makeFoamTexture();
+  const foamMat = new THREE.MeshBasicMaterial({
+    map: foamTexture, transparent: true, opacity: 0.74, depthWrite: false,
+    blending: THREE.NormalBlending, side: THREE.DoubleSide,
+  });
+  const curtainMat = new THREE.MeshPhysicalMaterial({
+    color: '#cdebf3', transparent: true, opacity: 0.68, roughness: 0.18,
+    transmission: 0.12, depthWrite: false, side: THREE.DoubleSide,
+  });
+  const mistMat = new THREE.SpriteMaterial({
+    map: makeMistTexture(), transparent: true, opacity: 0.32, depthWrite: false,
+    blending: THREE.AdditiveBlending,
+  });
+  const mist = [];
+  const centers = [
+    projector.toWorld(37.5305, -77.4578),
+    projector.toWorld(37.5329, -77.4383),
+    projector.toWorld(37.5535, -77.5201),
+  ];
+
+  for (const center of centers) {
+    const q = queryRiver(samples, grid, center.x, center.z);
+    if (!q) continue;
+    const s = q.sample;
+    const angle = Math.atan2(-s.normal.z, s.normal.x);
+    for (let tier = -3; tier <= 3; tier++) {
+      const width = s.width * (0.3 + rng() * 0.28);
+      const length = 13 + rng() * 23;
+      const p = s.p.clone().addScaledVector(s.tangent, tier * 31 + (rng() - 0.5) * 16);
+      p.addScaledVector(s.normal, (rng() - 0.5) * s.width * 0.24);
+
+      const tongue = new THREE.Mesh(new THREE.PlaneGeometry(width, length, 12, 3), foamMat);
+      // Apply yaw before pitch so the foam stays horizontal. With the default
+      // XYZ Euler order, combining these rotations tips the sheet into the air.
+      tongue.rotation.order = 'YXZ';
+      tongue.rotation.set(-Math.PI / 2, angle, 0);
+      tongue.position.set(p.x, RIVER_SURFACE_Y + 0.08 + rng() * 0.05, p.z);
+      tongue.renderOrder = 3;
+      scene.add(tongue);
+
+      if (tier % 2 === 0) {
+        const curtain = new THREE.Mesh(new THREE.PlaneGeometry(width * 0.55, 2.2 + rng() * 2.2, 10, 2), curtainMat);
+        curtain.rotation.y = angle;
+        curtain.position.set(p.x, RIVER_SURFACE_Y - 0.35, p.z);
+        scene.add(curtain);
+      }
+
+      for (let i = 0; i < 4; i++) {
+        const sprite = new THREE.Sprite(mistMat.clone());
+        sprite.position.copy(p).addScaledVector(s.normal, (rng() - 0.5) * width * 0.8);
+        sprite.position.y = RIVER_SURFACE_Y + 1.0 + rng() * 3.8;
+        const scale = 12 + rng() * 27;
+        sprite.scale.set(scale * 1.7, scale, 1);
+        sprite.userData.phase = rng() * Math.PI * 2;
+        sprite.userData.baseY = sprite.position.y;
+        mist.push(sprite);
+        scene.add(sprite);
+      }
+    }
+  }
+
+  return {
+    update(time) {
+      foamTexture.offset.y = -time * 0.18;
+      for (const sprite of mist) {
+        sprite.position.y = sprite.userData.baseY + Math.sin(time * 0.7 + sprite.userData.phase) * 1.1;
+        sprite.material.opacity = 0.22 + (Math.sin(time * 1.1 + sprite.userData.phase) * 0.5 + 0.5) * 0.2;
+      }
+    },
+  };
 }
 
 // ---------------------------------------------------------------- roads
@@ -681,9 +875,9 @@ function buildTrees(scene, getGroundHeight, forestDensity) {
   const TARGET = 16000;
 
   const trunkGeo = new THREE.CylinderGeometry(0.32, 0.46, 5, 5);
-  const trunkMat = new THREE.MeshLambertMaterial({ color: '#493425' });
-  const canopyGeo = new THREE.IcosahedronGeometry(1, 0);
-  const canopyMat = new THREE.MeshLambertMaterial({ flatShading: true });
+  const trunkMat = new THREE.MeshStandardMaterial({ color: '#493425', roughness: 1 });
+  const canopyGeo = new THREE.IcosahedronGeometry(1, 1);
+  const canopyMat = new THREE.MeshStandardMaterial({ roughness: 0.94, metalness: 0, flatShading: true });
 
   const trunks = new THREE.InstancedMesh(trunkGeo, trunkMat, TARGET);
   const canopies = new THREE.InstancedMesh(canopyGeo, canopyMat, TARGET);

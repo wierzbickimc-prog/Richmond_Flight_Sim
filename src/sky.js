@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { mulberry32 } from './noise.js';
+import { fbm2D, mulberry32 } from './noise.js';
 
 export function makeSkyTexture() {
   const c = document.createElement('canvas');
@@ -19,17 +19,27 @@ export function makeSkyTexture() {
 }
 
 function makePuffTexture() {
-  const size = 128;
+  const size = 256;
   const c = document.createElement('canvas');
   c.width = c.height = size;
   const ctx = c.getContext('2d');
-  const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-  grad.addColorStop(0.0, 'rgba(255,255,255,0.95)');
-  grad.addColorStop(0.45, 'rgba(252,253,255,0.72)');
-  grad.addColorStop(0.75, 'rgba(228,238,248,0.28)');
-  grad.addColorStop(1.0, 'rgba(220,232,245,0)');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, size, size);
+  const image = ctx.createImageData(size, size);
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const dx = (x - size / 2) / (size / 2);
+      const dy = (y - size / 2) / (size / 2);
+      const radial = Math.max(0, 1 - Math.hypot(dx, dy));
+      const billow = fbm2D(x * 0.027, y * 0.027, 5);
+      const edge = Math.max(0, Math.min(1, (radial * 1.32 + billow * 0.38 - 0.36) * 2.25));
+      const shade = 225 + Math.max(0, 1 - dy) * 15 + billow * 14;
+      const i = (y * size + x) * 4;
+      image.data[i] = Math.min(255, shade + 5);
+      image.data[i + 1] = Math.min(255, shade + 8);
+      image.data[i + 2] = Math.min(255, shade + 12);
+      image.data[i + 3] = edge * radial * 245;
+    }
+  }
+  ctx.putImageData(image, 0, 0);
   return new THREE.CanvasTexture(c);
 }
 

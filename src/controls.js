@@ -9,7 +9,15 @@ const KEY_MAP = {
   ArrowRight: 'yawRight',
 };
 
-export function createControls({ onToggleCamera, onReset, onToggleHud, onToggleMarkers, onTogglePause } = {}) {
+export function createControls({
+  onToggleCamera,
+  onReset,
+  onToggleHud,
+  onToggleMarkers,
+  onTogglePause,
+  onToggleBoost,
+  onToggleAircraft,
+} = {}) {
   const input = {
     throttleUp: false,
     throttleDown: false,
@@ -27,6 +35,7 @@ export function createControls({ onToggleCamera, onReset, onToggleHud, onToggleM
       e.preventDefault();
       return;
     }
+    if (e.repeat) return;
     switch (e.code) {
       case 'KeyF':
         onToggleCamera && onToggleCamera();
@@ -42,6 +51,13 @@ export function createControls({ onToggleCamera, onReset, onToggleHud, onToggleM
         break;
       case 'KeyP':
         onTogglePause && onTogglePause();
+        break;
+      case 'KeyB':
+      case 'Space':
+        onToggleBoost && onToggleBoost();
+        break;
+      case 'KeyG':
+        onToggleAircraft && onToggleAircraft();
         break;
       default:
         return;

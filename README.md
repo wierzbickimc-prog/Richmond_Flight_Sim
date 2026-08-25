@@ -1,7 +1,8 @@
 # Richmond Flight Sim
 
-A browser-based arcade flight simulator: fly a low-poly Cessna 172 over Richmond,
-Virginia, and locate **1916 Seddon Rd** plus five James River landmarks. Runs locally
+A browser-based arcade flight simulator: fly a Cessna 172 or switch into **Sebbie
+Mode** for an SR-71 Blackbird over Richmond, Virginia, and locate **1916 Seddon Rd**
+plus five James River landmarks. Runs locally
 on macOS with Vite + Three.js — no game engine install, no API keys.
 
 ## Run it locally
@@ -32,15 +33,22 @@ open that folder with any static file server if you ever want to run it without 
 | H | Toggle HUD |
 | M | Toggle landmark markers |
 | P | Pause / resume |
+| G | Toggle **Sebbie Mode** (Cessna 172 / SR-71 Blackbird) |
+| B / Space | Toggle 10× rocket boost |
 
 Flight is arcade-simple by design: throttle sets your target speed, pitch sets a
 gentle climb/descend rate, and altitude is clamped to a band (roughly 25–520 m /
 80–1700 ft above the ground) so you're always low enough to see the ground and
 never crash. There's no stall model and no game-over state.
 
-In cockpit view the fuselage, cowling and cabin glass are hidden (from a seat
-inside the cabin they'd fill the screen), and the propeller blades fade into a
-translucent blur disc as RPM rises.
+The large on-screen buttons duplicate the aircraft and booster controls. Rocket
+boost immediately multiplies the current airspeed by 10 and adds a wide-angle
+warp-speed streak effect. In Sebbie Mode, the Blackbird's twin afterburners remain
+lit at normal speed and show animated shock/Mach diamonds; boost lengthens and
+brightens both plumes.
+
+In cockpit view, obstructing fuselage/canopy parts are hidden. On the Cessna, the
+propeller blades fade into a translucent blur disc as RPM rises.
 
 ## The mission
 
@@ -126,7 +134,9 @@ index.html                   Page shell, HUD markup, start screen
 src/main.js                  App bootstrap, render loop, sun/shadow rig
 src/geo.js                   Lat/lon <-> local world-meters projection
 src/terrain.js               Ground, river, Belle Isle, bluffs, roads, skyline, bridge, trees
-src/aircraft.js              Low-poly Cessna 172 (primitives only, no external assets)
+src/aircraft.js              Cessna 172 (primitives only, no external assets)
+src/sr71.js                  Sebbie Mode SR-71 + afterburner/Mach-diamond effects
+src/effects.js               10× boost warp-speed streak field
 src/flightModel.js           Arcade flight physics
 src/controls.js              Keyboard input
 src/camera.js                Chase / cockpit camera rig
@@ -143,10 +153,11 @@ console, and Vite strips it from production builds.
 
 ## Notes on realism / scope
 
-- Aircraft, terrain, and city are stylized low-poly with no external model or
-  texture files, so there are no licensing concerns and the whole thing stays a
-  single lightweight page. Ground detail, window/facade colour and cloud sprites
-  are all generated procedurally into canvases at load time.
+- Aircraft, terrain, and city have no external model or texture dependencies, so
+  the whole sim stays a lightweight page. Ground relief, irregular cloud sprites,
+  animated reflective river water, moving whitewater foam, cascade curtains, and
+  spray are generated procedurally at load time. The terrain remains an artistic
+  approximation rather than photogrammetry.
 - Distances and terrain shapes are approximate, built from geocoded points rather
   than a survey-grade GIS dataset. The road network is eyeballed from the city's
   street layout — it makes the ground read as a city, but it is not routable and

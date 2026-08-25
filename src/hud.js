@@ -21,6 +21,8 @@ export function createHud(markers) {
     toast: document.getElementById('hud-toast'),
     pause: document.getElementById('hud-pause'),
     progress: document.getElementById('hud-progress'),
+    aircraft: document.getElementById('hud-aircraft'),
+    boost: document.getElementById('hud-boost'),
   };
 
   els.checklist.innerHTML = '';
@@ -42,12 +44,15 @@ export function createHud(markers) {
     setPaused(paused) {
       els.pause.style.display = paused ? 'flex' : 'none';
     },
-    update({ agl, speed, heading, throttle, distanceToPrimary, visitedCount, total }) {
+    update({ agl, speed, heading, throttle, distanceToPrimary, visitedCount, total, aircraftName, boostActive }) {
       els.altitude.textContent = `${Math.round(agl * M_TO_FT)} ft AGL`;
       els.speed.textContent = `${Math.round(speed * MS_TO_KT)} kt`;
       const h = headingLabel(heading);
       els.heading.textContent = `${String(h.deg).padStart(3, '0')}° ${h.dir}`;
       els.throttle.textContent = `${Math.round(throttle * 100)}%`;
+      els.aircraft.textContent = aircraftName;
+      els.boost.textContent = boostActive ? '10× ENGAGED' : 'STANDBY';
+      els.boost.classList.toggle('active', boostActive);
       els.distance.textContent =
         distanceToPrimary == null
           ? '--'

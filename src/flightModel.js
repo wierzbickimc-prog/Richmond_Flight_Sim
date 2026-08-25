@@ -7,6 +7,8 @@ const MAX_SPEED = 62; // m/s, ~120 kt
 const CRUISE_SPEED = 34; // m/s, ~66 kt - Cessna 172 economy cruise ballpark
 const THROTTLE_RATE = 0.55; // per second
 const SPEED_LERP = 0.9;
+const BOOST_MULTIPLIER = 10;
+const BOOST_SPEED_LERP = 4.2;
 
 const MAX_ROLL = 35 * DEG;
 const MAX_PITCH = 20 * DEG;
@@ -26,6 +28,7 @@ export function createFlightState(startPos, startHeadingRad) {
     roll: 0,
     speed: CRUISE_SPEED,
     throttle: 0.55,
+    boostActive: false,
     forward: new THREE.Vector3(0, 0, -1),
   };
 }
@@ -50,9 +53,11 @@ export function updateFlightModel(state, input, dt, getGroundHeight) {
   yawRate += ((input.yawRight ? 1 : 0) - (input.yawLeft ? 1 : 0)) * RUDDER_YAW_RATE;
   state.heading += yawRate * dt;
 
-  const targetSpeed = MIN_SPEED + state.throttle * (MAX_SPEED - MIN_SPEED);
-  state.speed += (targetSpeed - state.speed) * Math.min(1, SPEED_LERP * dt);
-  state.speed = Math.max(MIN_SPEED * 0.6, Math.min(MAX_SPEED, state.speed));
+  const normalTargetSpeed = MIN_SPEED + state.throttle * (MAX_SPEED - MIN_SPEED);
+  const targetSpeed = normalTargetSpeed * (state.boostActive ? BOOST_MULTIPLIER : 1);
+  const speedLerp = state.boostActive ? BOOST_SPEED_LERP : SPEED_LERP;
+  state.speed += (targetSpeed - state.speed) * Math.min(1, speedLerp * dt);
+  state.speed = Math.max(MIN_SPEED * 0.6, Math.min(MAX_SPEED * BOOST_MULTIPLIER, state.speed));
 
   const forward = new THREE.Vector3(
     Math.sin(state.heading) * Math.cos(state.pitch),
@@ -74,4 +79,4 @@ export function updateFlightModel(state, input, dt, getGroundHeight) {
   return { agl: state.position.y - ground, groundY: ground };
 }
 
-export const FlightLimits = { MIN_SPEED, MAX_SPEED, MIN_AGL, MAX_AGL, CRUISE_SPEED };
+export const FlightLimits = { MIN_SPEED, MAX_SPEED, MIN_AGL, MAX_AGL, CRUISE_SPEED, BOOST_MULTIPLIER };

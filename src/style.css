@@ -44,6 +44,13 @@ html, body {
   min-width: 190px;
   font-variant-numeric: tabular-nums;
 }
+.boost-value {
+  color: #a9c1ce;
+}
+.boost-value.active {
+  color: #8fe9ff;
+  text-shadow: 0 0 10px #2cbcff;
+}
 .panel-flight .row {
   display: flex;
   justify-content: space-between;
@@ -121,6 +128,79 @@ html, body {
   font-size: 12px;
   line-height: 1.6;
   opacity: 0.8;
+}
+
+.action-dock {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  pointer-events: auto;
+  z-index: 4;
+}
+.action-dock button {
+  border: 1px solid rgba(159, 219, 242, 0.48);
+  border-radius: 12px;
+  color: #effaff;
+  background: linear-gradient(180deg, rgba(25, 44, 55, 0.92), rgba(5, 12, 17, 0.94));
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.38), inset 0 1px rgba(255, 255, 255, 0.09);
+  cursor: pointer;
+  font: 800 13px/1.05 'Segoe UI', system-ui, sans-serif;
+  letter-spacing: 0.06em;
+  padding: 11px 17px;
+  min-width: 150px;
+  transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+.action-dock button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(176, 236, 255, 0.9);
+}
+.action-dock button:active {
+  transform: translateY(1px);
+}
+.button-kicker {
+  display: block;
+  color: #8eb1c1;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin-bottom: 4px;
+}
+.boost-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+.boost-icon {
+  font-size: 22px;
+  filter: saturate(0.8);
+}
+.action-dock .boost-button.active {
+  background: linear-gradient(180deg, rgba(13, 103, 143, 0.96), rgba(4, 36, 62, 0.98));
+  border-color: #a9efff;
+  box-shadow: 0 0 28px rgba(33, 187, 255, 0.72), inset 0 0 20px rgba(143, 233, 255, 0.2);
+}
+.warp-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(circle at center, transparent 28%, rgba(35, 154, 231, 0.08) 58%, rgba(8, 35, 78, 0.34) 100%);
+  box-shadow: inset 0 0 110px rgba(56, 191, 255, 0.32);
+  transition: opacity 220ms ease;
+}
+.warp-overlay.active {
+  opacity: 1;
+  animation: warp-pulse 430ms ease-in-out infinite alternate;
+}
+@keyframes warp-pulse {
+  from { filter: brightness(0.92); }
+  to { filter: brightness(1.18); }
 }
 
 .toast {
@@ -214,4 +294,11 @@ html, body {
   font-size: 13px;
   opacity: 0.65;
   min-height: 18px;
+}
+
+@media (max-width: 760px) {
+  .panel-mission { display: none; }
+  .panel-controls { display: none; }
+  .action-dock { bottom: 12px; gap: 7px; width: calc(100% - 24px); }
+  .action-dock button { min-width: 0; flex: 1; padding: 10px 8px; font-size: 11px; }
 }
