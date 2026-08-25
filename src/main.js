@@ -1,12 +1,17 @@
 import * as THREE from 'three';
 import './style.css';
 import { makeProjector } from './geo.js';
-import { buildWorld } from './terrain.js';
 import { buildAircraft } from './aircraft.js';
 import { buildSR71, updateSR71Effects } from './sr71.js';
 import { buildWarpEffect, updateWarpEffect } from './effects.js';
-import { makeSkyTexture, buildClouds } from './sky.js';
-import { buildLandmarkMarkers, updateLandmarkDetection, setMarkersVisible, distanceTo } from './landmarks.js';
+import { createCesiumWorld, saveRuntimeCredentials } from './cesiumWorld.js';
+import {
+  buildCesiumLandmarkMarkers,
+  distanceTo,
+  setMarkersVisible,
+  updateLandmarkDetection,
+  updateLandmarkGrounding,
+} from './cesiumLandmarks.js';
 import { createFlightState, updateFlightModel, FlightLimits } from './flightModel.js';
 import { createControls } from './controls.js';
 import { createCameraRig, setCameraAircraftMode, toggleCameraMode, updateCamera } from './camera.js';
@@ -18,8 +23,15 @@ const canvas = document.getElementById('scene');
 const yieldToPaint = () => new Promise((r) => requestAnimationFrame(() => setTimeout(r, 0)));
 
 async function main() {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: true,
+    premultipliedAlpha: false,
+    powerPreference: 'high-performance',
+  });
   renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  renderer.setClearColor(0x000000, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.15;
@@ -27,8 +39,7 @@ async function main() {
   renderer.shadowMap.type = THREE.PCFShadowMap;
 
   const scene = new THREE.Scene();
-  scene.background = makeSkyTexture();
-  scene.fog = new THREE.Fog(0xbcd6e8, 2200, 8200);
+  scene.background = null;
 
   const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.5, 12000);
 
@@ -59,15 +70,27 @@ async function main() {
   const landmarksData = await fetch('data/landmarks.json').then((r) => r.json());
   const projector = makeProjector(landmarksData.origin.lat, landmarksData.origin.lon);
 
-  status.textContent = 'Generating Richmond terrain…';
+  status.textContent = 'Starting CesiumJS…';
   await yieldToPaint();
-  const { getGroundHeight, worldSize, updateWorld } = buildWorld(scene, projector);
+  const cesiumWorld = await createCesiumWorld(
+    document.getElementById('cesium-scene'),
+    projector,
+    (message) => { status.textContent = message; }
+  );
+  const { getGroundHeight } = cesiumWorld;
 
   status.textContent = 'Placing landmarks…';
   await yieldToPaint();
-  const markers = buildLandmarkMarkers(scene, projector, landmarksData, getGroundHeight);
+  const markers = buildCesiumLandmarkMarkers(
+    cesiumWorld.viewer,
+    projector,
+    landmarksData,
+    cesiumWorld.sampleGroundAt
+  );
   const primaryMarker = markers.find((m) => m.primary);
-  buildClouds(scene, worldSize);
+  cesiumWorld.setHeightExclusions(
+    markers.flatMap((marker) => [marker.beamEntity, marker.postEntity, marker.ringEntity, marker.labelEntity])
+  );
 
   const cessna = buildAircraft();
   cessna.mode = 'cessna';
@@ -111,7 +134,19 @@ async function main() {
   const aircraftModeBtn = document.getElementById('aircraft-mode-btn');
   const aircraftModeLabel = document.getElementById('aircraft-mode-label');
   const warpOverlay = document.getElementById('warp-overlay');
+  const mapDataBadge = document.getElementById('map-data-badge');
   const warpEffect = buildWarpEffect(scene);
+
+  if (cesiumWorld.mode === 'google-photorealistic') {
+    mapDataBadge.textContent = 'GOOGLE PHOTOREALISTIC 3D · CESIUMJS';
+  } else if (cesiumWorld.mode === 'cesium-photorealistic-evaluation') {
+    mapDataBadge.textContent = 'PHOTOREALISTIC 3D · CESIUM EVALUATION';
+  } else if (cesiumWorld.mode === 'cesium-terrain-osm') {
+    mapDataBadge.textContent = 'CESIUM WORLD TERRAIN · OPENSTREETMAP';
+  } else {
+    mapDataBadge.textContent = 'OPENSTREETMAP FALLBACK';
+    mapDataBadge.classList.add('fallback');
+  }
 
   function setBoost(active) {
     const wasActive = flight.boostActive;
@@ -186,6 +221,23 @@ async function main() {
     startOverlay.style.display = 'none';
   });
 
+  const mapConfig = document.getElementById('map-config');
+  const mapConfigError = document.getElementById('map-config-error');
+  document.getElementById('save-map-credentials').addEventListener('click', () => {
+    const googleKey = document.getElementById('google-maps-key').value.trim();
+    const ionToken = document.getElementById('cesium-ion-token').value.trim();
+    if (!googleKey && !ionToken) {
+      mapConfigError.textContent = 'Enter at least one credential.';
+      return;
+    }
+    saveRuntimeCredentials({ googleKey, ionToken });
+    window.location.reload();
+  });
+  if (cesiumWorld.loadError) {
+    mapConfig.open = true;
+    mapConfigError.textContent = 'Photorealistic tiles could not load. Add or replace a credential.';
+  }
+
   // Orientation: the model's nose is local -Z. Three's Object3D.lookAt() aims a
   // non-camera object's +Z at the target, which would fly the plane tail-first, so
   // set the rotation explicitly instead.
@@ -205,11 +257,16 @@ async function main() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    cesiumWorld.resize();
   }
   window.addEventListener('resize', onResize);
   onResize();
 
-  status.textContent = 'Ready for departure.';
+  status.textContent = cesiumWorld.mode === 'osm-fallback'
+    ? 'Ready — OpenStreetMap fallback active.'
+    : cesiumWorld.mode === 'cesium-terrain-osm'
+    ? 'Ready — real terrain and OpenStreetMap imagery are streaming.'
+    : 'Ready — real Richmond 3D data is streaming.';
   startBtn.disabled = false;
   startBtn.textContent = 'Start Flight';
 
@@ -220,7 +277,7 @@ async function main() {
   // Dev-only handle for driving the sim from automated smoke tests.
   const debug = { frames: 0, simTime: 0 };
   if (import.meta.env.DEV) {
-    window.__sim = { flight, debug, toggleBoost, toggleAircraft };
+    window.__sim = { flight, debug, cameraRig, toggleBoost, toggleAircraft, cesiumWorld };
     const smoke = new URLSearchParams(window.location.search);
     if (smoke.has('autostart')) startBtn.click();
     if (smoke.has('sebbie')) toggleAircraft();
@@ -276,9 +333,10 @@ async function main() {
     sun.target.updateMatrixWorld();
     sun.position.copy(flight.position).add(SUN_OFFSET);
 
-    updateWorld(debug.simTime);
+    updateLandmarkGrounding(markers, cesiumWorld.sampleGroundAt, debug.simTime);
     updateWarpEffect(warpEffect, aircraftGroup, started && flight.boostActive, flight.speed, dt);
     updateCamera(camera, cameraRig, aircraftGroup, dt);
+    cesiumWorld.render(camera);
     renderer.render(scene, camera);
   }
   animate();

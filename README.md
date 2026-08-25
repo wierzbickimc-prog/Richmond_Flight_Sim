@@ -2,12 +2,13 @@
 
 A browser-based arcade flight simulator: fly a Cessna 172 or switch into **Sebbie
 Mode** for an SR-71 Blackbird over Richmond, Virginia, and locate **1916 Seddon Rd**
-plus five James River landmarks. Runs locally
-on macOS with Vite + Three.js — no game engine install, no API keys.
+plus five James River landmarks. CesiumJS streams real Richmond terrain,
+photogrammetry, buildings, and imagery; Three.js renders the aircraft and boost
+effects as a synchronized transparent layer.
 
 ## Run it locally
 
-Requires Node.js (18+) and npm.
+Requires Node.js 22+ and npm.
 
 ```bash
 npm install
@@ -19,6 +20,29 @@ Firefox. Click **Start Flight**.
 
 `npm run build` produces a static production build in `dist/` — you can also just
 open that folder with any static file server if you ever want to run it without Vite.
+
+### Real-world data credentials
+
+CesiumJS includes an evaluation token that currently lets the simulator load the
+photorealistic dataset during local evaluation. Do not rely on that shared token
+for a deployed application. For production:
+
+1. Copy `.env.example` to `.env.local`.
+2. Set either `VITE_GOOGLE_MAPS_API_KEY`, `VITE_CESIUM_ION_TOKEN`, or both.
+3. Restrict browser-exposed credentials to the deployment's HTTP referrers and
+   only the APIs the simulator uses.
+4. Restart Vite after changing the file.
+
+Credentials can also be entered in the start screen. Those values are kept only
+in browser session storage and disappear when the browser session ends. Never
+commit `.env.local`.
+
+The data fallback order is:
+
+1. Google Photorealistic 3D Tiles using `VITE_GOOGLE_MAPS_API_KEY`.
+2. Cesium's cached Photorealistic 3D Tiles asset using an ion/evaluation token.
+3. Cesium World Terrain with OpenStreetMap imagery.
+4. A flat OpenStreetMap globe if all 3D services are unavailable.
 
 ## Controls
 
@@ -70,15 +94,14 @@ scored mission.
 
 ## Where the map data came from
 
-This is not a photogrammetric or satellite-tile recreation of Richmond — that would
-require a licensed Google Maps/Earth API key. Instead:
+The visible world is streamed rather than generated locally:
 
-- Every landmark's lat/lon was geocoded from OpenStreetMap (Nominatim) and
-  cross-checked against Wikipedia/park-map sources where available.
-- The river channel, Belle Isle's footprint, the CSX bridge crossing point, and the
-  Seddon Rd neighborhood are procedurally generated from those coordinates using a
-  local flat-earth (equirectangular) projection — see `src/geo.js`. Terrain,
-  roads, buildings, and trees are stylized low-poly, not real building footprints.
+- Google Photorealistic 3D Tiles provide the primary real-world terrain, aerial
+  texture, buildings, trees, bridges, and city geometry. CesiumJS streams and
+  refines tiles according to their distance from the camera.
+- Cesium's required on-screen credits remain visible. Do not hide or obscure them.
+- Every mission landmark's latitude/longitude remains local project data, originally
+  geocoded from OpenStreetMap and cross-checked against local references.
 - All landmark coordinates live in [`public/data/landmarks.json`](public/data/landmarks.json)
   as plain lat/lon — edit that file to nudge, add, or remove a marker without
   touching any code.
@@ -99,9 +122,9 @@ update their `lat`/`lon` in `public/data/landmarks.json`.
 
 ### If you want to use Google Earth to verify or refine locations
 
-Google Earth is great for visually confirming a spot and exporting a precise
-placemark, even though the game doesn't load Google's map tiles directly (that
-requires a paid Google Maps Platform key and has licensing restrictions on reuse).
+Google Earth is useful for visually confirming a spot and exporting a precise
+placemark. The simulator's Google tile access is performed only through the
+configured Maps Tile API/Cesium integration and remains subject to its terms.
 To pull a coordinate out of Google Earth for this project:
 
 1. Open [Google Earth](https://earth.google.com/web/) (web or desktop) or Google
@@ -131,38 +154,34 @@ landmark list.
 
 ```
 index.html                   Page shell, HUD markup, start screen
-src/main.js                  App bootstrap, render loop, sun/shadow rig
+vite.config.js               Vite build + Cesium worker/asset copying
+src/main.js                  App bootstrap and synchronized Cesium/Three render loop
+src/cesiumWorld.js           Photorealistic tiles, terrain fallbacks, camera/height bridge
+src/cesiumLandmarks.js       Georeferenced Cesium mission beams, rings, and labels
 src/geo.js                   Lat/lon <-> local world-meters projection
-src/terrain.js               Ground, river, Belle Isle, bluffs, roads, skyline, bridge, trees
 src/aircraft.js              Cessna 172 (primitives only, no external assets)
 src/sr71.js                  Sebbie Mode SR-71 + afterburner/Mach-diamond effects
 src/effects.js               10× boost warp-speed streak field
 src/flightModel.js           Arcade flight physics
 src/controls.js              Keyboard input
 src/camera.js                Chase / cockpit camera rig
-src/sky.js                   Sky gradient and cumulus billboards
-src/landmarks.js             Landmark beacons + objective-radius detection
 src/hud.js                   HUD DOM overlay
-src/noise.js                 Value noise, tileable fBm, seeded PRNG
+src/noise.js                 Seeded random generator used by boost effects
 public/data/landmarks.json   All landmark coordinates and metadata
 ```
 
-In `npm run dev` only, the sim exposes `window.__sim` (`flight` state plus a
-frame/sim-time counter). It's handy for poking at the physics from the browser
-console, and Vite strips it from production builds.
+In `npm run dev` only, the sim exposes `window.__sim` (flight state, frame timing,
+mode actions, and the Cesium world handle). Vite strips it from production builds.
 
 ## Notes on realism / scope
 
-- Aircraft, terrain, and city have no external model or texture dependencies, so
-  the whole sim stays a lightweight page. Ground relief, irregular cloud sprites,
-  animated reflective river water, moving whitewater foam, cascade curtains, and
-  spray are generated procedurally at load time. The terrain remains an artistic
-  approximation rather than photogrammetry.
-- Distances and terrain shapes are approximate, built from geocoded points rather
-  than a survey-grade GIS dataset. The road network is eyeballed from the city's
-  street layout — it makes the ground read as a city, but it is not routable and
-  the alignments are not survey-accurate.
-- The world is roughly 9.6 × 9.2 km. Terrain is a single 420×420 heightfield mesh;
-  trees (~16k), rapids boulders and low-rise buildings are instanced. Measured at
-  a steady 60 FPS on an M3 MacBook at 1440×900.
+- The Richmond environment is now real streamed geospatial content. Visual quality
+  increases over several seconds as Cesium loads finer levels of detail.
+- The procedural aircraft are still the largest remaining realism limitation.
+  Replacing them with licensed PBR glTF models would be the next major visual step.
+- Three.js aircraft are composited over Cesium, so they do not cast shadows onto or
+  become occluded by the photogrammetry layer. At normal flight altitudes this is
+  rarely noticeable, but a future native Cesium/glTF aircraft path could remove it.
+- Photorealistic datasets are bandwidth- and GPU-intensive. Cesium automatically
+  adjusts screen-space error when its memory budget is reached.
 - No NPC traffic, no day/night cycle, no weather — free flight, day only, as scoped.

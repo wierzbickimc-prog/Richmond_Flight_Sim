@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      window.CESIUM_BASE_URL = new URL(
+        'cesiumStatic/node_modules/cesium/Build/Cesium/',
+        document.baseURI
+      ).href;
+    </script>
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231f5fae'/%3E%3Cpath d='M16 4l2 9 9 3v2l-9-1 -1 7 3 2v1l-4-1 -4 1v-1l3-2 -1-7 -9 1v-2l9-3z' fill='%23f4f4f1'/%3E%3C/svg%3E"
@@ -11,6 +17,7 @@
   </head>
   <body>
     <div id="app">
+      <div id="cesium-scene" aria-label="Real-world 3D map of Richmond"></div>
       <canvas id="scene"></canvas>
 
       <div id="hud">
@@ -42,6 +49,8 @@
 
         <div id="hud-toast" class="toast"></div>
 
+        <div id="map-data-badge" class="map-data-badge">CESIUM REAL-WORLD 3D</div>
+
         <div class="action-dock">
           <button id="aircraft-mode-btn" class="mode-button" type="button">
             <span class="button-kicker">AIRCRAFT</span>
@@ -69,6 +78,14 @@
           <p>Free flight over Richmond, VA. Fly the Cessna 172 or enter <b>Sebbie Mode</b> for the SR-71 Blackbird, then light the 10× rocket boost.</p>
           <button id="start-btn" disabled>Loading…</button>
           <div id="start-status" class="start-status">Starting up…</div>
+          <details id="map-config" class="map-config">
+            <summary>Real-world data credentials</summary>
+            <p>Optional for local evaluation. Production deployments should use origin-restricted credentials.</p>
+            <label>Google Maps API key<input id="google-maps-key" type="password" autocomplete="off" placeholder="Photorealistic 3D Tiles key" /></label>
+            <label>Cesium ion token<input id="cesium-ion-token" type="password" autocomplete="off" placeholder="Cesium ion access token" /></label>
+            <button id="save-map-credentials" type="button">Save for this browser session &amp; reload</button>
+            <div id="map-config-error" class="map-config-error"></div>
+          </details>
         </div>
       </div>
     </div>
