@@ -59,6 +59,7 @@ The data fallback order is:
 | P | Pause / resume |
 | G | Toggle **Sebbie Mode** (Cessna 172 / SR-71 Blackbird) |
 | B / Space | Toggle 10× rocket boost |
+| V | Fire missile |
 
 Flight is arcade-simple by design: throttle sets your target speed, pitch sets a
 gentle climb/descend rate, and altitude is clamped to a band (roughly 25–520 m /

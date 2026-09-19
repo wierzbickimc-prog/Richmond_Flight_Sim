@@ -16,6 +16,7 @@ import { createFlightState, updateFlightModel, FlightLimits } from './flightMode
 import { createControls } from './controls.js';
 import { createCameraRig, setCameraAircraftMode, toggleCameraMode, updateCamera } from './camera.js';
 import { createHud } from './hud.js';
+import { createMissileSystem } from './missiles.js';
 
 const canvas = document.getElementById('scene');
 
@@ -124,6 +125,7 @@ async function main() {
   const flight = createFlightState(spawnPos, spawnHeading);
 
   const cameraRig = createCameraRig();
+  const missileSystem = createMissileSystem(scene, getGroundHeight);
   const hud = createHud(markers);
   let hudVisible = true;
   let markersVisible = true;
@@ -210,6 +212,7 @@ async function main() {
     },
     onToggleBoost: toggleBoost,
     onToggleAircraft: toggleAircraft,
+    onFire: () => missileSystem.fire(flight.position, flight.forward, flight.speed),
   });
 
   boostBtn.addEventListener('click', toggleBoost);
@@ -277,7 +280,7 @@ async function main() {
   // Dev-only handle for driving the sim from automated smoke tests.
   const debug = { frames: 0, simTime: 0 };
   if (import.meta.env.DEV) {
-    window.__sim = { flight, debug, cameraRig, toggleBoost, toggleAircraft, cesiumWorld };
+    window.__sim = { flight, debug, cameraRig, toggleBoost, toggleAircraft, cesiumWorld, missileSystem };
     const smoke = new URLSearchParams(window.location.search);
     if (smoke.has('autostart')) startBtn.click();
     if (smoke.has('sebbie')) toggleAircraft();
@@ -294,6 +297,7 @@ async function main() {
     if (started && !paused) {
       updateFlightModel(flight, input, dt, getGroundHeight);
       orientAircraft();
+      missileSystem.update(dt);
 
       // Spin the blades, and cross-fade to a blur disc as RPM climbs.
       const rpm = 3 + flight.throttle * 26 + (flight.boostActive ? 34 : 0);

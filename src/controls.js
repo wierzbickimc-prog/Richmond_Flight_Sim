@@ -17,6 +17,7 @@ export function createControls({
   onTogglePause,
   onToggleBoost,
   onToggleAircraft,
+  onFire,
 } = {}) {
   const input = {
     throttleUp: false,
@@ -58,6 +59,9 @@ export function createControls({
         break;
       case 'KeyG':
         onToggleAircraft && onToggleAircraft();
+        break;
+      case 'KeyV':
+        onFire && onFire();
         break;
       default:
         return;
