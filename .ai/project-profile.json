@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "language": "javascript",
+  "interpreter": "npm",
+  "cwd": "/Users/michaelwierzbicki/Richmond_Flight_Sim",
+  "env": {},
+  "exclude_dirs": [
+    "node_modules",
+    "dist"
+  ],
+  "checks": [
+    {
+      "name": "build",
+      "command": "npm run build",
+      "required": true,
+      "timeout": 120.0,
+      "expect_min_tests": null
+    }
+  ],
+  "smoke": []
+}

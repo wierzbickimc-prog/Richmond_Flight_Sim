@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      window.CESIUM_BASE_URL = new URL(
+        'cesiumStatic/node_modules/cesium/Build/Cesium/',
+        document.baseURI
+      ).href;
+    </script>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231f5fae'/%3E%3Cpath d='M16 4l2 9 9 3v2l-9-1 -1 7 3 2v1l-4-1 -4 1v-1l3-2 -1-7 -9 1v-2l9-3z' fill='%23f4f4f1'/%3E%3C/svg%3E"
+    />
+    <title>Richmond Flight Sim</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="cesium-scene" aria-label="Real-world 3D map of Richmond"></div>
+      <canvas id="scene"></canvas>
+
+      <div id="hud">
+        <div class="panel panel-flight">
+          <div class="row"><span class="label">ALT</span><span id="hud-altitude" class="value">--</span></div>
+          <div class="row"><span class="label">SPD</span><span id="hud-speed" class="value">--</span></div>
+          <div class="row"><span class="label">HDG</span><span id="hud-heading" class="value">--</span></div>
+          <div class="row"><span class="label">THR</span><span id="hud-throttle" class="value">--</span></div>
+          <div class="row"><span class="label">PLANE</span><span id="hud-aircraft" class="value">CESSNA 172</span></div>
+          <div class="row"><span class="label">BOOST</span><span id="hud-boost" class="value boost-value">STANDBY</span></div>
+        </div>
+
+        <div class="panel panel-mission">
+          <div class="mission-title">Richmond River &amp; Seddon Run</div>
+          <div class="row"><span class="label">Seddon Rd</span><span id="hud-distance" class="value">--</span></div>
+          <div id="hud-progress" class="progress">0/0 landmarks visited</div>
+          <div id="hud-checklist" class="checklist"></div>
+        </div>
+
+        <div class="panel panel-controls">
+          <div><b>W/S</b> Throttle</div>
+          <div><b>A/D</b> Roll</div>
+          <div><b>&uarr;/&darr;</b> Pitch</div>
+          <div><b>&larr;/&rarr;</b> Yaw</div>
+          <div><b>F</b> Camera &nbsp; <b>R</b> Reset</div>
+          <div><b>G</b> Sebbie Mode &nbsp; <b>B / Space</b> Rocket boost</div>
+          <div><b>V</b> Fire Missile</div>
+          <div><b>H</b> HUD &nbsp; <b>M</b> Markers &nbsp; <b>P</b> Pause</div>
+        </div>
+
+        <div id="hud-toast" class="toast"></div>
+
+        <div id="map-data-badge" class="map-data-badge">CESIUM REAL-WORLD 3D</div>
+
+        <div class="action-dock">
+          <button id="aircraft-mode-btn" class="mode-button" type="button">
+            <span class="button-kicker">AIRCRAFT</span>
+            <span id="aircraft-mode-label">SEBBIE MODE</span>
+          </button>
+          <button id="boost-btn" class="boost-button" type="button" aria-pressed="false">
+            <span class="boost-icon">🚀</span>
+            <span><span class="button-kicker">10× SPEED</span>ROCKET BOOST</span>
+          </button>
+        </div>
+
+        <div id="warp-overlay" class="warp-overlay"></div>
+
+        <div id="hud-pause" class="pause-overlay">
+          <div class="pause-box">
+            <div class="pause-title">Paused</div>
+            <div class="pause-sub">Press P to resume</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="start-overlay">
+        <div class="start-box">
+          <h1>Richmond Flight Sim</h1>
+          <p>Free flight over Richmond, VA. Fly the Cessna 172 or enter <b>Sebbie Mode</b> for the SR-71 Blackbird, then light the 10× rocket boost.</p>
+          <button id="start-btn" disabled>Loading…</button>
+          <div id="start-status" class="start-status">Starting up…</div>
+          <details id="map-config" class="map-config">
+            <summary>Real-world data credentials</summary>
+            <p>Optional for local evaluation. Production deployments should use origin-restricted credentials.</p>
+            <label>Google Maps API key<input id="google-maps-key" type="password" autocomplete="off" placeholder="Photorealistic 3D Tiles key" /></label>
+            <label>Cesium ion token<input id="cesium-ion-token" type="password" autocomplete="off" placeholder="Cesium ion access token" /></label>
+            <button id="save-map-credentials" type="button">Save for this browser session &amp; reload</button>
+            <div id="map-config-error" class="map-config-error"></div>
+          </details>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

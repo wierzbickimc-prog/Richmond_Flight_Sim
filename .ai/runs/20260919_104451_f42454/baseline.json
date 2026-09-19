@@ -1,0 +1,43 @@
+{
+  "captured_at": "2026-09-19T10:44:51",
+  "root": "/Users/michaelwierzbicki/Richmond_Flight_Sim",
+  "revision": "23e7be4c918b30ac4b7a0cd46660ade5f3fed29e",
+  "branch": "main",
+  "is_git": true,
+  "files": {
+    ".env.example": "92128f7d7af8f11ee3999f6a0d88ebeec26e803c9df8c617d840165139bcbf7b",
+    ".gitignore": "fe718e7babb14f3cbad2d97f08889b9ce5215ed3fe0e43b2b8cfbfb3b9b844e8",
+    "README.md": "1ce58a6c93ba80a5bacaa58e1312478a5ce2e88f26c4449017a0ef6b15c8d7cd",
+    "index.html": "29efc6d8f734170f62c62c8882eb7fb34035f431b99200bd2481e54c8d833627",
+    "package-lock.json": "154cd420f5d356fbf9868572b5cfad0e4edc48beae3e91ed1161f2c876ea0b0d",
+    "package.json": "bd5f67bdbe4eef3cac3f9fa1c356f322c1ad8519c6e4de53d8a8be0bd7938dbf",
+    "public/data/landmarks.json": "197d9de59a8cb6261e05d9c606cbe8932e7813002a82c1ea5d3a986941ade58a",
+    "src/aircraft.js": "99074f96563efc271b3adcc4dbc14dba0019e4b0269f5083a1b1b7513eef30a2",
+    "src/camera.js": "f0c6d0a58612f0058c87cc786975e0909c1fd821136afd4a6558e9fe3408c994",
+    "src/cesiumLandmarks.js": "d6ecb16213a503e5fdef6937ed4bd6ef94c785fea250c00d6cd65c118f21c6ce",
+    "src/cesiumWorld.js": "1cbffd780ad9f37cc7a88849332f00b074b923302dbcabb07ddd6e8c0b0eb27c",
+    "src/controls.js": "6dae97405a4f49e3b8adf09a03fa761822899e715edb4a825258435c2d9444ab",
+    "src/effects.js": "5ecb6bd7da67bd8b2a29d5fa39b335833464a9363d138e16e46296098e257f6e",
+    "src/flightModel.js": "d3db3287efb232b09dbcfcd2caa4e0c4d0d31f14e8bb1c6cbd7554e8765fa916",
+    "src/geo.js": "bc08f75ca67ff88e4aa7c7b239b6aedbc9d0555549df67c9248b881c06acf7f9",
+    "src/hud.js": "42b9b2c2559778e384e3f9541bed66573a2bad8a4383e9efe6f3617712b28fa5",
+    "src/main.js": "8c296398225c7d8db2e18f091f10863e176f8df6643e10926b4642ec37a71c5e",
+    "src/missiles.js": "ec9b84c49a864727ed88f1b21e51d89eb594ca41fd7c71c0375434e165e58932",
+    "src/noise.js": "6cc9fca5ab13b9026ec91af47b2a69c2f421e35d088dce614324c699b1b81a66",
+    "src/sr71.js": "ef71ce56f38cd75dab37f91747cc8a4dcfe5624cc0981d299fccaef7e4409c45",
+    "src/style.css": "04e6cb1f0ae03acab166eabe660258026b49bdfdfa04e339faac156f6cc0955f",
+    "vite.config.js": "4b0492bbc37cda97c6280211c52f0de81a2136d0d885059b79d1418c5e2f0545"
+  },
+  "preexisting_dirty": [
+    "package-lock.json"
+  ],
+  "preexisting_untracked": [
+    ".ai/",
+    "src/missiles.js"
+  ],
+  "snapshotted": [
+    "package-lock.json",
+    "src/missiles.js"
+  ],
+  "truncated": false
+}

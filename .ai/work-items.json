@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "W1",
+      "title": "Rebind missile fire to V and add HUD instruction row",
+      "files": [
+        "src/controls.js",
+        "index.html"
+      ],
+      "depends_on": [],
+      "establishes": [
+        "The keydown switch in src/controls.js fires the onFire callback on 'KeyV' and no longer fires on 'KeyX'.",
+        "The .panel-controls div in index.html contains a row displaying 'V' and 'Fire Missile' so the player can see the binding in the HUD."
+      ],
+      "consumes": [],
+      "verification": [
+        {
+          "check": "manual",
+          "selector": "npm run dev \u2192 Start Flight \u2192 press V \u2192 cone missile spawns; press X \u2192 nothing happens"
+        },
+        {
+          "check": "manual",
+          "selector": "index.html .panel-controls contains a <div> with <b>V</b> and text 'Fire Missile'"
+        }
+      ]
+    },
+    {
+      "id": "W2",
+      "title": "Add V key row to README controls table",
+      "files": [
+        "README.md"
+      ],
+      "depends_on": [
+        "W1"
+      ],
+      "establishes": [
+        "The README.md Controls table includes a row 'V | Fire missile' consistent with the keybinding implemented in src/controls.js."
+      ],
+      "consumes": [
+        "The keydown switch in src/controls.js fires the onFire callback on 'KeyV' and no longer fires on 'KeyX'."
+      ],
+      "verification": [
+        {
+          "check": "manual",
+          "selector": "README.md ## Controls table contains a row with V and 'Fire missile'"
+        }
+      ]
+    }
+  ]
+}

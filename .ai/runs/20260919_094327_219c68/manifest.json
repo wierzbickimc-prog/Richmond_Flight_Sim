@@ -1,0 +1,26 @@
+{
+  "run_id": "20260919_094327_219c68",
+  "task": "this is a flight simulator over richmond va. one of the features requested was to be able to shoot missles and have a fire ball appear when the missle hits ground. It has been requested that the fire ball must be much larger. perhaps 5x larger and very easy to see. implement this improvement.",
+  "flow": "feature",
+  "target": "/Users/michaelwierzbicki/Richmond_Flight_Sim",
+  "created_at": "2026-09-19T09:43:27",
+  "revision": "23e7be4c918b30ac4b7a0cd46660ade5f3fed29e",
+  "branch": "main",
+  "config_hash": "8a3816f0f32eed0a8119e2f74272b7e13ada6451fa23a866bddde343f43e2626",
+  "prompt_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "config": {
+    "flow": "feature",
+    "mode": "full"
+  },
+  "artifacts": {},
+  "profile_hash": null,
+  "planner_routing": {
+    "decision": "dense",
+    "signals": [
+      "scout_complexity",
+      "open_questions",
+      "incomplete_coverage"
+    ],
+    "reason": "dense: Scout/Diagnose: The requested feature (missile firing and ground-impact fireball) does not exist in the current codebase; the task requires architecting and implementing an entirely new projectile and particle system from scratch.; Integration touches the core render loop (`src/main.js`), input handling (`src/controls.js`), and height-sampling utilities (`src/cesiumWorld.js`), while requiring new collision-detection logic against asynchronously loaded Cesium terrain.; Design choices around weapon balancing, visual asset/particle generation, lifecycle management, and performance optimization strategies are undefined and require architectural decisions before coding begins.; Adding a heavy per-frame projectile update loop and dynamic particle spawning may impact FPS, especially given the existing Cesium photorealistic tile-streaming and shadow rendering demands.; Ground collision detection must synchronize with Cesium's asynchronous terrain loading; naive raycasting to a static plane will fail over ungenerated terrain tiles.; Particle memory leaks if expansion animations or fading timers are not correctly garbage-collected.; 5 unresolved decision(s) declared by scout/diagnose; phase-1 coverage manifest records skipped or excerpted files"
+  }
+}

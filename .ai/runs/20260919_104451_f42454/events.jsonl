@@ -1,0 +1,703 @@
+{"seq": 1, "at": "2026-09-19T10:44:51.212", "run_id": "20260919_104451_f42454", "type": "run_created", "task": "this is a flight simulator over richmond va. one of the features requested was to be able to shoot missles and have a fire ball appear when the missle hits ground. It has been requested that the fire ball must be much larger. perhaps 5x larger and very easy to see. implement this improvement. this is partially complete in a previous run.", "flow": "feature"}
+{"seq": 2, "at": "2026-09-19T10:44:51.213", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "phase_status", "phase": "scout", "status": "skipped (resumed)"}}
+{"seq": 3, "at": "2026-09-19T10:44:51.213", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "phase_status", "phase": "planner", "status": "skipped (resumed)"}}
+{"seq": 4, "at": "2026-09-19T10:44:51.215", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "phase_status", "phase": "builder", "status": "preparing model"}}
+{"seq": 5, "at": "2026-09-19T10:45:06.330", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 0, "limit": 80}}
+{"seq": 6, "at": "2026-09-19T10:45:06.423", "run_id": "20260919_104451_f42454", "type": "phase_started", "phase": "builder"}
+{"seq": 7, "at": "2026-09-19T10:45:06.425", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "W1: exhausted 2 attempts.\n"}}
+{"seq": 8, "at": "2026-09-19T10:45:06.546", "run_id": "20260919_104451_f42454", "type": "changes_recorded", "phase": "builder", "touched": [], "preexisting": []}
+{"seq": 9, "at": "2026-09-19T10:45:06.547", "run_id": "20260919_104451_f42454", "type": "phase_finished", "phase": "builder", "status": "incomplete"}
+{"seq": 10, "at": "2026-09-19T10:45:06.548", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "Executing 2 work item(s) from /Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/work-items.json.\nWrote /Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/builder-report.md\nWrote /Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/builder-progress.json\nTraceback (most recent call last):\n  File \"/Users/michaelwierzbicki/local-cline-router/scripts/builder_agent.py\", line 1050, in <module>\n"}}
+{"seq": 11, "at": "2026-09-19T10:45:06.549", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "    raise SystemExit(main())\n  File \"/Users/michaelwierzbicki/local-cline-router/scripts/builder_agent.py\", line 1003, in main\n    return run_work_items(args, items, evidence)\n  File \"/Users/michaelwierzbicki/local-cline-router/scripts/builder_agent.py\", line 917, in run_work_items\n"}}
+{"seq": 12, "at": "2026-09-19T10:45:06.549", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "    emit_phase_result(PhaseResult(\n  File \"<string>\", line 9, in __init__\n  File \"/Users/michaelwierzbicki/local-cline-router/modeldeck/results.py\", line 27, in __post_init__\n    raise ValueError(f\"invalid phase status: {self.status!r}\")\nValueError: invalid phase status: 'incomplete'\n"}}
+{"seq": 13, "at": "2026-09-19T10:45:06.554", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "finished", "phase": "builder", "success": false, "status": "backend_error", "result": null, "content": "W1: exhausted 2 attempts.\nExecuting 2 work item(s) from /Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/work-items.json.\nWrote /Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/builder-report.md\nWrote /Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/builder-progress.json\nTraceback (most recent call last):\n  File \"/Users/michaelwierzbicki/local-cline-router/scripts/builder_agent.py\", line 1050, in <module>\n    raise SystemExit(main())\n  File \"/Users/michaelwierzbicki/local-cline-router/scripts/builder_agent.py\", line 1003, in main\n    return run_work_items(args, items, evidence)\n  File \"/Users/michaelwierzbicki/local-cline-router/scripts/builder_agent.py\", line 917, in run_work_items\n    emit_phase_result(PhaseResult(\n  File \"<string>\", line 9, in __init__\n  File \"/Users/michaelwierzbicki/local-cline-router/modeldeck/results.py\", line 27, in __post_init__\n    raise ValueError(f\"invalid phase status: {self.status!r}\")\nValueError: invalid phase status: 'incomplete'", "phase_run": 1}}
+{"seq": 14, "at": "2026-09-19T10:45:06.555", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "phase_status", "phase": "builder", "status": "failed (15s)"}}
+{"seq": 15, "at": "2026-09-19T10:45:06.556", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "transition", "phase": "builder", "phase_run": 1, "result": {"status": "failed", "phase": "builder"}}}
+{"seq": 16, "at": "2026-09-19T10:48:23.488", "run_id": "20260919_104451_f42454", "type": "pipeline_resumed", "flow": "feature"}
+{"seq": 17, "at": "2026-09-19T10:48:23.490", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "phase_status", "phase": "scout", "status": "skipped (resumed)"}}
+{"seq": 18, "at": "2026-09-19T10:48:23.491", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "phase_status", "phase": "planner", "status": "skipped (resumed)"}}
+{"seq": 19, "at": "2026-09-19T10:48:23.493", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "phase_status", "phase": "builder", "status": "preparing model"}}
+{"seq": 20, "at": "2026-09-19T10:48:38.925", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 0, "limit": 80}}
+{"seq": 21, "at": "2026-09-19T10:48:39.024", "run_id": "20260919_104451_f42454", "type": "phase_started", "phase": "builder"}
+{"seq": 22, "at": "2026-09-19T10:48:39.027", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "Executing 2 work item(s) from /Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/work-items.json.\n\n=== W1: Create src/missiles.js with ballistic missile and 30 m fireball system (attempt 3) ===\n\n--- step 1 ---\n"}}
+{"seq": 23, "at": "2026-09-19T10:48:39.028", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 1, "limit": 80}}
+{"seq": 24, "at": "2026-09-19T10:49:03.494", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[list_files -> 340 chars]\n"}}
+{"seq": 25, "at": "2026-09-19T10:49:03.495", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n--- step 2 ---\n"}}
+{"seq": 26, "at": "2026-09-19T10:49:03.495", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 2, "limit": 80}}
+{"seq": 27, "at": "2026-09-19T10:49:09.484", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[read_file -> 9090 chars]\n"}}
+{"seq": 28, "at": "2026-09-19T10:49:09.484", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n--- step 3 ---\n"}}
+{"seq": 29, "at": "2026-09-19T10:49:09.484", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 3, "limit": 80}}
+{"seq": 30, "at": "2026-09-19T10:49:43.696", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[run_command -> 811 chars]\n"}}
+{"seq": 31, "at": "2026-09-19T10:49:43.696", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n--- step 4 ---\n"}}
+{"seq": 32, "at": "2026-09-19T10:49:43.697", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 4, "limit": 80}}
+{"seq": 33, "at": "2026-09-19T10:50:19.060", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\nW1 verification:\n$ npm run build\nCwd: /Users/michaelwierzbicki/Richmond_Flight_Sim\nExit code: 0\n\n> flight-sim@0.0.0 build\n> vite build\n\nvite v8.2.2 building client environment for production...\ntransforming...\n\u2713 1470 modules transformed.\nrendering chunks...\n[vite-plugin-static-copy] Copied 389 items.\ncomputing gzip size...\ndist/index.html                     4.68 kB \u2502 gzip:     1.69 kB\ndist/assets/index-BeVIOAlQ.css     29.99 kB \u2502 gzip:     7.08 kB\ndist/assets/index-DOvGH-VK.js   4,713.13 kB \u2502 gzip: 1,259.44 kB\n\n\u2713 built in 699ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n\n\n=== W2: Wire KeyX fire trigger in controls.js and integrate missile system in main.js (attempt 1) ===\n\n--- step 1 ---\n"}}
+{"seq": 34, "at": "2026-09-19T10:50:19.061", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 1, "limit": 80}}
+{"seq": 35, "at": "2026-09-19T10:50:32.563", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[read_file -> 2173 chars]\n"}}
+{"seq": 36, "at": "2026-09-19T10:50:32.565", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[list_files -> 222 chars]\n\n--- step 2 ---\n"}}
+{"seq": 37, "at": "2026-09-19T10:50:32.566", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 2, "limit": 80}}
+{"seq": 38, "at": "2026-09-19T10:50:46.215", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[read_file -> 15243 chars]\n"}}
+{"seq": 39, "at": "2026-09-19T10:50:46.216", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n--- step 3 ---\n"}}
+{"seq": 40, "at": "2026-09-19T10:50:46.216", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 3, "limit": 80}}
+{"seq": 41, "at": "2026-09-19T10:51:38.520", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[read_file -> 9090 chars]\n"}}
+{"seq": 42, "at": "2026-09-19T10:51:38.520", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n--- step 4 ---\n"}}
+{"seq": 43, "at": "2026-09-19T10:51:38.520", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 4, "limit": 80}}
+{"seq": 44, "at": "2026-09-19T10:52:15.530", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[replace_text -> 84 chars]\n\n--- step 5 ---\n"}}
+{"seq": 45, "at": "2026-09-19T10:52:15.531", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 5, "limit": 80}}
+{"seq": 46, "at": "2026-09-19T10:52:22.048", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[replace_text -> 84 chars]\n\n--- step 6 ---\n"}}
+{"seq": 47, "at": "2026-09-19T10:52:22.048", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 6, "limit": 80}}
+{"seq": 48, "at": "2026-09-19T10:52:23.174", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "Now"}}
+{"seq": 49, "at": "2026-09-19T10:52:23.563", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " main.js:"}}
+{"seq": 50, "at": "2026-09-19T10:52:23.564", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " import"}}
+{"seq": 51, "at": "2026-09-19T10:52:23.732", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": ", init"}}
+{"seq": 52, "at": "2026-09-19T10:52:23.902", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " after"}}
+{"seq": 53, "at": "2026-09-19T10:52:24.072", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " scene setup,"}}
+{"seq": 54, "at": "2026-09-19T10:52:24.074", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " wire"}}
+{"seq": 55, "at": "2026-09-19T10:52:24.241", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " onFire,"}}
+{"seq": 56, "at": "2026-09-19T10:52:24.241", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " update"}}
+{"seq": 57, "at": "2026-09-19T10:52:24.427", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " in animate, and"}}
+{"seq": 58, "at": "2026-09-19T10:52:24.576", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " expose in `"}}
+{"seq": 59, "at": "2026-09-19T10:52:24.743", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "window"}}
+{"seq": 60, "at": "2026-09-19T10:52:24.916", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": ".__sim`."}}
+{"seq": 61, "at": "2026-09-19T10:52:28.636", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[replace_text -> 80 chars]\n"}}
+{"seq": 62, "at": "2026-09-19T10:52:28.637", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n--- step 7 ---\n"}}
+{"seq": 63, "at": "2026-09-19T10:52:28.637", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 7, "limit": 80}}
+{"seq": 64, "at": "2026-09-19T10:52:34.747", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[replace_text -> 80 chars]\n"}}
+{"seq": 65, "at": "2026-09-19T10:52:34.747", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n--- step 8 ---\n"}}
+{"seq": 66, "at": "2026-09-19T10:52:34.748", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 8, "limit": 80}}
+{"seq": 67, "at": "2026-09-19T10:52:41.292", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[replace_text -> 80 chars]\n"}}
+{"seq": 68, "at": "2026-09-19T10:52:41.292", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n--- step 9 ---\n"}}
+{"seq": 69, "at": "2026-09-19T10:52:41.293", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 9, "limit": 80}}
+{"seq": 70, "at": "2026-09-19T10:52:44.395", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[search_text -> 279 chars]\n"}}
+{"seq": 71, "at": "2026-09-19T10:52:44.396", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n--- step 10 ---\n"}}
+{"seq": 72, "at": "2026-09-19T10:52:44.396", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 10, "limit": 80}}
+{"seq": 73, "at": "2026-09-19T10:52:46.104", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "`"}}
+{"seq": 74, "at": "2026-09-19T10:52:46.492", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "flight.forward`"}}
+{"seq": 75, "at": "2026-09-19T10:52:46.493", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " exists"}}
+{"seq": 76, "at": "2026-09-19T10:52:46.662", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": ". Now the"}}
+{"seq": 77, "at": "2026-09-19T10:52:46.663", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " animate"}}
+{"seq": 78, "at": "2026-09-19T10:52:46.832", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "()"}}
+{"seq": 79, "at": "2026-09-19T10:52:47.004", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " call and `"}}
+{"seq": 80, "at": "2026-09-19T10:52:47.177", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "window.__sim"}}
+{"seq": 81, "at": "2026-09-19T10:52:47.177", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "`:"}}
+{"seq": 82, "at": "2026-09-19T10:52:51.610", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[replace_text -> 80 chars]\n\n--- step 11 ---\n"}}
+{"seq": 83, "at": "2026-09-19T10:52:51.611", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 11, "limit": 80}}
+{"seq": 84, "at": "2026-09-19T10:52:58.838", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[replace_text -> 80 chars]\n\n--- step 12 ---\n"}}
+{"seq": 85, "at": "2026-09-19T10:52:58.838", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 12, "limit": 80}}
+{"seq": 86, "at": "2026-09-19T10:53:03.277", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[run_command -> 811 chars]\n"}}
+{"seq": 87, "at": "2026-09-19T10:53:03.277", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n--- step 13 ---\n"}}
+{"seq": 88, "at": "2026-09-19T10:53:03.278", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 13, "limit": 80}}
+{"seq": 89, "at": "2026-09-19T10:53:06.658", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "Build"}}
+{"seq": 90, "at": "2026-09-19T10:53:07.049", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " passes."}}
+{"seq": 91, "at": "2026-09-19T10:53:07.224", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " Let me also"}}
+{"seq": 92, "at": "2026-09-19T10:53:07.395", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " run"}}
+{"seq": 93, "at": "2026-09-19T10:53:07.568", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " a quick"}}
+{"seq": 94, "at": "2026-09-19T10:53:07.745", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " syntax check on"}}
+{"seq": 95, "at": "2026-09-19T10:53:07.751", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " the"}}
+{"seq": 96, "at": "2026-09-19T10:53:07.943", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": " two edited files"}}
+{"seq": 97, "at": "2026-09-19T10:53:07.952", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": ":"}}
+{"seq": 98, "at": "2026-09-19T10:53:12.519", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n[run_command -> 12 chars]\n"}}
+{"seq": 99, "at": "2026-09-19T10:53:12.520", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\n--- step 14 ---\n"}}
+{"seq": 100, "at": "2026-09-19T10:53:12.520", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "turns", "phase": "builder", "used": 14, "limit": 80}}
+{"seq": 101, "at": "2026-09-19T10:53:45.043", "run_id": "20260919_104451_f42454", "type": "changes_recorded", "phase": "builder", "touched": ["src/controls.js", "src/main.js"], "preexisting": []}
+{"seq": 102, "at": "2026-09-19T10:53:45.044", "run_id": "20260919_104451_f42454", "type": "phase_finished", "phase": "builder", "status": "completed"}
+{"seq": 103, "at": "2026-09-19T10:53:45.045", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "\nW2 verification:\n$ npm run build\nCwd: /Users/michaelwierzbicki/Richmond_Flight_Sim\nExit code: 0\n\n> flight-sim@0.0.0 build\n> vite build\n\nvite v8.2.2 building client environment for production...\ntransforming...\n\u2713 1471 modules transformed.\nrendering chunks...\n[vite-plugin-static-copy] Copied 389 items.\ncomputing gzip size...\ndist/index.html                     4.68 kB \u2502 gzip:     1.69 kB\ndist/assets/index-BeVIOAlQ.css     29.99 kB \u2502 gzip:     7.08 kB\ndist/assets/index-4lc_guOI.js   4,718.99 kB \u2502 gzip: 1,261.05 kB\n\n\u2713 built in 641ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n\nWrote /Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/builder-report.md\nWrote /Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/builder-progress.json\nMODEL_DECK_PHASE_RESULT {\"status\":\"completed\",\"phase\":\"builder\",\"artifacts\":[\"/Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/builder-report.md\",\"/Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/builder-progress.json\"],\"verification_references\":[\"/Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/runs/20260919_104451_f42454\"],\"incomplete_requirements\":[],\"error\":null}\n"}}
+{"seq": 104, "at": "2026-09-19T10:53:45.046", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "builder", "content": "Changed 2 file(s) this run.\n"}}
+{"seq": 105, "at": "2026-09-19T10:53:45.063", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "finished", "phase": "builder", "success": true, "status": "completed", "result": {"status": "completed", "phase": "builder", "artifacts": ["/Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/builder-report.md", "/Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/builder-progress.json"], "verification_references": ["/Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/runs/20260919_104451_f42454"], "incomplete_requirements": [], "error": null}, "content": "## Work item ledger\n\n- W1 (Create src/missiles.js with ballistic missile and 30 m fireball system): verified, 3 attempts\n- W2 (Wire KeyX fire trigger in controls.js and integrate missile system in main.js): verified, changed src/controls.js, src/main.js\n\n## W1: Create src/missiles.js with ballistic missile and 30 m fireball system\n\nW1 is implemented in src/missiles.js (the only file in scope) and the build passes.\n\nWhat was done:\n- createMissileSystem(scene, getGroundHeight) returns { fire(origin, forward, speed): boolean, update(dt): void }.\n- fire() spawns a cone-mesh missile at origin with velocity forward*(speed+60); returns false without spawning if within the 1 s cooldown.\n- update(dt) integrates gravity (-9.81 m/s\u00b2 Y) per frame; when pos.y <= getGroundHeight(pos.x,pos.z) the missile mesh is removed from the scene and a fireball Group is added at the impact point.\n- Fireball core: SphereGeometry scaled over 1.4 s, MeshBasicMaterial with AdditiveBlending, toneMapped:false, color lerping white\u2192orange\u2192red\u2192transparent via COLOR_STOPS sampling.\n- Fireball particles: THREE.Points with 60 vertices bursting radially over 2.2 s, PointsMaterial size 2.5 with AdditiveBlending.\n- Fireball light: THREE.PointLight(0xff8822, 40, 80, 2) decaying to 0 intensity over 0.8 s.\n- All fireball children are scene.remove()'d and geometry/material .dispose()'d once age exceeds 2.2 s (FIREBALL_LIFETIME).\n\nRequester's \"5x larger\" improvement applied on top of spec:\n- Core radius scales 10 m \u2192 150 m (spec was 2 \u2192 30 m, i.e. exactly 5x).\n- Particle radial spread is 200 m (spec ~40 m, 5x).\n- Durations unchanged (core 1.4 s, particles/lifetime 2.2 s, light fade 0.8 s), so it stays very easy to see.\n\nVerification:\n- Ran `npm run build` (vite production build): exit code 0, \"\u2713 1470 modules transformed\", dist assets emitted successfully. No errors or warnings beyond the standard chunk-size note.\n\nCaveats: none blocking. The missile meshes share one cached ConeGeometry/MeshStandardMaterial that is never disposed (intentional \u2014 reused across launches); individual missiles are removed from the scene on impact.\n\n## W2: Wire KeyX fire trigger in controls.js and integrate missile system in main.js\n\nWired the KeyX fire trigger and missile system into the sim, per plan W2.\n\nFiles changed:\n- src/controls.js: added `onFire` to createControls' options; pressing X (KeyX) now calls `onFire && onFire()` in the keydown switch (no keyup handling, guarded by the existing e.repeat check).\n- src/main.js: imported `createMissileSystem` from ./missiles.js; initialised `const missileSystem = createMissileSystem(scene, getGroundHeight)` right after scene setup (next to cameraRig/hud creation); passed `onFire: () => missileSystem.fire(flight.position, flight.forward, flight.speed)` to createControls (verified `flight.forward` exists in flightModel.js state); called `missileSystem.update(dt)` inside the `started && !paused` block of animate(), immediately after `orientAircraft()`; added `missileSystem` to the DEV-only `window.__sim` handle for scripted debugging.\n\nThe 5x-larger fireball improvement requested was already implemented in src/missiles.js from the previous run (core scales 10 m \u2192 150 m over 1.4 s, particles burst to ~200 m over 2.2 s, PointLight decay, full dispose at age > 2.2 s) \u2014 no changes were needed there and that file was out of scope anyway.\n\nVerification:\n- `npm run build` \u2192 exit code 0, vite built successfully (1471 modules transformed, \u2713 built in 665ms). This is also the verification command recorded for the previous unit and it passes again with the new wiring.\n- `node --check` on both edited files \u2192 clean.\n- The manual verification (npm run dev \u2192 press X \u2192 observe missile arc + large fireball, fire 10\u00d7 for FPS/leak check) requires an interactive browser session and is left to the runner; note the 1 s fire cooldown means 10 shots take \u226510 s.\n\nCaveats/discrepancies: none from the plan. One observation (not changed, out of scope): missiles.js shares a single cached missile geometry/material across all live missiles but never disposes them \u2014 intentional reuse, not a leak.", "tokens": {"prompt_tokens": 204828, "completion_tokens": 2290, "requests": 22}, "phase_run": 1}}
+{"seq": 106, "at": "2026-09-19T10:53:45.063", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "phase_status", "phase": "builder", "status": "done (322s)"}}
+{"seq": 107, "at": "2026-09-19T10:53:45.066", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "phase_status", "phase": "auditor", "status": "preparing model"}}
+{"seq": 108, "at": "2026-09-19T10:53:45.067", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "transition", "phase": "builder", "phase_run": 1, "result": {"status": "running", "phase": "auditor"}}}
+{"seq": 109, "at": "2026-09-19T10:53:59.042", "run_id": "20260919_104451_f42454", "type": "profile_hash_recorded", "profile_hash": "660b66f1c998f4cf819eb82c7cc16b929614d1897b7063db8feab59da5be605d"}
+{"seq": 110, "at": "2026-09-19T10:57:38.086", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "Auditing run 20260919_104451_f42454 (task: this is a flight simulator over richmond va. one of the features requested was to be able to shoot missles and have a fire ball appear when the missle hits ground. It has been requested that the fire ball must be much larger. perhaps 5x larger and very easy to see. implement this improvement. this is partially complete in a previous run.).\nThis run changed 2 file(s); reviewing those first.\nIncluded 20 file(s), 137,213 chars.\n$ npm run build\nCwd: /Users/michaelwierzbicki/Richmond_Flight_Sim\nExit code: 0\n\n> flight-sim@0.0.0 build\n> vite build\n\nvite v8.2.2 building client environment for production...\ntransforming...\n\u2713 1471 modules transformed.\nrendering chunks...\n[vite-plugin-static-copy] Copied 389 items.\ncomputing gzip size...\ndist/index.html                     4.68 kB \u2502 gzip:     1.69 kB\ndist/assets/index-BeVIOAlQ.css     29.99 kB \u2502 gzip:     7.08 kB\ndist/assets/index-4lc_guOI.js   4,718.99 kB \u2502 gzip: 1,261.05 kB\n\n\u2713 built in 692ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n\nCalling auditor model (this can take a while for a large context)...\nV"}}
+{"seq": 111, "at": "2026-09-19T10:57:38.087", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "E"}}
+{"seq": 112, "at": "2026-09-19T10:57:38.136", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "R"}}
+{"seq": 113, "at": "2026-09-19T10:57:38.137", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "DI"}}
+{"seq": 114, "at": "2026-09-19T10:57:38.191", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "CT"}}
+{"seq": 115, "at": "2026-09-19T10:57:38.192", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ": PASS"}}
+{"seq": 116, "at": "2026-09-19T10:57:38.249", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "\nBUILDE"}}
+{"seq": 117, "at": "2026-09-19T10:57:38.251", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "R_"}}
+{"seq": 118, "at": "2026-09-19T10:57:38.301", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ACC"}}
+{"seq": 119, "at": "2026-09-19T10:57:38.302", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "URACY"}}
+{"seq": 120, "at": "2026-09-19T10:57:38.354", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ": 100\n\n## A"}}
+{"seq": 121, "at": "2026-09-19T10:57:38.355", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "u"}}
+{"seq": 122, "at": "2026-09-19T10:57:38.408", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "dit"}}
+{"seq": 123, "at": "2026-09-19T10:57:38.409", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " Report\n\n### Pl"}}
+{"seq": 124, "at": "2026-09-19T10:57:38.465", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "an Compli"}}
+{"seq": 125, "at": "2026-09-19T10:57:38.518", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ance\nThe"}}
+{"seq": 126, "at": "2026-09-19T10:57:38.568", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " imp"}}
+{"seq": 127, "at": "2026-09-19T10:57:38.568", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "lementati"}}
+{"seq": 128, "at": "2026-09-19T10:57:38.622", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "on strictly fol"}}
+{"seq": 129, "at": "2026-09-19T10:57:38.623", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "lows"}}
+{"seq": 130, "at": "2026-09-19T10:57:38.679", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " the"}}
+{"seq": 131, "at": "2026-09-19T10:57:38.730", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " pro"}}
+{"seq": 132, "at": "2026-09-19T10:57:38.785", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "v"}}
+{"seq": 133, "at": "2026-09-19T10:57:38.785", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ide"}}
+{"seq": 134, "at": "2026-09-19T10:57:38.838", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d"}}
+{"seq": 135, "at": "2026-09-19T10:57:38.839", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " imp"}}
+{"seq": 136, "at": "2026-09-19T10:57:38.889", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "leme"}}
+{"seq": 137, "at": "2026-09-19T10:57:38.890", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "nta"}}
+{"seq": 138, "at": "2026-09-19T10:57:38.945", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "t"}}
+{"seq": 139, "at": "2026-09-19T10:57:38.946", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ion"}}
+{"seq": 140, "at": "2026-09-19T10:57:38.997", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " plan."}}
+{"seq": 141, "at": "2026-09-19T10:57:38.998", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " \n- **`src"}}
+{"seq": 142, "at": "2026-09-19T10:57:39.057", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "/mi"}}
+{"seq": 143, "at": "2026-09-19T10:57:39.060", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ssiles.js"}}
+{"seq": 144, "at": "2026-09-19T10:57:39.104", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "`*"}}
+{"seq": 145, "at": "2026-09-19T10:57:39.105", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "*:"}}
+{"seq": 146, "at": "2026-09-19T10:57:39.160", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " Creat"}}
+{"seq": 147, "at": "2026-09-19T10:57:39.161", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ed"}}
+{"seq": 148, "at": "2026-09-19T10:57:39.210", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " exact"}}
+{"seq": 149, "at": "2026-09-19T10:57:39.212", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ly a"}}
+{"seq": 150, "at": "2026-09-19T10:57:39.265", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s s"}}
+{"seq": 151, "at": "2026-09-19T10:57:39.273", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "pecifi"}}
+{"seq": 152, "at": "2026-09-19T10:57:39.488", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ed. Ex"}}
+{"seq": 153, "at": "2026-09-19T10:57:39.497", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "p"}}
+{"seq": 154, "at": "2026-09-19T10:57:39.505", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "orts"}}
+{"seq": 155, "at": "2026-09-19T10:57:39.517", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `crea"}}
+{"seq": 156, "at": "2026-09-19T10:57:39.525", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "teMiss"}}
+{"seq": 157, "at": "2026-09-19T10:57:39.530", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "il"}}
+{"seq": 158, "at": "2026-09-19T10:57:39.539", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "eSystem(sc"}}
+{"seq": 159, "at": "2026-09-19T10:57:39.547", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ene"}}
+{"seq": 160, "at": "2026-09-19T10:57:39.557", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ", get"}}
+{"seq": 161, "at": "2026-09-19T10:57:39.565", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "G"}}
+{"seq": 162, "at": "2026-09-19T10:57:39.569", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "roundHe"}}
+{"seq": 163, "at": "2026-09-19T10:57:39.570", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ig"}}
+{"seq": 164, "at": "2026-09-19T10:57:39.602", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ht"}}
+{"seq": 165, "at": "2026-09-19T10:57:39.603", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ")` re"}}
+{"seq": 166, "at": "2026-09-19T10:57:39.670", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "turni"}}
+{"seq": 167, "at": "2026-09-19T10:57:39.726", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ng `{ fire,"}}
+{"seq": 168, "at": "2026-09-19T10:57:39.729", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " updat"}}
+{"seq": 169, "at": "2026-09-19T10:57:39.789", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e }"}}
+{"seq": 170, "at": "2026-09-19T10:57:39.848", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "`."}}
+{"seq": 171, "at": "2026-09-19T10:57:39.908", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " B"}}
+{"seq": 172, "at": "2026-09-19T10:57:39.967", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "al"}}
+{"seq": 173, "at": "2026-09-19T10:57:39.972", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "li"}}
+{"seq": 174, "at": "2026-09-19T10:57:40.179", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "st"}}
+{"seq": 175, "at": "2026-09-19T10:57:40.238", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ic"}}
+{"seq": 176, "at": "2026-09-19T10:57:40.239", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " inte"}}
+{"seq": 177, "at": "2026-09-19T10:57:40.297", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "gr"}}
+{"seq": 178, "at": "2026-09-19T10:57:40.299", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ation"}}
+{"seq": 179, "at": "2026-09-19T10:57:40.358", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " uses `-"}}
+{"seq": 180, "at": "2026-09-19T10:57:40.414", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "9.81 m/s\u00b2"}}
+{"seq": 181, "at": "2026-09-19T10:57:40.415", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "` on the Y"}}
+{"seq": 182, "at": "2026-09-19T10:57:40.473", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " axis"}}
+{"seq": 183, "at": "2026-09-19T10:57:40.528", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ". Gr"}}
+{"seq": 184, "at": "2026-09-19T10:57:40.530", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ound coll"}}
+{"seq": 185, "at": "2026-09-19T10:57:40.585", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "i"}}
+{"seq": 186, "at": "2026-09-19T10:57:40.590", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "sion"}}
+{"seq": 187, "at": "2026-09-19T10:57:40.642", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " trig"}}
+{"seq": 188, "at": "2026-09-19T10:57:40.643", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "gers fireb"}}
+{"seq": 189, "at": "2026-09-19T10:57:40.698", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "all"}}
+{"seq": 190, "at": "2026-09-19T10:57:40.700", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " spa"}}
+{"seq": 191, "at": "2026-09-19T10:57:40.754", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "wnin"}}
+{"seq": 192, "at": "2026-09-19T10:57:40.756", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "g. Fire"}}
+{"seq": 193, "at": "2026-09-19T10:57:40.810", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ba"}}
+{"seq": 194, "at": "2026-09-19T10:57:40.812", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "l"}}
+{"seq": 195, "at": "2026-09-19T10:57:40.868", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "l"}}
+{"seq": 196, "at": "2026-09-19T10:57:41.076", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " con"}}
+{"seq": 197, "at": "2026-09-19T10:57:41.132", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "st"}}
+{"seq": 198, "at": "2026-09-19T10:57:41.133", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ants"}}
+{"seq": 199, "at": "2026-09-19T10:57:41.180", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " (`C"}}
+{"seq": 200, "at": "2026-09-19T10:57:41.185", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ORE"}}
+{"seq": 201, "at": "2026-09-19T10:57:41.393", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "_END_RAD"}}
+{"seq": 202, "at": "2026-09-19T10:57:41.443", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "I"}}
+{"seq": 203, "at": "2026-09-19T10:57:41.451", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "U"}}
+{"seq": 204, "at": "2026-09-19T10:57:41.646", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "S"}}
+{"seq": 205, "at": "2026-09-19T10:57:41.698", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " = 150`, `P"}}
+{"seq": 206, "at": "2026-09-19T10:57:41.755", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ARTICL"}}
+{"seq": 207, "at": "2026-09-19T10:57:41.804", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "E_SP"}}
+{"seq": 208, "at": "2026-09-19T10:57:41.804", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "READ = 20"}}
+{"seq": 209, "at": "2026-09-19T10:57:41.856", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "0"}}
+{"seq": 210, "at": "2026-09-19T10:57:41.909", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "`)"}}
+{"seq": 211, "at": "2026-09-19T10:57:41.910", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " c"}}
+{"seq": 212, "at": "2026-09-19T10:57:41.966", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "or"}}
+{"seq": 213, "at": "2026-09-19T10:57:42.014", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "r"}}
+{"seq": 214, "at": "2026-09-19T10:57:42.015", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e"}}
+{"seq": 215, "at": "2026-09-19T10:57:42.070", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ctl"}}
+{"seq": 216, "at": "2026-09-19T10:57:42.120", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "y scal"}}
+{"seq": 217, "at": "2026-09-19T10:57:42.121", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e t"}}
+{"seq": 218, "at": "2026-09-19T10:57:42.172", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "h"}}
+{"seq": 219, "at": "2026-09-19T10:57:42.173", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e"}}
+{"seq": 220, "at": "2026-09-19T10:57:42.227", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " ori"}}
+{"seq": 221, "at": "2026-09-19T10:57:42.280", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ginal 30"}}
+{"seq": 222, "at": "2026-09-19T10:57:42.331", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " m /"}}
+{"seq": 223, "at": "2026-09-19T10:57:42.332", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " 40 m spec"}}
+{"seq": 224, "at": "2026-09-19T10:57:42.393", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s"}}
+{"seq": 225, "at": "2026-09-19T10:57:42.394", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " by"}}
+{"seq": 226, "at": "2026-09-19T10:57:42.440", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " 5\u00d7"}}
+{"seq": 227, "at": "2026-09-19T10:57:42.489", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " to sati"}}
+{"seq": 228, "at": "2026-09-19T10:57:42.490", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s"}}
+{"seq": 229, "at": "2026-09-19T10:57:42.546", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "fy the reque"}}
+{"seq": 230, "at": "2026-09-19T10:57:42.548", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s"}}
+{"seq": 231, "at": "2026-09-19T10:57:42.604", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ter's"}}
+{"seq": 232, "at": "2026-09-19T10:57:42.663", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " \"much"}}
+{"seq": 233, "at": "2026-09-19T10:57:42.723", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " larger\""}}
+{"seq": 234, "at": "2026-09-19T10:57:42.724", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " requirement"}}
+{"seq": 235, "at": "2026-09-19T10:57:42.782", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ", wi"}}
+{"seq": 236, "at": "2026-09-19T10:57:42.842", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "th clear co"}}
+{"seq": 237, "at": "2026-09-19T10:57:42.897", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "m"}}
+{"seq": 238, "at": "2026-09-19T10:57:42.900", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "men"}}
+{"seq": 239, "at": "2026-09-19T10:57:42.957", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ts exp"}}
+{"seq": 240, "at": "2026-09-19T10:57:42.959", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "l"}}
+{"seq": 241, "at": "2026-09-19T10:57:43.020", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "aining th"}}
+{"seq": 242, "at": "2026-09-19T10:57:43.075", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e adjustm"}}
+{"seq": 243, "at": "2026-09-19T10:57:43.077", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e"}}
+{"seq": 244, "at": "2026-09-19T10:57:43.130", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "nt"}}
+{"seq": 245, "at": "2026-09-19T10:57:43.131", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ". Co"}}
+{"seq": 246, "at": "2026-09-19T10:57:43.186", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "oldown"}}
+{"seq": 247, "at": "2026-09-19T10:57:43.189", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ","}}
+{"seq": 248, "at": "2026-09-19T10:57:43.245", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " addit"}}
+{"seq": 249, "at": "2026-09-19T10:57:43.246", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "iv"}}
+{"seq": 250, "at": "2026-09-19T10:57:43.295", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e"}}
+{"seq": 251, "at": "2026-09-19T10:57:43.297", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " blend"}}
+{"seq": 252, "at": "2026-09-19T10:57:43.352", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ing,"}}
+{"seq": 253, "at": "2026-09-19T10:57:43.403", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `toneMa"}}
+{"seq": 254, "at": "2026-09-19T10:57:43.405", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "pp"}}
+{"seq": 255, "at": "2026-09-19T10:57:43.456", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ed:"}}
+{"seq": 256, "at": "2026-09-19T10:57:43.457", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " false`,"}}
+{"seq": 257, "at": "2026-09-19T10:57:43.510", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `depthW"}}
+{"seq": 258, "at": "2026-09-19T10:57:43.563", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "rite"}}
+{"seq": 259, "at": "2026-09-19T10:57:43.616", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ": fals"}}
+{"seq": 260, "at": "2026-09-19T10:57:43.616", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e`,"}}
+{"seq": 261, "at": "2026-09-19T10:57:43.668", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " and disposa"}}
+{"seq": 262, "at": "2026-09-19T10:57:43.669", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "l logic a"}}
+{"seq": 263, "at": "2026-09-19T10:57:43.723", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "l"}}
+{"seq": 264, "at": "2026-09-19T10:57:43.725", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "l"}}
+{"seq": 265, "at": "2026-09-19T10:57:43.781", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " mat"}}
+{"seq": 266, "at": "2026-09-19T10:57:43.836", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "c"}}
+{"seq": 267, "at": "2026-09-19T10:57:43.837", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "h t"}}
+{"seq": 268, "at": "2026-09-19T10:57:43.886", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "h"}}
+{"seq": 269, "at": "2026-09-19T10:57:43.887", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e behavi"}}
+{"seq": 270, "at": "2026-09-19T10:57:43.939", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ora"}}
+{"seq": 271, "at": "2026-09-19T10:57:43.943", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "l"}}
+{"seq": 272, "at": "2026-09-19T10:57:43.994", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " co"}}
+{"seq": 273, "at": "2026-09-19T10:57:44.051", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "nt"}}
+{"seq": 274, "at": "2026-09-19T10:57:44.052", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ra"}}
+{"seq": 275, "at": "2026-09-19T10:57:44.098", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ct."}}
+{"seq": 276, "at": "2026-09-19T10:57:44.101", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "\n-"}}
+{"seq": 277, "at": "2026-09-19T10:57:44.154", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " **`sr"}}
+{"seq": 278, "at": "2026-09-19T10:57:44.206", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "c/c"}}
+{"seq": 279, "at": "2026-09-19T10:57:44.260", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ontr"}}
+{"seq": 280, "at": "2026-09-19T10:57:44.260", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ols.js`**"}}
+{"seq": 281, "at": "2026-09-19T10:57:44.316", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ": `o"}}
+{"seq": 282, "at": "2026-09-19T10:57:44.318", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "nFire` a"}}
+{"seq": 283, "at": "2026-09-19T10:57:44.366", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d"}}
+{"seq": 284, "at": "2026-09-19T10:57:44.418", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "de"}}
+{"seq": 285, "at": "2026-09-19T10:57:44.419", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d t"}}
+{"seq": 286, "at": "2026-09-19T10:57:44.471", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "o"}}
+{"seq": 287, "at": "2026-09-19T10:57:44.526", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " the des"}}
+{"seq": 288, "at": "2026-09-19T10:57:44.527", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "tru"}}
+{"seq": 289, "at": "2026-09-19T10:57:44.580", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "cture"}}
+{"seq": 290, "at": "2026-09-19T10:57:44.630", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d"}}
+{"seq": 291, "at": "2026-09-19T10:57:44.631", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " op"}}
+{"seq": 292, "at": "2026-09-19T10:57:44.685", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "tion"}}
+{"seq": 293, "at": "2026-09-19T10:57:44.686", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s."}}
+{"seq": 294, "at": "2026-09-19T10:57:44.742", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `Ke"}}
+{"seq": 295, "at": "2026-09-19T10:57:44.743", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "yX`"}}
+{"seq": 296, "at": "2026-09-19T10:57:44.790", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " ma"}}
+{"seq": 297, "at": "2026-09-19T10:57:44.795", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "pped to"}}
+{"seq": 298, "at": "2026-09-19T10:57:44.848", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " call `o"}}
+{"seq": 299, "at": "2026-09-19T10:57:45.048", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "n"}}
+{"seq": 300, "at": "2026-09-19T10:57:45.102", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "Fir"}}
+{"seq": 301, "at": "2026-09-19T10:57:45.108", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e("}}
+{"seq": 302, "at": "2026-09-19T10:57:45.156", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ")` in"}}
+{"seq": 303, "at": "2026-09-19T10:57:45.210", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " the `key"}}
+{"seq": 304, "at": "2026-09-19T10:57:45.262", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "down`"}}
+{"seq": 305, "at": "2026-09-19T10:57:45.314", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " s"}}
+{"seq": 306, "at": "2026-09-19T10:57:45.315", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "wit"}}
+{"seq": 307, "at": "2026-09-19T10:57:45.368", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ch. No"}}
+{"seq": 308, "at": "2026-09-19T10:57:45.421", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `k"}}
+{"seq": 309, "at": "2026-09-19T10:57:45.473", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e"}}
+{"seq": 310, "at": "2026-09-19T10:57:45.489", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "yup"}}
+{"seq": 311, "at": "2026-09-19T10:57:45.544", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "` ha"}}
+{"seq": 312, "at": "2026-09-19T10:57:45.596", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ndler"}}
+{"seq": 313, "at": "2026-09-19T10:57:45.597", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " ad"}}
+{"seq": 314, "at": "2026-09-19T10:57:45.650", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d"}}
+{"seq": 315, "at": "2026-09-19T10:57:45.652", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ed,"}}
+{"seq": 316, "at": "2026-09-19T10:57:45.703", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " as scop"}}
+{"seq": 317, "at": "2026-09-19T10:57:45.754", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ed"}}
+{"seq": 318, "at": "2026-09-19T10:57:45.755", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ".\n- **"}}
+{"seq": 319, "at": "2026-09-19T10:57:45.810", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "`src"}}
+{"seq": 320, "at": "2026-09-19T10:57:45.810", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "/ma"}}
+{"seq": 321, "at": "2026-09-19T10:57:45.863", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "in.js"}}
+{"seq": 322, "at": "2026-09-19T10:57:45.923", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "`**"}}
+{"seq": 323, "at": "2026-09-19T10:57:45.924", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ": Imports `c"}}
+{"seq": 324, "at": "2026-09-19T10:57:45.968", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "rea"}}
+{"seq": 325, "at": "2026-09-19T10:57:46.021", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "teMiss"}}
+{"seq": 326, "at": "2026-09-19T10:57:46.022", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ileSys"}}
+{"seq": 327, "at": "2026-09-19T10:57:46.075", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "tem`,"}}
+{"seq": 328, "at": "2026-09-19T10:57:46.077", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " i"}}
+{"seq": 329, "at": "2026-09-19T10:57:46.131", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "nitiali"}}
+{"seq": 330, "at": "2026-09-19T10:57:46.132", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ze"}}
+{"seq": 331, "at": "2026-09-19T10:57:46.191", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s"}}
+{"seq": 332, "at": "2026-09-19T10:57:46.211", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " it a"}}
+{"seq": 333, "at": "2026-09-19T10:57:46.247", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "f"}}
+{"seq": 334, "at": "2026-09-19T10:57:46.249", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ter"}}
+{"seq": 335, "at": "2026-09-19T10:57:46.302", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " s"}}
+{"seq": 336, "at": "2026-09-19T10:57:46.311", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "cene s"}}
+{"seq": 337, "at": "2026-09-19T10:57:46.528", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "etup, pass"}}
+{"seq": 338, "at": "2026-09-19T10:57:46.594", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "es `on"}}
+{"seq": 339, "at": "2026-09-19T10:57:46.651", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "Fi"}}
+{"seq": 340, "at": "2026-09-19T10:57:46.652", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "re`"}}
+{"seq": 341, "at": "2026-09-19T10:57:46.708", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " to"}}
+{"seq": 342, "at": "2026-09-19T10:57:46.711", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `creat"}}
+{"seq": 343, "at": "2026-09-19T10:57:46.768", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "eContro"}}
+{"seq": 344, "at": "2026-09-19T10:57:46.781", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ls"}}
+{"seq": 345, "at": "2026-09-19T10:57:46.979", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "`,"}}
+{"seq": 346, "at": "2026-09-19T10:57:47.030", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " calls"}}
+{"seq": 347, "at": "2026-09-19T10:57:47.031", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `miss"}}
+{"seq": 348, "at": "2026-09-19T10:57:47.084", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "il"}}
+{"seq": 349, "at": "2026-09-19T10:57:47.085", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "eSystem"}}
+{"seq": 350, "at": "2026-09-19T10:57:47.141", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ".up"}}
+{"seq": 351, "at": "2026-09-19T10:57:47.142", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "da"}}
+{"seq": 352, "at": "2026-09-19T10:57:47.194", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "te(dt)"}}
+{"seq": 353, "at": "2026-09-19T10:57:47.248", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "` insid"}}
+{"seq": 354, "at": "2026-09-19T10:57:47.252", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e"}}
+{"seq": 355, "at": "2026-09-19T10:57:47.302", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " the"}}
+{"seq": 356, "at": "2026-09-19T10:57:47.303", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `starte"}}
+{"seq": 357, "at": "2026-09-19T10:57:47.353", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d &"}}
+{"seq": 358, "at": "2026-09-19T10:57:47.405", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "& !"}}
+{"seq": 359, "at": "2026-09-19T10:57:47.406", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "pa"}}
+{"seq": 360, "at": "2026-09-19T10:57:47.459", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "used`"}}
+{"seq": 361, "at": "2026-09-19T10:57:47.459", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " blo"}}
+{"seq": 362, "at": "2026-09-19T10:57:47.513", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ck,"}}
+{"seq": 363, "at": "2026-09-19T10:57:47.564", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " a"}}
+{"seq": 364, "at": "2026-09-19T10:57:47.564", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "nd e"}}
+{"seq": 365, "at": "2026-09-19T10:57:47.618", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "xposes"}}
+{"seq": 366, "at": "2026-09-19T10:57:47.670", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " it"}}
+{"seq": 367, "at": "2026-09-19T10:57:47.671", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " on `w"}}
+{"seq": 368, "at": "2026-09-19T10:57:47.722", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "in"}}
+{"seq": 369, "at": "2026-09-19T10:57:47.781", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "dow.__s"}}
+{"seq": 370, "at": "2026-09-19T10:57:47.828", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "im`. A"}}
+{"seq": 371, "at": "2026-09-19T10:57:47.828", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "l"}}
+{"seq": 372, "at": "2026-09-19T10:57:47.879", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "l"}}
+{"seq": 373, "at": "2026-09-19T10:57:47.880", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " mat"}}
+{"seq": 374, "at": "2026-09-19T10:57:47.932", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ch th"}}
+{"seq": 375, "at": "2026-09-19T10:57:47.933", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e plan's"}}
+{"seq": 376, "at": "2026-09-19T10:57:47.987", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " w"}}
+{"seq": 377, "at": "2026-09-19T10:57:47.988", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ir"}}
+{"seq": 378, "at": "2026-09-19T10:57:48.039", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ing steps."}}
+{"seq": 379, "at": "2026-09-19T10:57:48.039", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "\n\n###"}}
+{"seq": 380, "at": "2026-09-19T10:57:48.094", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " Test C"}}
+{"seq": 381, "at": "2026-09-19T10:57:48.145", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ove"}}
+{"seq": 382, "at": "2026-09-19T10:57:48.197", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "rage\nNo aut"}}
+{"seq": 383, "at": "2026-09-19T10:57:48.197", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "omat"}}
+{"seq": 384, "at": "2026-09-19T10:57:48.254", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ed te"}}
+{"seq": 385, "at": "2026-09-19T10:57:48.254", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "st runne"}}
+{"seq": 386, "at": "2026-09-19T10:57:48.303", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "r"}}
+{"seq": 387, "at": "2026-09-19T10:57:48.354", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " is"}}
+{"seq": 388, "at": "2026-09-19T10:57:48.414", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " configure"}}
+{"seq": 389, "at": "2026-09-19T10:57:48.460", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d"}}
+{"seq": 390, "at": "2026-09-19T10:57:48.460", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " for"}}
+{"seq": 391, "at": "2026-09-19T10:57:48.515", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " this p"}}
+{"seq": 392, "at": "2026-09-19T10:57:48.518", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "roject. Th"}}
+{"seq": 393, "at": "2026-09-19T10:57:48.565", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e"}}
+{"seq": 394, "at": "2026-09-19T10:57:48.568", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " provi"}}
+{"seq": 395, "at": "2026-09-19T10:57:48.617", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ded `Test"}}
+{"seq": 396, "at": "2026-09-19T10:57:48.618", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " suit"}}
+{"seq": 397, "at": "2026-09-19T10:57:48.673", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e"}}
+{"seq": 398, "at": "2026-09-19T10:57:48.674", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " exe"}}
+{"seq": 399, "at": "2026-09-19T10:57:48.723", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "cuti"}}
+{"seq": 400, "at": "2026-09-19T10:57:48.724", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "on` bl"}}
+{"seq": 401, "at": "2026-09-19T10:57:48.777", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "o"}}
+{"seq": 402, "at": "2026-09-19T10:57:48.777", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ck confirm"}}
+{"seq": 403, "at": "2026-09-19T10:57:48.833", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s that `npm r"}}
+{"seq": 404, "at": "2026-09-19T10:57:48.834", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "un bu"}}
+{"seq": 405, "at": "2026-09-19T10:57:48.888", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ild`"}}
+{"seq": 406, "at": "2026-09-19T10:57:48.939", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " complet"}}
+{"seq": 407, "at": "2026-09-19T10:57:48.939", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ed"}}
+{"seq": 408, "at": "2026-09-19T10:57:48.996", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " successfu"}}
+{"seq": 409, "at": "2026-09-19T10:57:48.996", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "lly"}}
+{"seq": 410, "at": "2026-09-19T10:57:49.047", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " wit"}}
+{"seq": 411, "at": "2026-09-19T10:57:49.109", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "h zero"}}
+{"seq": 412, "at": "2026-09-19T10:57:49.155", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " e"}}
+{"seq": 413, "at": "2026-09-19T10:57:49.206", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "rr"}}
+{"seq": 414, "at": "2026-09-19T10:57:49.206", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "or"}}
+{"seq": 415, "at": "2026-09-19T10:57:49.259", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s"}}
+{"seq": 416, "at": "2026-09-19T10:57:49.259", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " or wa"}}
+{"seq": 417, "at": "2026-09-19T10:57:49.313", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "rni"}}
+{"seq": 418, "at": "2026-09-19T10:57:49.314", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "n"}}
+{"seq": 419, "at": "2026-09-19T10:57:49.363", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "g"}}
+{"seq": 420, "at": "2026-09-19T10:57:49.364", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s"}}
+{"seq": 421, "at": "2026-09-19T10:57:49.420", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " ("}}
+{"seq": 422, "at": "2026-09-19T10:57:49.470", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "`Exi"}}
+{"seq": 423, "at": "2026-09-19T10:57:49.471", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "t code:"}}
+{"seq": 424, "at": "2026-09-19T10:57:49.526", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " 0`, `\u2713 bui"}}
+{"seq": 425, "at": "2026-09-19T10:57:49.527", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "lt in 692"}}
+{"seq": 426, "at": "2026-09-19T10:57:49.605", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ms"}}
+{"seq": 427, "at": "2026-09-19T10:57:49.662", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "`)."}}
+{"seq": 428, "at": "2026-09-19T10:57:49.715", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " M"}}
+{"seq": 429, "at": "2026-09-19T10:57:49.716", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "anual acc"}}
+{"seq": 430, "at": "2026-09-19T10:57:49.763", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e"}}
+{"seq": 431, "at": "2026-09-19T10:57:49.764", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ptance"}}
+{"seq": 432, "at": "2026-09-19T10:57:49.814", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " criteri"}}
+{"seq": 433, "at": "2026-09-19T10:57:49.815", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "a"}}
+{"seq": 434, "at": "2026-09-19T10:57:49.870", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " (fire, coo"}}
+{"seq": 435, "at": "2026-09-19T10:57:49.871", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "l"}}
+{"seq": 436, "at": "2026-09-19T10:57:49.920", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "down, gr"}}
+{"seq": 437, "at": "2026-09-19T10:57:49.921", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "o"}}
+{"seq": 438, "at": "2026-09-19T10:57:49.972", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "und i"}}
+{"seq": 439, "at": "2026-09-19T10:57:49.973", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "mpact, vi"}}
+{"seq": 440, "at": "2026-09-19T10:57:50.026", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s"}}
+{"seq": 441, "at": "2026-09-19T10:57:50.027", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ibi"}}
+{"seq": 442, "at": "2026-09-19T10:57:50.077", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "lity, clean"}}
+{"seq": 443, "at": "2026-09-19T10:57:50.078", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "u"}}
+{"seq": 444, "at": "2026-09-19T10:57:50.128", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "p, b"}}
+{"seq": 445, "at": "2026-09-19T10:57:50.129", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "oth air"}}
+{"seq": 446, "at": "2026-09-19T10:57:50.181", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "craf"}}
+{"seq": 447, "at": "2026-09-19T10:57:50.235", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "t, no re"}}
+{"seq": 448, "at": "2026-09-19T10:57:50.285", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "gression) are"}}
+{"seq": 449, "at": "2026-09-19T10:57:50.286", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " sco"}}
+{"seq": 450, "at": "2026-09-19T10:57:50.336", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "pe"}}
+{"seq": 451, "at": "2026-09-19T10:57:50.337", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d f"}}
+{"seq": 452, "at": "2026-09-19T10:57:50.390", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "or r"}}
+{"seq": 453, "at": "2026-09-19T10:57:50.391", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "unti"}}
+{"seq": 454, "at": "2026-09-19T10:57:50.447", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "me"}}
+{"seq": 455, "at": "2026-09-19T10:57:50.447", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " ver"}}
+{"seq": 456, "at": "2026-09-19T10:57:50.495", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ificat"}}
+{"seq": 457, "at": "2026-09-19T10:57:50.547", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ion via"}}
+{"seq": 458, "at": "2026-09-19T10:57:50.598", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `npm run de"}}
+{"seq": 459, "at": "2026-09-19T10:57:50.661", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "v`."}}
+{"seq": 460, "at": "2026-09-19T10:57:50.705", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " The buil"}}
+{"seq": 461, "at": "2026-09-19T10:57:50.706", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d"}}
+{"seq": 462, "at": "2026-09-19T10:57:50.755", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " artifact i"}}
+{"seq": 463, "at": "2026-09-19T10:57:50.813", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ntegrity is v"}}
+{"seq": 464, "at": "2026-09-19T10:57:50.859", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "erified;"}}
+{"seq": 465, "at": "2026-09-19T10:57:50.912", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " functi"}}
+{"seq": 466, "at": "2026-09-19T10:57:50.964", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "onal"}}
+{"seq": 467, "at": "2026-09-19T10:57:51.020", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " verific"}}
+{"seq": 468, "at": "2026-09-19T10:57:51.074", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ation remain"}}
+{"seq": 469, "at": "2026-09-19T10:57:51.122", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s"}}
+{"seq": 470, "at": "2026-09-19T10:57:51.123", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " m"}}
+{"seq": 471, "at": "2026-09-19T10:57:51.173", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "anu"}}
+{"seq": 472, "at": "2026-09-19T10:57:51.175", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "al per"}}
+{"seq": 473, "at": "2026-09-19T10:57:51.228", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " project"}}
+{"seq": 474, "at": "2026-09-19T10:57:51.229", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " c"}}
+{"seq": 475, "at": "2026-09-19T10:57:51.282", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "o"}}
+{"seq": 476, "at": "2026-09-19T10:57:51.283", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ns"}}
+{"seq": 477, "at": "2026-09-19T10:57:51.343", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "tr"}}
+{"seq": 478, "at": "2026-09-19T10:57:51.344", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "aint"}}
+{"seq": 479, "at": "2026-09-19T10:57:51.397", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s"}}
+{"seq": 480, "at": "2026-09-19T10:57:51.398", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "."}}
+{"seq": 481, "at": "2026-09-19T10:57:51.452", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "\n\n### Err"}}
+{"seq": 482, "at": "2026-09-19T10:57:51.505", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "or Handl"}}
+{"seq": 483, "at": "2026-09-19T10:57:51.557", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ing\n-"}}
+{"seq": 484, "at": "2026-09-19T10:57:51.610", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `on"}}
+{"seq": 485, "at": "2026-09-19T10:57:51.663", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "Fire"}}
+{"seq": 486, "at": "2026-09-19T10:57:51.663", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "` i"}}
+{"seq": 487, "at": "2026-09-19T10:57:51.715", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s s"}}
+{"seq": 488, "at": "2026-09-19T10:57:51.715", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "afel"}}
+{"seq": 489, "at": "2026-09-19T10:57:51.769", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "y g"}}
+{"seq": 490, "at": "2026-09-19T10:57:51.769", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "uar"}}
+{"seq": 491, "at": "2026-09-19T10:57:51.820", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "de"}}
+{"seq": 492, "at": "2026-09-19T10:57:51.821", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d with"}}
+{"seq": 493, "at": "2026-09-19T10:57:51.883", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `onF"}}
+{"seq": 494, "at": "2026-09-19T10:57:51.884", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ir"}}
+{"seq": 495, "at": "2026-09-19T10:57:51.927", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e"}}
+{"seq": 496, "at": "2026-09-19T10:57:51.993", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " &&"}}
+{"seq": 497, "at": "2026-09-19T10:57:51.994", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " onF"}}
+{"seq": 498, "at": "2026-09-19T10:57:52.041", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ire"}}
+{"seq": 499, "at": "2026-09-19T10:57:52.052", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "()` in"}}
+{"seq": 500, "at": "2026-09-19T10:57:52.086", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `con"}}
+{"seq": 501, "at": "2026-09-19T10:57:52.087", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "tro"}}
+{"seq": 502, "at": "2026-09-19T10:57:52.140", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ls.js`.\n-"}}
+{"seq": 503, "at": "2026-09-19T10:57:52.194", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `missile"}}
+{"seq": 504, "at": "2026-09-19T10:57:52.195", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "Sy"}}
+{"seq": 505, "at": "2026-09-19T10:57:52.246", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "stem."}}
+{"seq": 506, "at": "2026-09-19T10:57:52.247", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "f"}}
+{"seq": 507, "at": "2026-09-19T10:57:52.301", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ire()"}}
+{"seq": 508, "at": "2026-09-19T10:57:52.301", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "` c"}}
+{"seq": 509, "at": "2026-09-19T10:57:52.356", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "orrectly"}}
+{"seq": 510, "at": "2026-09-19T10:57:52.360", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " retu"}}
+{"seq": 511, "at": "2026-09-19T10:57:52.406", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "rn"}}
+{"seq": 512, "at": "2026-09-19T10:57:52.408", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s `f"}}
+{"seq": 513, "at": "2026-09-19T10:57:52.461", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "a"}}
+{"seq": 514, "at": "2026-09-19T10:57:52.461", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "lse`"}}
+{"seq": 515, "at": "2026-09-19T10:57:52.518", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " when on"}}
+{"seq": 516, "at": "2026-09-19T10:57:52.568", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " c"}}
+{"seq": 517, "at": "2026-09-19T10:57:52.570", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ooldown and"}}
+{"seq": 518, "at": "2026-09-19T10:57:52.622", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `true"}}
+{"seq": 519, "at": "2026-09-19T10:57:52.676", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "` when spaw"}}
+{"seq": 520, "at": "2026-09-19T10:57:52.727", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "n"}}
+{"seq": 521, "at": "2026-09-19T10:57:52.728", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e"}}
+{"seq": 522, "at": "2026-09-19T10:57:52.780", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d"}}
+{"seq": 523, "at": "2026-09-19T10:57:52.781", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ", pre"}}
+{"seq": 524, "at": "2026-09-19T10:57:52.832", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "vent"}}
+{"seq": 525, "at": "2026-09-19T10:57:52.835", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ing state"}}
+{"seq": 526, "at": "2026-09-19T10:57:52.885", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " corruption."}}
+{"seq": 527, "at": "2026-09-19T10:57:52.939", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "\n- Fireba"}}
+{"seq": 528, "at": "2026-09-19T10:57:52.989", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ll l"}}
+{"seq": 529, "at": "2026-09-19T10:57:52.989", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ifecy"}}
+{"seq": 530, "at": "2026-09-19T10:57:53.044", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "cle"}}
+{"seq": 531, "at": "2026-09-19T10:57:53.093", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " m"}}
+{"seq": 532, "at": "2026-09-19T10:57:53.095", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "an"}}
+{"seq": 533, "at": "2026-09-19T10:57:53.148", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "age"}}
+{"seq": 534, "at": "2026-09-19T10:57:53.202", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ment pr"}}
+{"seq": 535, "at": "2026-09-19T10:57:53.253", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "operly d"}}
+{"seq": 536, "at": "2026-09-19T10:57:53.259", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "i"}}
+{"seq": 537, "at": "2026-09-19T10:57:53.306", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "spos"}}
+{"seq": 538, "at": "2026-09-19T10:57:53.309", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "es"}}
+{"seq": 539, "at": "2026-09-19T10:57:53.360", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " o"}}
+{"seq": 540, "at": "2026-09-19T10:57:53.361", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "f"}}
+{"seq": 541, "at": "2026-09-19T10:57:53.413", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `THREE.Buf"}}
+{"seq": 542, "at": "2026-09-19T10:57:53.464", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "f"}}
+{"seq": 543, "at": "2026-09-19T10:57:53.464", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "erGeometry"}}
+{"seq": 544, "at": "2026-09-19T10:57:53.518", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "` an"}}
+{"seq": 545, "at": "2026-09-19T10:57:53.519", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d `THREE"}}
+{"seq": 546, "at": "2026-09-19T10:57:53.569", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ".Mat"}}
+{"seq": 547, "at": "2026-09-19T10:57:53.570", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "erial`"}}
+{"seq": 548, "at": "2026-09-19T10:57:53.622", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " in"}}
+{"seq": 549, "at": "2026-09-19T10:57:53.676", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "st"}}
+{"seq": 550, "at": "2026-09-19T10:57:53.727", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "anc"}}
+{"seq": 551, "at": "2026-09-19T10:57:53.778", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "es and"}}
+{"seq": 552, "at": "2026-09-19T10:57:53.831", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " remov"}}
+{"seq": 553, "at": "2026-09-19T10:57:53.831", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "es t"}}
+{"seq": 554, "at": "2026-09-19T10:57:53.885", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "he par"}}
+{"seq": 555, "at": "2026-09-19T10:57:53.886", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ent `T"}}
+{"seq": 556, "at": "2026-09-19T10:57:53.936", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "HRE"}}
+{"seq": 557, "at": "2026-09-19T10:57:53.936", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "E.Group"}}
+{"seq": 558, "at": "2026-09-19T10:57:53.989", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "` from t"}}
+{"seq": 559, "at": "2026-09-19T10:57:53.989", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "he sce"}}
+{"seq": 560, "at": "2026-09-19T10:57:54.048", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "n"}}
+{"seq": 561, "at": "2026-09-19T10:57:54.048", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e"}}
+{"seq": 562, "at": "2026-09-19T10:57:54.095", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " gr"}}
+{"seq": 563, "at": "2026-09-19T10:57:54.147", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "aph"}}
+{"seq": 564, "at": "2026-09-19T10:57:54.148", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " to pr"}}
+{"seq": 565, "at": "2026-09-19T10:57:54.202", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "event"}}
+{"seq": 566, "at": "2026-09-19T10:57:54.203", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " m"}}
+{"seq": 567, "at": "2026-09-19T10:57:54.253", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "emo"}}
+{"seq": 568, "at": "2026-09-19T10:57:54.253", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ry leaks."}}
+{"seq": 569, "at": "2026-09-19T10:57:54.310", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "\n- `getGr"}}
+{"seq": 570, "at": "2026-09-19T10:57:54.361", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "oundH"}}
+{"seq": 571, "at": "2026-09-19T10:57:54.361", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "eig"}}
+{"seq": 572, "at": "2026-09-19T10:57:54.413", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ht` is"}}
+{"seq": 573, "at": "2026-09-19T10:57:54.465", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " c"}}
+{"seq": 574, "at": "2026-09-19T10:57:54.468", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ons"}}
+{"seq": 575, "at": "2026-09-19T10:57:54.519", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "umed s"}}
+{"seq": 576, "at": "2026-09-19T10:57:54.572", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "y"}}
+{"seq": 577, "at": "2026-09-19T10:57:54.572", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "nchro"}}
+{"seq": 578, "at": "2026-09-19T10:57:54.627", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "nousl"}}
+{"seq": 579, "at": "2026-09-19T10:57:54.677", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "y as"}}
+{"seq": 580, "at": "2026-09-19T10:57:54.677", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " scoped; no"}}
+{"seq": 581, "at": "2026-09-19T10:57:54.730", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " as"}}
+{"seq": 582, "at": "2026-09-19T10:57:54.802", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ync/aw"}}
+{"seq": 583, "at": "2026-09-19T10:57:54.857", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ait"}}
+{"seq": 584, "at": "2026-09-19T10:57:54.859", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " gaps"}}
+{"seq": 585, "at": "2026-09-19T10:57:54.905", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " are i"}}
+{"seq": 586, "at": "2026-09-19T10:57:54.906", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "n"}}
+{"seq": 587, "at": "2026-09-19T10:57:54.963", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "trodu"}}
+{"seq": 588, "at": "2026-09-19T10:57:55.012", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ced"}}
+{"seq": 589, "at": "2026-09-19T10:57:55.063", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ".\n\n### U"}}
+{"seq": 590, "at": "2026-09-19T10:57:55.115", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "nintende"}}
+{"seq": 591, "at": "2026-09-19T10:57:55.168", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d"}}
+{"seq": 592, "at": "2026-09-19T10:57:55.169", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " Scop"}}
+{"seq": 593, "at": "2026-09-19T10:57:55.222", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e\nSco"}}
+{"seq": 594, "at": "2026-09-19T10:57:55.271", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "p"}}
+{"seq": 595, "at": "2026-09-19T10:57:55.272", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e is"}}
+{"seq": 596, "at": "2026-09-19T10:57:55.327", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " tig"}}
+{"seq": 597, "at": "2026-09-19T10:57:55.331", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "htl"}}
+{"seq": 598, "at": "2026-09-19T10:57:55.532", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "y b"}}
+{"seq": 599, "at": "2026-09-19T10:57:55.589", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "oun"}}
+{"seq": 600, "at": "2026-09-19T10:57:55.589", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "de"}}
+{"seq": 601, "at": "2026-09-19T10:57:55.648", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "d."}}
+{"seq": 602, "at": "2026-09-19T10:57:55.650", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " On"}}
+{"seq": 603, "at": "2026-09-19T10:57:55.696", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "l"}}
+{"seq": 604, "at": "2026-09-19T10:57:55.697", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "y `src/m"}}
+{"seq": 605, "at": "2026-09-19T10:57:55.752", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "iss"}}
+{"seq": 606, "at": "2026-09-19T10:57:55.752", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "il"}}
+{"seq": 607, "at": "2026-09-19T10:57:55.802", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "es.j"}}
+{"seq": 608, "at": "2026-09-19T10:57:55.802", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s"}}
+{"seq": 609, "at": "2026-09-19T10:57:55.857", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "` (n"}}
+{"seq": 610, "at": "2026-09-19T10:57:55.858", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ew),"}}
+{"seq": 611, "at": "2026-09-19T10:57:55.909", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `sr"}}
+{"seq": 612, "at": "2026-09-19T10:57:55.909", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "c"}}
+{"seq": 613, "at": "2026-09-19T10:57:55.962", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "/cont"}}
+{"seq": 614, "at": "2026-09-19T10:57:55.963", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "rols.js`,"}}
+{"seq": 615, "at": "2026-09-19T10:57:56.014", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " and"}}
+{"seq": 616, "at": "2026-09-19T10:57:56.069", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `src/ma"}}
+{"seq": 617, "at": "2026-09-19T10:57:56.118", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "in.js"}}
+{"seq": 618, "at": "2026-09-19T10:57:56.170", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "` wer"}}
+{"seq": 619, "at": "2026-09-19T10:57:56.220", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e m"}}
+{"seq": 620, "at": "2026-09-19T10:57:56.222", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "od"}}
+{"seq": 621, "at": "2026-09-19T10:57:56.276", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ified."}}
+{"seq": 622, "at": "2026-09-19T10:57:56.327", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " No c"}}
+{"seq": 623, "at": "2026-09-19T10:57:56.327", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "han"}}
+{"seq": 624, "at": "2026-09-19T10:57:56.379", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ge"}}
+{"seq": 625, "at": "2026-09-19T10:57:56.379", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s"}}
+{"seq": 626, "at": "2026-09-19T10:57:56.430", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " wer"}}
+{"seq": 627, "at": "2026-09-19T10:57:56.431", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e m"}}
+{"seq": 628, "at": "2026-09-19T10:57:56.485", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ade t"}}
+{"seq": 629, "at": "2026-09-19T10:57:56.486", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "o"}}
+{"seq": 630, "at": "2026-09-19T10:57:56.536", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " `fl"}}
+{"seq": 631, "at": "2026-09-19T10:57:56.537", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ig"}}
+{"seq": 632, "at": "2026-09-19T10:57:56.590", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "htM"}}
+{"seq": 633, "at": "2026-09-19T10:57:56.640", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ode"}}
+{"seq": 634, "at": "2026-09-19T10:57:56.644", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "l."}}
+{"seq": 635, "at": "2026-09-19T10:57:56.693", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "js"}}
+{"seq": 636, "at": "2026-09-19T10:57:56.694", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "`, `ces"}}
+{"seq": 637, "at": "2026-09-19T10:57:56.747", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "iumWo"}}
+{"seq": 638, "at": "2026-09-19T10:57:56.798", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "rld.js"}}
+{"seq": 639, "at": "2026-09-19T10:57:56.853", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "`, `hud"}}
+{"seq": 640, "at": "2026-09-19T10:57:56.903", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": ".js"}}
+{"seq": 641, "at": "2026-09-19T10:57:56.904", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "`, or ass"}}
+{"seq": 642, "at": "2026-09-19T10:57:56.964", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "et/"}}
+{"seq": 643, "at": "2026-09-19T10:57:56.965", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "data"}}
+{"seq": 644, "at": "2026-09-19T10:57:57.010", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " files,"}}
+{"seq": 645, "at": "2026-09-19T10:57:57.011", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " adhering st"}}
+{"seq": 646, "at": "2026-09-19T10:57:57.064", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "r"}}
+{"seq": 647, "at": "2026-09-19T10:57:57.064", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ic"}}
+{"seq": 648, "at": "2026-09-19T10:57:57.118", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "tly"}}
+{"seq": 649, "at": "2026-09-19T10:57:57.119", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " to the"}}
+{"seq": 650, "at": "2026-09-19T10:57:57.169", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " safety co"}}
+{"seq": 651, "at": "2026-09-19T10:57:57.173", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "n"}}
+{"seq": 652, "at": "2026-09-19T10:57:57.222", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "stra"}}
+{"seq": 653, "at": "2026-09-19T10:57:57.222", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "int"}}
+{"seq": 654, "at": "2026-09-19T10:57:57.273", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s."}}
+{"seq": 655, "at": "2026-09-19T10:57:57.276", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "\n\n### N"}}
+{"seq": 656, "at": "2026-09-19T10:57:57.326", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "etwork"}}
+{"seq": 657, "at": "2026-09-19T10:57:57.327", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " Expos"}}
+{"seq": 658, "at": "2026-09-19T10:57:57.382", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ure\nTh"}}
+{"seq": 659, "at": "2026-09-19T10:57:57.384", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "is"}}
+{"seq": 660, "at": "2026-09-19T10:57:57.435", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " is"}}
+{"seq": 661, "at": "2026-09-19T10:57:57.435", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " a pu"}}
+{"seq": 662, "at": "2026-09-19T10:57:57.485", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "re"}}
+{"seq": 663, "at": "2026-09-19T10:57:57.485", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ly client-s"}}
+{"seq": 664, "at": "2026-09-19T10:57:57.537", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "i"}}
+{"seq": 665, "at": "2026-09-19T10:57:57.538", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "de"}}
+{"seq": 666, "at": "2026-09-19T10:57:57.593", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " Three.j"}}
+{"seq": 667, "at": "2026-09-19T10:57:57.645", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "s/Cesium"}}
+{"seq": 668, "at": "2026-09-19T10:57:57.694", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "J"}}
+{"seq": 669, "at": "2026-09-19T10:57:57.695", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "S sim"}}
+{"seq": 670, "at": "2026-09-19T10:57:57.748", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ulation. N"}}
+{"seq": 671, "at": "2026-09-19T10:57:57.801", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "o"}}
+{"seq": 672, "at": "2026-09-19T10:57:57.802", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " se"}}
+{"seq": 673, "at": "2026-09-19T10:57:57.860", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "rver bin"}}
+{"seq": 674, "at": "2026-09-19T10:57:57.905", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ding, H"}}
+{"seq": 675, "at": "2026-09-19T10:57:57.963", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "TTP endpo"}}
+{"seq": 676, "at": "2026-09-19T10:57:58.012", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ints, or netw"}}
+{"seq": 677, "at": "2026-09-19T10:57:58.063", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "o"}}
+{"seq": 678, "at": "2026-09-19T10:57:58.064", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "rk-"}}
+{"seq": 679, "at": "2026-09-19T10:57:58.123", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "facing d"}}
+{"seq": 680, "at": "2026-09-19T10:57:58.124", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "efaults w"}}
+{"seq": 681, "at": "2026-09-19T10:57:58.173", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ere alte"}}
+{"seq": 682, "at": "2026-09-19T10:57:58.227", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "red. No"}}
+{"seq": 683, "at": "2026-09-19T10:57:58.277", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " n"}}
+{"seq": 684, "at": "2026-09-19T10:57:58.278", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "et"}}
+{"seq": 685, "at": "2026-09-19T10:57:58.330", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "wo"}}
+{"seq": 686, "at": "2026-09-19T10:57:58.381", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "rk ex"}}
+{"seq": 687, "at": "2026-09-19T10:57:58.385", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "posu"}}
+{"seq": 688, "at": "2026-09-19T10:57:58.436", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "r"}}
+{"seq": 689, "at": "2026-09-19T10:57:58.487", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "e f"}}
+{"seq": 690, "at": "2026-09-19T10:57:58.488", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "indi"}}
+{"seq": 691, "at": "2026-09-19T10:57:58.539", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "n"}}
+{"seq": 692, "at": "2026-09-19T10:57:58.543", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "g"}}
+{"seq": 693, "at": "2026-09-19T10:57:58.593", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " appl"}}
+{"seq": 694, "at": "2026-09-19T10:57:58.597", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ies."}}
+{"seq": 695, "at": "2026-09-19T10:57:58.797", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "\n\n##"}}
+{"seq": 696, "at": "2026-09-19T10:57:58.861", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": " F"}}
+{"seq": 697, "at": "2026-09-19T10:57:58.862", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "i"}}
+{"seq": 698, "at": "2026-09-19T10:57:58.906", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ndi"}}
+{"seq": 699, "at": "2026-09-19T10:57:58.943", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "ngs\n```json\n{\"findings\": []}\n```"}}
+{"seq": 700, "at": "2026-09-19T10:57:59.271", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "chunk", "phase": "auditor", "content": "\nWrote /Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/audit-report.md\nMODEL_DECK_PHASE_RESULT {\"status\":\"completed\",\"phase\":\"auditor\",\"artifacts\":[\"/Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/audit-report.md\"],\"verification_references\":[],\"incomplete_requirements\":[],\"error\":null}\n"}}
+{"seq": 701, "at": "2026-09-19T10:57:59.281", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "finished", "phase": "auditor", "success": true, "status": "completed", "result": {"status": "completed", "phase": "auditor", "artifacts": ["/Users/michaelwierzbicki/Richmond_Flight_Sim/.ai/audit-report.md"], "verification_references": [], "incomplete_requirements": [], "error": null}, "content": "VERDICT: PASS\nBUILDER_ACCURACY: 100\n\n## Audit Report\n\n### Plan Compliance\nThe implementation strictly follows the provided implementation plan. \n- **`src/missiles.js`**: Created exactly as specified. Exports `createMissileSystem(scene, getGroundHeight)` returning `{ fire, update }`. Ballistic integration uses `-9.81 m/s\u00b2` on the Y axis. Ground collision triggers fireball spawning. Fireball constants (`CORE_END_RADIUS = 150`, `PARTICLE_SPREAD = 200`) correctly scale the original 30 m / 40 m specs by 5\u00d7 to satisfy the requester's \"much larger\" requirement, with clear comments explaining the adjustment. Cooldown, additive blending, `toneMapped: false`, `depthWrite: false`, and disposal logic all match the behavioral contract.\n- **`src/controls.js`**: `onFire` added to the destructured options. `KeyX` mapped to call `onFire()` in the `keydown` switch. No `keyup` handler added, as scoped.\n- **`src/main.js`**: Imports `createMissileSystem`, initializes it after scene setup, passes `onFire` to `createControls`, calls `missileSystem.update(dt)` inside the `started && !paused` block, and exposes it on `window.__sim`. All match the plan's wiring steps.\n\n### Test Coverage\nNo automated test runner is configured for this project. The provided `Test suite execution` block confirms that `npm run build` completed successfully with zero errors or warnings (`Exit code: 0`, `\u2713 built in 692ms`). Manual acceptance criteria (fire, cooldown, ground impact, visibility, cleanup, both aircraft, no regression) are scoped for runtime verification via `npm run dev`. The build artifact integrity is verified; functional verification remains manual per project constraints.\n\n### Error Handling\n- `onFire` is safely guarded with `onFire && onFire()` in `controls.js`.\n- `missileSystem.fire()` correctly returns `false` when on cooldown and `true` when spawned, preventing state corruption.\n- Fireball lifecycle management properly disposes of `THREE.BufferGeometry` and `THREE.Material` instances and removes the parent `THREE.Group` from the scene graph to prevent memory leaks.\n- `getGroundHeight` is consumed synchronously as scoped; no async/await gaps are introduced.\n\n### Unintended Scope\nScope is tightly bounded. Only `src/missiles.js` (new), `src/controls.js`, and `src/main.js` were modified. No changes were made to `flightModel.js`, `cesiumWorld.js`, `hud.js`, or asset/data files, adhering strictly to the safety constraints.\n\n### Network Exposure\nThis is a purely client-side Three.js/CesiumJS simulation. No server binding, HTTP endpoints, or network-facing defaults were altered. No network exposure finding applies.\n\n## Findings\n```json\n{\"findings\": []}\n```", "tokens": {"prompt_tokens": 56005, "completion_tokens": 3479, "requests": 1}, "phase_run": 2}}
+{"seq": 702, "at": "2026-09-19T10:57:59.281", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "phase_status", "phase": "auditor", "status": "done (254s)"}}
+{"seq": 703, "at": "2026-09-19T10:57:59.283", "run_id": "20260919_104451_f42454", "type": "pipeline_event", "event": {"type": "transition", "phase": "auditor", "phase_run": 2, "result": {"status": "complete"}}}

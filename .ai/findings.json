@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "high",
+      "category": "correctness",
+      "file": "src/controls.js, index.html, README.md",
+      "lines": [
+        73
+      ],
+      "claim": "Missile fire keybinding remains KeyX; HUD and README lack V instruction",
+      "evidence": "src/controls.js still contains case 'KeyX':. index.html .panel-controls has no V row. README.md Controls table ends at B / Space.",
+      "demonstrated": false,
+      "fix": "Replace KeyX with KeyV in controls.js, add <div><b>V</b> Fire Missile</div> to index.html, add | V | Fire missile | to README.md",
+      "disposition": "needs_more_evidence",
+      "disposition_evidence": "The diff for src/controls.js confirms `case 'KeyX': onFire && onFire(); break;` is present, supporting the 'keybinding remains KeyX' portion. However, the finding also claims 'index.html .panel-controls has no V row' and 'README.md Controls table ends at B / Space,' and neither index.html nor README.md is included in the provided excerpts. The uncommitted diff touches only package-lock.json, src/controls.js, and src/main.js; no diff or file content is given for index.html or README.md. To settle the HUD/README portions I would need the full text of index.html (specifically the .panel-controls section) and README.md (specifically the Controls table around line 73)."
+    }
+  ]
+}

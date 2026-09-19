@@ -1,0 +1,17 @@
+{
+  "added": [],
+  "modified": [
+    "README.md",
+    "index.html",
+    "src/controls.js"
+  ],
+  "deleted": [],
+  "preexisting": [
+    "src/controls.js"
+  ],
+  "touched": [
+    "README.md",
+    "index.html",
+    "src/controls.js"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "W1": {
+    "status": "verified",
+    "changed": [],
+    "verification": "npm run build;npm run build",
+    "attempts": 1,
+    "note": ""
+  },
+  "W2": {
+    "status": "verified",
+    "changed": [],
+    "verification": "npm run build",
+    "attempts": 1,
+    "note": ""
+  }
+}
