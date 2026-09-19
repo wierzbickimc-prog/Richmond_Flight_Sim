@@ -1,14 +1,27 @@
 {
   "W1": {
     "status": "verified",
-    "changed": [],
-    "verification": "npm run build;npm run build",
+    "changed": [
+      "src/flightModel.js"
+    ],
+    "verification": "npm run build",
     "attempts": 1,
     "note": ""
   },
   "W2": {
     "status": "verified",
-    "changed": [],
+    "changed": [
+      "src/sr71.js"
+    ],
+    "verification": "npm run build",
+    "attempts": 1,
+    "note": ""
+  },
+  "W3": {
+    "status": "verified",
+    "changed": [
+      "src/main.js"
+    ],
     "verification": "npm run build",
     "attempts": 1,
     "note": ""

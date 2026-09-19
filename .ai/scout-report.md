@@ -1,43 +1,32 @@
-## Relevant Files, Symbols, and Execution Paths
-- **`src/controls.js`**: Defines `createControls()`. Contains a `keydown` event listener that maps raw `e.code` strings to game callbacks via a `switch` statement. Currently maps `'KeyX'` to `onFire`.
-- **`index.html`**: Provides the DOM shell for the game overlay. The `.panel.panel-controls` element holds the hardcoded keyboard instruction rows displayed on-screen.
-- **`src/main.js`**: Bootstraps the Three.js/Cesium worlds, initializes `createMissileSystem(scene, getGroundHeight)`, and passes `{ onFire: () => missileSystem.fire(...) }` into `createControls`. Drives the `animate()` loop which calls `missileSystem.update(dt)`.
-- **`src/missiles.js`**: Implements `createMissileSystem`. The exported `fire(origin, forward, speed)` method enforces a `FIRE_COOLDOWN` (1.0s), instantiates a `THREE.ConeGeometry` projectile, and injects it into the scene graph. Collision with `getGroundHeight` triggers `createFireball`.
+# Code Investigation Report
 
-**Execution Path:**
-1. User presses `V` (target).
-2. Browser fires `keydown` → captured by `controls.js` global listener.
-3. `e.code` evaluates to `'KeyV'` → `onFire` callback executes.
-4. `main.js` invokes `missileSystem.fire(flight.position, flight.forward, flight.speed)`.
-5. `missiles.js` applies a 1-second cooldown lock, spawns a mesh oriented along `forward`, applies `MISSILE_SPEED_BONUS`, and lets the `update()` delta-integrate gravity and trajectory until ground impact.
+## Relevant Files & Symbols
+- **`src/flightModel.js`**: Defines global physics constants. `MAX_SPEED = 62` (m/s) and `BOOST_MULTIPLIER = 10` result in a hardcoded boost ceiling of `620 m/s` (~1,389 mph) applied to all aircraft.
+- **`src/main.js`**: Main application loop (`animate`). Calls `updateFlightModel(flight, ...)` for physics, then triggers `updateSR71Effects(...)`. Manages `activeAircraft` switching between `cessna` and `sr71`.
+- **`src/sr71.js`**: Exports `buildSR71()` (constructs the Three.js group) and `updateSR71Effects()` (animates afterburners/Mach diamonds). Currently has no speed-dependent visual glow.
+- **`src/hud.js`**: Updates HUD telemetry, including `speed` displayed in knots. Uses `MS_TO_KT = 1.94384` conversion factor.
+- **Execution path**: `animate()` → `updateFlightModel(...)` → `updateSR71Effects(...)` → renders `sr71.group`.
 
-## Existing Tests and Commands
-No automated test suites or spec files were included in the repository snapshot. Validation is purely runtime-based via a Vite development server.
-Recommended local run commands:
-```bash
-npm install
-npm run dev   # Starts dev server (usually http://localhost:5173)
-npm run build # Static production export to ./dist
-```
-Development smoke-testing can leverage the exposed debug handle:
-`window.__sim.missileSystem` (only available under `import.meta.env.DEV`).
+## Existing Tests & Commands
+- **Development run**: `npm run dev` (runs Vite dev server)
+- **Production build**: `npm run build`
+- **Tests**: No automated test suite exists in the repository. Smoke testing relies on Vite's query params (e.g., `?autostart&sebbie&boost`) exposed via `window.__sim`.
 
 ## Observed Behavior
-- The missile firing mechanism is fully implemented but completely undocumented. The source code binds it to `KeyX`, but the on-screen HUD instructions and the README control table do not list it. Consequently, users cannot discover or activate the feature.
-- Missiles follow a ballistic arc subject to `GRAVITY = -9.81 m/s²` and a base airspeed offset of `MISSILE_SPEED_BONUS = 60 m/s`. Upon hitting terrain, they instantly spawn a large radial fireball particle system and point light, then self-destruct after `FIREBALL_LIFETIME` (2.2s).
-- The fire action is gated by a 1-second cooldown tracked in `missiles.js` (`lastFireTime`). Rapid consecutive presses within this window safely return `false` without spawning duplicates.
+- **Current Boost Ceiling**: When pressing `B`/`Space`, `setBoost()` instantaneously multiplies `flight.speed` by 10. The simulation physics loop (`updateFlightModel`) immediately clamps speed to `MAX_SPEED * BOOST_MULTIPLIER` (`62 m/s * 10 = 620 m/s`). This caps both aircraft at approximately 1,389 mph.
+- **SR-71 Visuals**: The afterburners grow and brighten when `boostActive` is true, but there is no ambient envelope glow tied to absolute velocity thresholds.
+- **Unit Conversion**: Speed is tracked internally in meters per second (m/s). Player-facing display converts to knots. 2,193.2 mph equates to exactly `980.452928 m/s`.
 
-## Risks and Unknowns
-- **Risk**: Reassigning the default from `X` to `V` removes the undocumented legacy shortcut. Playtesters who discovered `X` mid-session will need to adapt immediately.
-- **Unknown**: The prompt requests a HUD update but does not specify whether a visual cooldown indicator or fire-ready status should accompany the instruction text in the `.panel-controls` box.
-- **Scope**: The change is strictly data-driven configuration and static text injection. No geometry, physics integration, or state-machine modifications are required.
+## Implementation Path
+The request requires overriding the global physics cap for the SR-71 *only* and mapping a visual threshold to that new maximum.
+1. **Velocity Override**: Inject a secondary acceleration vector in `main.js` immediately after `updateFlightModel()`. If `activeAircraft.mode === 'sr71' && flight.boostActive`, linearly interpolate remaining distance from the legacy `620 m/s` cap to `2193.2 * 0.44704 m/s` using the existing `BOOST_SPEED_LERP` rate. This preserves arcade feel while extending the tail-end of the acceleration curve.
+2. **Visual Overlay**: Add a slightly elongated, additive-blended sphere geometry (`THREE.MeshBasicMaterial` with `color: '#ff6600'`) to the SR-71 group in `buildSR71()`. Return this mesh alongside existing props.
+3. **Activation Logic**: Update `updateSR71Effects()` to accept `speed` and `glowMesh`. Compute opacity based on a 85%~100% ramp of the new 2,193.2 mph threshold. Apply a slow sine-wave pulse to simulate atmospheric entrainment at hypersonic speeds.
 
-## Routing assessment
-{"complexity":"simple", "reasons":["The task requires changing a single string literal in a key-code switch statement and appending a static HTML line to the HUD overlay.","All targeted files (`src/controls.js`, `index.html`, `README.md`) are fully provided and structurally independent regarding this feature.","Behavioral verification is straightforward via browser playtesting without requiring compilation or environment setup."], "affected_files":["src/controls.js", "index.html", "README.md"], "risks":["Removing the undocumented `KeyX` binding eliminates a hidden shortcut that early testers may have committed to muscle memory."], "verification":"Run `npm run dev`, load the simulator, and press `V`. Confirm a metallic cone missile spawns traveling forward with a 1-second interval between shots. Immediately verify that the bottom-left HUD panel renders a new row reading `V` (e.g., `Fire Missile` or similar)."}
+---
+
+## Routing Assessment
+{"complexity":"simple", "reasons":["Bounds changes to two files (main.js, sr71.js) using existing patterns.","Uses additive blending mesh for visually cheap but effective glow.","Physics modification adds a non-destructive post-step override rather than refactoring the global flight model contract.","Constant math (mph to m/s) avoids floating-point ambiguity.","No external assets or dependencies required."], "affected_files":["src/main.js","src/sr71.js"], "risks":[],"verification":"Toggle Sebbie Mode and Rocket Boost in dev mode; verify HUD reads ~1,900 kt (2,193 mph) at top speed, confirm orange additive envelope fades in gradually as velocity crosses ~1,625 mph and stabilizes near full brightness at the limit."}
 
 ## Open questions
-- Should the original `KeyX` binding be kept as a secondary alias alongside `KeyV` to preserve discovery for testers who already used the undocumented default?
-- What exact phrasing should populate the HUD instruction line (e.g., `Fire Missile`, `Launch Rocket`, `Release Weapon`)?
-- Would a brief visual cue (cooldown timer, ready-state color shift, or muzzle flash) be expected alongside the keybind to signal when the weapon is actually usable?
-- Should the README controls table be formatted to group weapons separately from navigation/camera toggles for better scannability?
-- Does the existing silent fire behavior require an accompanying audio cue, or is the pure-visual implementation satisfactory for this scope?
+- None

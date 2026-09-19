@@ -1,132 +1,203 @@
-# Implementation Plan: Bind Missile Fire to V and Document in HUD
+# Implementation Plan: SR-71 Independent Boost Speed + Orange Velocity Glow
 
-## Objective
+## Objective & Verified Current Behavior
 
-Change the missile fire key binding from the undocumented `KeyX` to `KeyV`, and add a visible instruction for the new key in both the on-screen HUD controls panel and the README controls table so players can discover the feature.
+**Goal**: Give the SR-71 Blackbird its own boost ceiling of 2,193.2 mph (980.45 m/s) while the Cessna 172 retains the existing 620 m/s cap. Add an orange additive-blend envelope glow around the SR-71 that fades in as it approaches the new ceiling.
 
-## Verified Current Behavior
+**Verified current behavior** (confirmed in source):
 
-- **`src/controls.js`** — The `keydown` switch statement contains `case 'KeyX': onFire && onFire(); break;`. The `onFire` callback is already accepted as a parameter to `createControls()`.
-- **`src/main.js`** — Already passes `onFire: () => missileSystem.fire(flight.position, flight.forward, flight.speed)` into `createControls`. The `missileSystem` is created via `createMissileSystem(scene, getGroundHeight)` and updated each frame in `animate()`.
-- **`src/missiles.js`** — `fire(origin, forward, speed)` enforces a 1-second cooldown, spawns a cone mesh, and integrates ballistic motion. No changes needed here.
-- **`index.html`** — The `.panel.panel-controls` div lists W/S, A/D, arrows, F/R, G/B/Space, and H/M/P. No row mentions X or V or any missile/weapon action.
-- **`README.md`** — The Controls table lists the same keys as the HUD. No X or V entry.
+- `flightModel.js` line 57: `state.speed = Math.max(MIN_SPEED * 0.6, Math.min(MAX_SPEED * BOOST_MULTIPLIER, state.speed));` — hard-clamps **all** aircraft to 620 m/s.
+- `flightModel.js` line 54: `targetSpeed = normalTargetSpeed * (state.boostActive ? BOOST_MULTIPLIER : 1)` — boost target is throttle-scaled × 10, maxing at 620 m/s.
+- `main.js` `setBoost()`: on activation, `flight.speed = Math.min(FlightLimits.MAX_SPEED * FlightLimits.BOOST_MULTIPLIER, flight.speed * FlightLimits.BOOST_MULTIPLIER)` — instant jump also capped at 620 m/s.
+- `sr71.js` `buildSR71()` returns `{ group, afterburners, cockpitHidden }`. No glow mesh exists.
+- `sr71.js` `updateSR71Effects(afterburners, throttle, boostActive, time)` — no speed parameter, no glow animation.
+- `main.js` `animate()` calls `updateSR71Effects(sr71.afterburners, flight.throttle, flight.boostActive, debug.simTime)`.
+- HUD displays speed in knots via `MS_TO_KT = 1.94384`. At 980.45 m/s the readout will be ≈ 1 906 kt.
 
-No automated test suite exists in the repository. Verification is manual via the Vite dev server.
+**Conversion check**: 2 193.2 mph × 0.44704 = **980.45 m/s**.
 
-## Files and Behavioral Contracts to Change
+## Files & Behavioral Contracts to Change
 
-| File | Change |
+| File | Contract change |
 |---|---|
-| `src/controls.js` | Replace `case 'KeyX':` with `case 'KeyV':` in the `keydown` switch. Remove the old `KeyX` case (it was undocumented; the user explicitly requested V). |
-| `index.html` | Add a new `<div>` row inside `.panel-controls` displaying the V key and "Fire Missile" label, placed on the line with G/B/Space or as its own line. |
-| `README.md` | Add a row `| V | Fire missile |` to the Controls table. |
+| `src/flightModel.js` | `updateFlightModel` gains a 5th optional parameter `boostMaxSpeed` (default `MAX_SPEED * BOOST_MULTIPLIER`). Both the boost target and the hard clamp use this value. New exported constant `SR71_BOOST_MAX_SPEED = 980.45`. |
+| `src/sr71.js` | `buildSR71()` return object gains `glowMesh`. `updateSR71Effects` gains `speed` and `glowMesh` parameters and animates the glow's opacity based on speed relative to `SR71_BOOST_MAX_SPEED`. |
+| `src/main.js` | Passes `SR71_BOOST_MAX_SPEED` to `updateFlightModel` when the active aircraft is the SR-71. `setBoost` uses the aircraft-specific ceiling for the instant speed jump. `updateSR71Effects` call passes `flight.speed` and `sr71.glowMesh`. |
 
-No changes to `src/main.js` or `src/missiles.js` are required; the wiring is already in place.
+No other files change. `hud.js`, `controls.js`, `aircraft.js`, `effects.js`, `camera.js`, and all data files are untouched.
 
 ## Ordered Implementation Steps
 
-### Step 1 — Rebind the key in `src/controls.js`
+### Step 1 — `src/flightModel.js`
 
-In the `keydown` function's `switch (e.code)` block, replace:
+1. Add a module-level constant:
+   ```js
+   const SR71_BOOST_MAX_SPEED = 2193.2 * 0.44704; // ≈ 980.45 m/s
+   ```
+2. Change `updateFlightModel` signature to:
+   ```js
+   export function updateFlightModel(state, input, dt, getGroundHeight, boostMaxSpeed = MAX_SPEED * BOOST_MULTIPLIER)
+   ```
+3. Replace the boost target line (current line 54) with:
+   ```js
+   const targetSpeed = state.boostActive
+     ? (normalTargetSpeed / MAX_SPEED) * boostMaxSpeed
+     : normalTargetSpeed;
+   ```
+   This preserves the throttle-proportional scaling (at throttle 1 → full `boostMaxSpeed`; at throttle 0 → `MIN_SPEED/MAX_SPEED * boostMaxSpeed`).
+4. Replace the clamp line (current line 57) with:
+   ```js
+   state.speed = Math.max(MIN_SPEED * 0.6, Math.min(boostMaxSpeed, state.speed));
+   ```
+5. Add `SR71_BOOST_MAX_SPEED` to the `FlightLimits` export (or export it as a separate named export — either works; the `FlightLimits` bag already groups speed-related constants).
 
-```js
-case 'KeyX':
-  onFire && onFire();
-  break;
-```
+### Step 2 — `src/sr71.js`
 
-with:
+1. **Glow mesh in `buildSR71()`**: After the existing geometry construction (before `group.traverse`), create:
+   ```js
+   const glowGeo = new THREE.SphereGeometry(1, 32, 20);
+   const glowMat = new THREE.MeshBasicMaterial({
+     color: '#ff6600',
+     transparent: true,
+     opacity: 0,
+     blending: THREE.AdditiveBlending,
+     depthWrite: false,
+     side: THREE.BackSide,
+   });
+   const glowMesh = new THREE.Mesh(glowGeo, glowMat);
+   glowMesh.scale.set(11, 3.5, 17);   // ellipsoid wrapping the SR-71 (wingspan ~17, length ~25)
+   glowMesh.visible = false;           // hidden until speed crosses threshold
+   group.add(glowMesh);
+   ```
+   Add `glowMesh` to the returned object: `{ group, afterburners, cockpitHidden, glowMesh }`.
 
-```js
-case 'KeyV':
-  onFire && onFire();
-  break;
-```
+2. **Extend `updateSR71Effects`**: New signature:
+   ```js
+   export function updateSR71Effects(afterburners, throttle, boostActive, time, speed, glowMesh)
+   ```
+   At the end of the function (after the afterburner loop), add glow logic:
+   ```js
+   // Orange envelope glow: fades in over 85 % → 100 % of the SR-71 boost ceiling.
+   const SR71_BOOST_MAX = 980.45;
+   if (glowMesh) {
+     const frac = speed / SR71_BOOST_MAX;
+     const rampStart = 0.85;
+     let targetOpacity = 0;
+     if (frac >= rampStart) {
+       targetOpacity = Math.min(1, (frac - rampStart) / (1 - rampStart)) * 0.38;
+     }
+     if (targetOpacity > 0.01) {
+       glowMesh.visible = true;
+       // Slow sine pulse (~4 s period) simulating atmospheric entrainment.
+       const pulse = 0.82 + 0.18 * Math.sin(time * 1.5);
+       glowMesh.material.opacity = targetOpacity * pulse;
+     } else {
+       glowMesh.visible = false;
+     }
+   }
+   ```
+   The `SR71_BOOST_MAX` constant here is duplicated from `flightModel.js` to avoid a circular import (sr71.js is a leaf module). Acceptable for a single magic number; alternatively import from flightModel.js if the import graph allows (it does — flightModel has no import of sr71). **Prefer importing `FlightLimits.SR71_BOOST_MAX_SPEED` from `flightModel.js`** to keep a single source of truth.
 
-This is a one-to-one replacement. No other part of the file references `KeyX`.
+### Step 3 — `src/main.js`
 
-### Step 2 — Add the instruction to the HUD in `index.html`
+1. **Import the new constant**:
+   ```js
+   import { createFlightState, updateFlightModel, FlightLimits, SR71_BOOST_MAX_SPEED } from './flightModel.js';
+   ```
 
-Inside the `<div class="panel panel-controls">` block, add a new row. Place it after the existing `G / B / Space` line to group weapon/boost actions together:
+2. **`setBoost` function**: Replace the two speed-jump lines with aircraft-aware logic:
+   ```js
+   function setBoost(active) {
+     const wasActive = flight.boostActive;
+     const boostCeil = activeAircraft.mode === 'sr71' ? SR71_BOOST_MAX_SPEED : FlightLimits.MAX_SPEED * FlightLimits.BOOST_MULTIPLIER;
+     if (active && !wasActive) {
+       flight.speed = Math.min(boostCeil, flight.speed * FlightLimits.BOOST_MULTIPLIER);
+     } else if (!active && wasActive) {
+       flight.speed = Math.max(FlightLimits.MIN_SPEED, flight.speed / FlightLimits.BOOST_MULTIPLIER);
+     }
+     // …rest unchanged
+   }
+   ```
 
-```html
-<div><b>V</b> Fire Missile</div>
-```
+3. **`animate` loop — flight model call**: Pass the aircraft-specific ceiling:
+   ```js
+   const boostCeil = activeAircraft.mode === 'sr71' ? SR71_BOOST_MAX_SPEED : undefined;
+   updateFlightModel(flight, input, dt, getGroundHeight, boostCeil);
+   ```
+   (`undefined` triggers the default parameter = 620 m/s for the Cessna.)
 
-The existing rows use `<b>` for the key and plain text for the action, so this matches the established pattern.
+4. **`animate` loop — SR-71 effects call**:
+   ```js
+   updateSR71Effects(sr71.afterburners, flight.throttle, flight.boostActive, debug.simTime, flight.speed, sr71.glowMesh);
+   ```
 
-### Step 3 — Add the entry to the README controls table
+## Scope Boundaries & Safety Constraints
 
-In `README.md`, in the `## Controls` markdown table, add a new row after the `B / Space` row:
+- **Cessna behavior is unchanged.** When `activeAircraft.mode === 'cessna'`, the flight model receives no extra argument (defaults to 620 m/s), `setBoost` uses the original ceiling, and the glow mesh is never visible (it belongs to the SR-71 group, which is hidden).
+- **No new npm dependencies.** All geometry and materials use existing Three.js primitives already imported.
+- **No HUD text change.** The "10× ENGAGED" label remains. (The effective multiplier for the SR-71 is ≈ 15.8×, but the label was not in scope.)
+- **No change to `MIN_SPEED`, `MAX_SPEED`, `BOOST_MULTIPLIER`, or normal (non-boost) speed behavior.**
+- **Glow mesh uses `depthWrite: false` + `AdditiveBlending`** so it never z-fights with the aircraft geometry or the afterburner cones.
+- **`glowMesh.visible = false` when opacity < 0.01** avoids a draw call for an invisible mesh.
 
-```
-| V | Fire missile |
-```
+## Tests & Acceptance Criteria
 
-This keeps the table in the same loose group (weapon/boost actions near the end of flight controls).
+No automated test suite exists in this repository. Verification is manual via Vite dev mode:
 
-## Scope Boundaries and Safety Constraints
+1. **Cessna unchanged**: `npm run dev` → start flight → press `B`. Speed climbs and caps at ≈ 1 205 kt (620 m/s). HUD reads "10× ENGAGED." No orange glow visible.
+2. **SR-71 boost speed**: Toggle to Sebbie Mode (aircraft-mode button or `?sebbie` query param) → press `B` → hold throttle to 100 %. Speed should asymptotically approach ≈ 1 906 kt (980.45 m/s). HUD speed readout confirms.
+3. **Glow fade-in**: During the SR-71 boost, watch the orange envelope: invisible below ≈ 85 % of 980 m/s (≈ 833 m/s ≈ 1 621 kt), gradually brightening through the 85–100 % band, reaching a steady soft orange at the ceiling. A slow (~4 s) pulse modulates the brightness.
+4. **Glow off**: Disengage boost or switch to Cessna — glow disappears immediately (SR-71 group hidden for Cessna; opacity drops to 0 for disengaged SR-71).
+5. **Throttle interaction**: At 50 % throttle + boost in SR-71 mode, top speed ≈ 953 kt (half of 980 m/s minus the MIN_SPEED offset), and the glow never fully fades in (stays in the lower part of the ramp).
+6. **Production build**: `npm run build` completes without errors.
 
-- **Key replacement, not addition.** The old `KeyX` binding is removed. It was undocumented and never surfaced to users; the requester explicitly asked for V. Keeping X as a silent alias is out of scope unless the requester revises the request.
-- **No changes to `src/missiles.js` or `src/main.js`.** The fire callback, cooldown, projectile spawning, and animation logic are already correct and wired.
-- **No cooldown indicator, audio cue, or muzzle flash.** The scout report lists these as open questions, but the requester only asked for the keybind and HUD text. Adding a visual cooldown timer or sound effect is out of scope.
-- **No CSS changes.** The new HUD row uses the same `<div>` / `<b>` pattern as existing rows; no new classes or styles are needed.
-- **No changes to the `KEY_MAP` object.** That object only handles held-state keys (throttle, roll, pitch, yaw). The fire action is a discrete `keydown` event handled in the `switch`, so no `KEY_MAP` entry is added.
+## Discrepancies & Unsupported Claims in the Scout Report
 
-## Tests and Acceptance Criteria
+| Scout claim | Assessment |
+|---|---|
+| "Inject a secondary acceleration vector in `main.js` immediately after `updateFlightModel()`" | **Design difference, not a factual error.** The plan instead parameterises `updateFlightModel` with a `boostMaxSpeed` argument, which is a smaller diff and avoids two competing lerps in the same frame. The scout's approach would work but is less clean. |
+| "linearly interpolate remaining distance from the legacy 620 m/s cap to 2193.2 × 0.44704 m/s using the existing `BOOST_SPEED_LERP` rate" | The lerp is already handled internally by `updateFlightModel`; a post-hoc secondary lerp in `main.js` would fight the primary one. The parameterised approach eliminates this issue. |
+| "Bounds changes to two files (`main.js`, `sr71.js`)" | **Undercount.** `flightModel.js` must also change to accept the new ceiling. Three files are affected. |
+| "Risks: `[]`" (empty) | Minor risk: the glow mesh's `BackSide` sphere could interact with the Cesium terrain rendering if the camera is very close. Low probability given the `depthWrite: false` setting, but worth watching in dev. |
+| Verification "HUD reads ~1,900 kt (2,193 mph)" | Correct. 980.45 m/s × 1.94384 = 1 905.8 kt. |
 
-Because the repository has no test framework, acceptance is verified manually:
-
-1. **Keybinding works:** Run `npm run dev`, load the page, click **Start Flight**, then press **V**. A metallic cone mesh should spawn at the aircraft position, travel forward along the nose axis, arc under gravity, and detonate into a fireball on ground impact. Press V again within 1 second — no second missile spawns (cooldown). Press V after 1 second — a second missile spawns.
-2. **Old key is gone:** Press **X** while flying. No missile spawns. No console errors.
-3. **HUD displays the instruction:** With the HUD visible (default), the bottom-left `.panel-controls` box shows a row reading **V** **Fire Missile** (or equivalent phrasing) among the other key rows.
-4. **README table updated:** Open `README.md` and confirm the Controls table contains a `V | Fire missile` row.
-5. **No regressions:** All other keys (W/S/A/D/arrows/F/R/H/M/P/G/B/Space) still function normally. The flight model, camera toggle, boost, Sebbie Mode, and pause behave as before.
-
-## Discrepancies or Unsupported Claims in the Scout Report
-
-- **Execution path describes the desired state, not the current state.** The scout's "Execution Path" section says "User presses `V` (target)" and "`e.code` evaluates to `'KeyV'`", but the actual code in `src/controls.js` currently checks `case 'KeyX'`. This is a forward-looking description of the post-change behavior, not a description of the current code. It is not a factual error but could mislead a reader into thinking V is already bound.
-- **Scout lists `src/missiles.js` in "Relevant Files" but not in `affected_files`.** This is consistent with the plan (no changes needed to `missiles.js`), so no discrepancy—just a note that the file was correctly identified as context-only.
-- **No other discrepancies found.** All other claims (cooldown value, fireball parameters, DOM structure, README table contents, main.js wiring) match the provided file contents exactly.
-
-## Open Questions (Non-Blocking)
-
-These do not block implementation but are noted for the requester:
-
-- Whether a visual cooldown indicator (e.g., a small timer or color shift in the HUD) should accompany the "V — Fire Missile" instruction. The current scope is text-only.
-- Whether `KeyX` should be retained as a hidden alias. The plan removes it per the requester's explicit "make launching missles activated by pressing V."
-
----
+No [ESCALATE] marker is needed; all design decisions are resolvable from the code and the requester's requirements.
 
 ## Work items
 
 ```json
 {"items": [
-  {"id": "W1", "title": "Rebind missile fire to V and add HUD instruction row",
-   "files": ["src/controls.js", "index.html"],
+  {"id": "W1", "title": "Parameterise boost ceiling in flightModel.js and export SR-71 constant",
+   "files": ["src/flightModel.js"],
    "depends_on": [],
    "establishes": [
-     "The keydown switch in src/controls.js fires the onFire callback on 'KeyV' and no longer fires on 'KeyX'.",
-     "The .panel-controls div in index.html contains a row displaying 'V' and 'Fire Missile' so the player can see the binding in the HUD."
+     "updateFlightModel accepts an optional 5th parameter boostMaxSpeed (default MAX_SPEED * BOOST_MULTIPLIER = 620); the boost target is (normalTargetSpeed / MAX_SPEED) * boostMaxSpeed and the hard clamp uses boostMaxSpeed instead of MAX_SPEED * BOOST_MULTIPLIER",
+     "SR71_BOOST_MAX_SPEED is exported as a named export and also included in the FlightLimits object; its value is 2193.2 * 0.44704 ≈ 980.45"
    ],
-   "verification": [
-     {"check": "manual", "selector": "npm run dev → Start Flight → press V → cone missile spawns; press X → nothing happens"},
-     {"check": "manual", "selector": "index.html .panel-controls contains a <div> with <b>V</b> and text 'Fire Missile'"}
-   ]
-  },
-  {"id": "W2", "title": "Add V key row to README controls table",
-   "files": ["README.md"],
+   "verification": [{"check": "manual", "selector": "npm run dev → Cessna boost still caps at ~1205 kt (620 m/s); no visual or behavioural change for Cessna"}]},
+  {"id": "W2", "title": "Add orange glow mesh to SR-71 and extend updateSR71Effects for speed-based glow",
+   "files": ["src/sr71.js"],
    "depends_on": ["W1"],
+   "consumes": ["SR71_BOOST_MAX_SPEED is exported as a named export and also included in the FlightLimits object; its value is 2193.2 * 0.44704 ≈ 980.45"],
+   "establishes": [
+     "buildSR71() returns an object that includes a glowMesh property: a THREE.Mesh with SphereGeometry, MeshBasicMaterial (color #ff6600, AdditiveBlending, depthWrite false, BackSide, transparent, initial opacity 0), scaled (11, 3.5, 17), initially visible=false, added to the SR-71 group",
+     "updateSR71Effects signature is (afterburners, throttle, boostActive, time, speed, glowMesh); when speed/FlightLimits.SR71_BOOST_MAX_SPEED >= 0.85 it sets glowMesh.visible=true and ramps opacity linearly from 0 to 0.38 over the 85%-100% band, modulated by a slow sine pulse (period ~4 s); below 85% it sets glowMesh.visible=false"
+   ],
+   "verification": [{"check": "manual", "selector": "npm run dev → ?sebbie&boost&autostart → at high speed an orange additive ellipsoid fades in around the SR-71 with a slow pulse; at low speed it is invisible"}]},
+  {"id": "W3", "title": "Wire SR-71 boost speed and glow through main.js animate loop and setBoost",
+   "files": ["src/main.js"],
+   "depends_on": ["W1", "W2"],
    "consumes": [
-     "The keydown switch in src/controls.js fires the onFire callback on 'KeyV' and no longer fires on 'KeyX'."
+     "updateFlightModel accepts an optional 5th parameter boostMaxSpeed (default MAX_SPEED * BOOST_MULTIPLIER = 620); the boost target is (normalTargetSpeed / MAX_SPEED) * boostMaxSpeed and the hard clamp uses boostMaxSpeed instead of MAX_SPEED * BOOST_MULTIPLIER",
+     "SR71_BOOST_MAX_SPEED is exported as a named export and also included in the FlightLimits object; its value is 2193.2 * 0.44704 ≈ 980.45",
+     "buildSR71() returns an object that includes a glowMesh property: a THREE.Mesh with SphereGeometry, MeshBasicMaterial (color #ff6600, AdditiveBlending, depthWrite false, BackSide, transparent, initial opacity 0), scaled (11, 3.5, 17), initially visible=false, added to the SR-71 group",
+     "updateSR71Effects signature is (afterburners, throttle, boostActive, time, speed, glowMesh); when speed/FlightLimits.SR71_BOOST_MAX_SPEED >= 0.85 it sets glowMesh.visible=true and ramps opacity linearly from 0 to 0.38 over the 85%-100% band, modulated by a slow sine pulse (period ~4 s); below 85% it sets glowMesh.visible=false"
    ],
    "establishes": [
-     "The README.md Controls table includes a row 'V | Fire missile' consistent with the keybinding implemented in src/controls.js."
+     "In the animate loop, updateFlightModel is called with SR71_BOOST_MAX_SPEED as the 5th argument when activeAircraft.mode === 'sr71', and with no 5th argument (default 620) otherwise",
+     "setBoost uses aircraft-specific ceiling: SR71_BOOST_MAX_SPEED for sr71, FlightLimits.MAX_SPEED * FlightLimits.BOOST_MULTIPLIER for cessna",
+     "updateSR71Effects is called with flight.speed as the 5th argument and sr71.glowMesh as the 6th argument"
    ],
-   "verification": [
-     {"check": "manual", "selector": "README.md ## Controls table contains a row with V and 'Fire missile'"}
-   ]
-  }
+   "verification": [{"check": "manual", "selector": "npm run dev → full acceptance pass: Cessna caps at 620 m/s, SR-71 caps at ~980 m/s (~1906 kt), orange glow fades in above ~833 m/s with slow pulse, glow absent on Cessna, npm run build succeeds"}]}
 ]}
 ```

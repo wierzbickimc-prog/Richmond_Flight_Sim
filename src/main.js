@@ -12,7 +12,7 @@ import {
   updateLandmarkDetection,
   updateLandmarkGrounding,
 } from './cesiumLandmarks.js';
-import { createFlightState, updateFlightModel, FlightLimits } from './flightModel.js';
+import { createFlightState, updateFlightModel, FlightLimits, SR71_BOOST_MAX_SPEED } from './flightModel.js';
 import { createControls } from './controls.js';
 import { createCameraRig, setCameraAircraftMode, toggleCameraMode, updateCamera } from './camera.js';
 import { createHud } from './hud.js';
@@ -152,8 +152,11 @@ async function main() {
 
   function setBoost(active) {
     const wasActive = flight.boostActive;
+    const boostCeiling = activeAircraft.mode === 'sr71'
+      ? SR71_BOOST_MAX_SPEED
+      : FlightLimits.MAX_SPEED * FlightLimits.BOOST_MULTIPLIER;
     if (active && !wasActive) {
-      flight.speed = Math.min(FlightLimits.MAX_SPEED * FlightLimits.BOOST_MULTIPLIER, flight.speed * FlightLimits.BOOST_MULTIPLIER);
+      flight.speed = Math.min(boostCeiling, flight.speed * FlightLimits.BOOST_MULTIPLIER);
     } else if (!active && wasActive) {
       flight.speed = Math.max(FlightLimits.MIN_SPEED, flight.speed / FlightLimits.BOOST_MULTIPLIER);
     }
@@ -295,7 +298,11 @@ async function main() {
     debug.simTime += dt;
 
     if (started && !paused) {
-      updateFlightModel(flight, input, dt, getGroundHeight);
+      if (activeAircraft.mode === 'sr71') {
+        updateFlightModel(flight, input, dt, getGroundHeight, SR71_BOOST_MAX_SPEED);
+      } else {
+        updateFlightModel(flight, input, dt, getGroundHeight);
+      }
       orientAircraft();
       missileSystem.update(dt);
 
@@ -305,7 +312,7 @@ async function main() {
       cessna.propGroup.rotation.z = propAngle;
       cessna.propDisc.material.opacity = Math.min(0.18, flight.throttle * 0.22);
       cessna.propBladeMat.opacity = 1 - Math.min(0.88, flight.throttle * 1.05);
-      updateSR71Effects(sr71.afterburners, flight.throttle, flight.boostActive, debug.simTime);
+      updateSR71Effects(sr71.afterburners, flight.throttle, flight.boostActive, debug.simTime, flight.speed, sr71.glowMesh);
 
       const newly = updateLandmarkDetection(markers, flight.position);
       for (const m of newly) {

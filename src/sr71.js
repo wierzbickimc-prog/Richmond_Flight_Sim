@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { FlightLimits } from './flightModel.js';
 
 const skin = new THREE.MeshStandardMaterial({ color: '#090b0d', roughness: 0.5, metalness: 0.66 });
 const edge = new THREE.MeshStandardMaterial({ color: '#171b1e', roughness: 0.42, metalness: 0.72 });
@@ -162,6 +163,24 @@ export function buildSR71() {
     afterburners.push(burner);
   }
 
+  // Orange afterburner glow shell, revealed once the Blackbird nears its
+  // top speed (see updateSR71Effects). Additive + BackSide so it reads as a
+  // soft halo around the airframe rather than a solid ball.
+  const glowMesh = new THREE.Mesh(
+    new THREE.SphereGeometry(1, 32, 24),
+    new THREE.MeshBasicMaterial({
+      color: '#ff6600',
+      transparent: true,
+      opacity: 0,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      side: THREE.BackSide,
+    })
+  );
+  glowMesh.scale.set(11, 3.5, 17);
+  glowMesh.visible = false;
+  group.add(glowMesh);
+
   group.add(makeFin(-1), makeFin(1), makePanelLines());
   const accentMat = new THREE.MeshBasicMaterial({ color: '#aa2024' });
   for (const side of [-1, 1]) {
@@ -176,10 +195,10 @@ export function buildSR71() {
       obj.receiveShadow = true;
     }
   });
-  return { group, afterburners, cockpitHidden: [fuselage, spine, wing, ...canopies] };
+  return { group, afterburners, glowMesh, cockpitHidden: [fuselage, spine, wing, ...canopies] };
 }
 
-export function updateSR71Effects(afterburners, throttle, boostActive, time) {
+export function updateSR71Effects(afterburners, throttle, boostActive, time, speed, glowMesh) {
   const power = 0.42 + throttle * 0.58;
   const boost = boostActive ? 2.25 : 1;
   const pulse = 0.94 + Math.sin(time * 31) * 0.055 + Math.sin(time * 17.3) * 0.035;
@@ -196,6 +215,20 @@ export function updateSR71Effects(afterburners, throttle, boostActive, time) {
       d.material.opacity = (boostActive ? 0.92 : 0.58) - i * 0.075;
       const flicker = pulse * (1 + Math.sin(time * 23 + i * 2.7 + e) * 0.045);
       d.scale.z = (1.25 + i * 0.14) * flicker * (boostActive ? 1.45 : 1);
+    }
+  }
+
+  // Speed-based orange halo: fades in over the top 15% of the Blackbird's
+  // boost speed range, with a slow ~4 s breathing pulse.
+  if (glowMesh) {
+    const ratio = speed / FlightLimits.SR71_BOOST_MAX_SPEED;
+    if (ratio >= 0.85) {
+      const t = Math.min(1, (ratio - 0.85) / 0.15);
+      const breathe = 0.82 + Math.sin(time * ((Math.PI * 2) / 4)) * 0.18;
+      glowMesh.visible = true;
+      glowMesh.material.opacity = 0.38 * t * breathe;
+    } else {
+      glowMesh.visible = false;
     }
   }
 }

@@ -1,0 +1,26 @@
+{
+  "included": [
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/README.md",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/main.js",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/index.html",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/sr71.js",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/aircraft.js",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/cesiumWorld.js",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/flightModel.js",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/missiles.js",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/public/data/landmarks.json",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/geo.js",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/hud.js",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/style.css",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/controls.js",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/effects.js",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/noise.js",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/camera.js",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/package-lock.json",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/src/cesiumLandmarks.js",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/package.json",
+    "/Users/michaelwierzbicki/Richmond_Flight_Sim/vite.config.js"
+  ],
+  "excerpted": [],
+  "skipped": []
+}

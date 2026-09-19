@@ -9,6 +9,8 @@ const THROTTLE_RATE = 0.55; // per second
 const SPEED_LERP = 0.9;
 const BOOST_MULTIPLIER = 10;
 const BOOST_SPEED_LERP = 4.2;
+// SR-71 Blackbird top speed: 2,193.2 mph converted to m/s (1 mph = 0.44704 m/s) ≈ 980.45 m/s
+export const SR71_BOOST_MAX_SPEED = 2193.2 * 0.44704;
 
 const MAX_ROLL = 35 * DEG;
 const MAX_PITCH = 20 * DEG;
@@ -38,7 +40,7 @@ function lerpAngle(current, target, rate, dt) {
   return current + (target - current) * t;
 }
 
-export function updateFlightModel(state, input, dt, getGroundHeight) {
+export function updateFlightModel(state, input, dt, getGroundHeight, boostMaxSpeed = MAX_SPEED * BOOST_MULTIPLIER) {
   state.throttle += (input.throttleUp ? 1 : 0) * THROTTLE_RATE * dt;
   state.throttle -= (input.throttleDown ? 1 : 0) * THROTTLE_RATE * dt;
   state.throttle = Math.max(0, Math.min(1, state.throttle));
@@ -54,10 +56,10 @@ export function updateFlightModel(state, input, dt, getGroundHeight) {
   state.heading += yawRate * dt;
 
   const normalTargetSpeed = MIN_SPEED + state.throttle * (MAX_SPEED - MIN_SPEED);
-  const targetSpeed = normalTargetSpeed * (state.boostActive ? BOOST_MULTIPLIER : 1);
+  const targetSpeed = state.boostActive ? (normalTargetSpeed / MAX_SPEED) * boostMaxSpeed : normalTargetSpeed;
   const speedLerp = state.boostActive ? BOOST_SPEED_LERP : SPEED_LERP;
   state.speed += (targetSpeed - state.speed) * Math.min(1, speedLerp * dt);
-  state.speed = Math.max(MIN_SPEED * 0.6, Math.min(MAX_SPEED * BOOST_MULTIPLIER, state.speed));
+  state.speed = Math.max(MIN_SPEED * 0.6, Math.min(boostMaxSpeed, state.speed));
 
   const forward = new THREE.Vector3(
     Math.sin(state.heading) * Math.cos(state.pitch),
@@ -79,4 +81,4 @@ export function updateFlightModel(state, input, dt, getGroundHeight) {
   return { agl: state.position.y - ground, groundY: ground };
 }
 
-export const FlightLimits = { MIN_SPEED, MAX_SPEED, MIN_AGL, MAX_AGL, CRUISE_SPEED, BOOST_MULTIPLIER };
+export const FlightLimits = { MIN_SPEED, MAX_SPEED, MIN_AGL, MAX_AGL, CRUISE_SPEED, BOOST_MULTIPLIER, SR71_BOOST_MAX_SPEED };

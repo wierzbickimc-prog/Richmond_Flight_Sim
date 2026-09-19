@@ -3,47 +3,71 @@
   "items": [
     {
       "id": "W1",
-      "title": "Rebind missile fire to V and add HUD instruction row",
+      "title": "Parameterise boost ceiling in flightModel.js and export SR-71 constant",
       "files": [
-        "src/controls.js",
-        "index.html"
+        "src/flightModel.js"
       ],
       "depends_on": [],
       "establishes": [
-        "The keydown switch in src/controls.js fires the onFire callback on 'KeyV' and no longer fires on 'KeyX'.",
-        "The .panel-controls div in index.html contains a row displaying 'V' and 'Fire Missile' so the player can see the binding in the HUD."
+        "updateFlightModel accepts an optional 5th parameter boostMaxSpeed (default MAX_SPEED * BOOST_MULTIPLIER = 620); the boost target is (normalTargetSpeed / MAX_SPEED) * boostMaxSpeed and the hard clamp uses boostMaxSpeed instead of MAX_SPEED * BOOST_MULTIPLIER",
+        "SR71_BOOST_MAX_SPEED is exported as a named export and also included in the FlightLimits object; its value is 2193.2 * 0.44704 \u2248 980.45"
       ],
       "consumes": [],
       "verification": [
         {
           "check": "manual",
-          "selector": "npm run dev \u2192 Start Flight \u2192 press V \u2192 cone missile spawns; press X \u2192 nothing happens"
-        },
-        {
-          "check": "manual",
-          "selector": "index.html .panel-controls contains a <div> with <b>V</b> and text 'Fire Missile'"
+          "selector": "npm run dev \u2192 Cessna boost still caps at ~1205 kt (620 m/s); no visual or behavioural change for Cessna"
         }
       ]
     },
     {
       "id": "W2",
-      "title": "Add V key row to README controls table",
+      "title": "Add orange glow mesh to SR-71 and extend updateSR71Effects for speed-based glow",
       "files": [
-        "README.md"
+        "src/sr71.js"
       ],
       "depends_on": [
         "W1"
       ],
       "establishes": [
-        "The README.md Controls table includes a row 'V | Fire missile' consistent with the keybinding implemented in src/controls.js."
+        "buildSR71() returns an object that includes a glowMesh property: a THREE.Mesh with SphereGeometry, MeshBasicMaterial (color #ff6600, AdditiveBlending, depthWrite false, BackSide, transparent, initial opacity 0), scaled (11, 3.5, 17), initially visible=false, added to the SR-71 group",
+        "updateSR71Effects signature is (afterburners, throttle, boostActive, time, speed, glowMesh); when speed/FlightLimits.SR71_BOOST_MAX_SPEED >= 0.85 it sets glowMesh.visible=true and ramps opacity linearly from 0 to 0.38 over the 85%-100% band, modulated by a slow sine pulse (period ~4 s); below 85% it sets glowMesh.visible=false"
       ],
       "consumes": [
-        "The keydown switch in src/controls.js fires the onFire callback on 'KeyV' and no longer fires on 'KeyX'."
+        "SR71_BOOST_MAX_SPEED is exported as a named export and also included in the FlightLimits object; its value is 2193.2 * 0.44704 \u2248 980.45"
       ],
       "verification": [
         {
           "check": "manual",
-          "selector": "README.md ## Controls table contains a row with V and 'Fire missile'"
+          "selector": "npm run dev \u2192 ?sebbie&boost&autostart \u2192 at high speed an orange additive ellipsoid fades in around the SR-71 with a slow pulse; at low speed it is invisible"
+        }
+      ]
+    },
+    {
+      "id": "W3",
+      "title": "Wire SR-71 boost speed and glow through main.js animate loop and setBoost",
+      "files": [
+        "src/main.js"
+      ],
+      "depends_on": [
+        "W1",
+        "W2"
+      ],
+      "establishes": [
+        "In the animate loop, updateFlightModel is called with SR71_BOOST_MAX_SPEED as the 5th argument when activeAircraft.mode === 'sr71', and with no 5th argument (default 620) otherwise",
+        "setBoost uses aircraft-specific ceiling: SR71_BOOST_MAX_SPEED for sr71, FlightLimits.MAX_SPEED * FlightLimits.BOOST_MULTIPLIER for cessna",
+        "updateSR71Effects is called with flight.speed as the 5th argument and sr71.glowMesh as the 6th argument"
+      ],
+      "consumes": [
+        "updateFlightModel accepts an optional 5th parameter boostMaxSpeed (default MAX_SPEED * BOOST_MULTIPLIER = 620); the boost target is (normalTargetSpeed / MAX_SPEED) * boostMaxSpeed and the hard clamp uses boostMaxSpeed instead of MAX_SPEED * BOOST_MULTIPLIER",
+        "SR71_BOOST_MAX_SPEED is exported as a named export and also included in the FlightLimits object; its value is 2193.2 * 0.44704 \u2248 980.45",
+        "buildSR71() returns an object that includes a glowMesh property: a THREE.Mesh with SphereGeometry, MeshBasicMaterial (color #ff6600, AdditiveBlending, depthWrite false, BackSide, transparent, initial opacity 0), scaled (11, 3.5, 17), initially visible=false, added to the SR-71 group",
+        "updateSR71Effects signature is (afterburners, throttle, boostActive, time, speed, glowMesh); when speed/FlightLimits.SR71_BOOST_MAX_SPEED >= 0.85 it sets glowMesh.visible=true and ramps opacity linearly from 0 to 0.38 over the 85%-100% band, modulated by a slow sine pulse (period ~4 s); below 85% it sets glowMesh.visible=false"
+      ],
+      "verification": [
+        {
+          "check": "manual",
+          "selector": "npm run dev \u2192 full acceptance pass: Cessna caps at 620 m/s, SR-71 caps at ~980 m/s (~1906 kt), orange glow fades in above ~833 m/s with slow pulse, glow absent on Cessna, npm run build succeeds"
         }
       ]
     }
